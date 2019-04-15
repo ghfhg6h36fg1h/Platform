@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IOtUseMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.OtUseInfo">
+        <result column="Otdate" property="otDate" jdbcType="VARCHAR"/>
+        <result column="OtTime" property="otTime" jdbcType="VARCHAR"/>
+        <result column="OtUseTime" property="otUseTime" jdbcType="VARCHAR"/>
+        <result column="OtLeftTime" property="otLeftTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getOtUseInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Otdate,OtTime,OtUseTime,OtLeftTime
+        FROM Att_EmpOtUse,Hrms_Emp
+		WHERE Att_EmpOtUse.Empid = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND DateDiff(dd,Otdate,getdate())<=180
+]]>
+    </select>
+    <select id="getOtUseInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Otdate,OtTime,OtUseTime,OtLeftTime
+        FROM Att_EmpOtUse,Hrms_Emp
+		WHERE Att_EmpOtUse.Empid = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Otdate,112) >= #{startdate,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Otdate,112) <= #{enddate,jdbcType=VARCHAR}
+]]>
+    </select>
+</mapper>

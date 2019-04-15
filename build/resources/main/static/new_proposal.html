@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="My97/WdatePicker.js"></script>
+    <script type="text/javascript">
+        var gPageCount = 0;
+        var gPageSize = 20;
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"12%\">提案人</th>\n" +
+                "            <th width=\"12%\">部门</th>\n" +
+                "            <th width=\"30%\">主题</th>\n" +
+                "            <th width=\"14%\">状态</th>\n" +
+                "            <th width=\"14%\">创建时间</th>\n" +
+                "            <th width=\"11%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                currentPage: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            handleParaFunc(mParas);
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/proposal/getWebAll",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {console.log(data)
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + (rowNumber++) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.ownerName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.sectionName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.theme) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.status) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.createTime) + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button \" style='background-color: #03b6fd;color: white ' href=\"javascript:window.open('New_proposalDetail.html?id=" + item.id + "');\"><span class=\"icon-edit\"></span>详情 </a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainProposalTable").html("");
+                        $("#mainProposalTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage);
+                        statisticProposalDetail(mParas, data.totalCount);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+
+        function exportProposalExcel() {
+            var mLcationStr = "/proposal/Newexcel";
+            var mExportExcelParas = {};
+            handleParaFunc(mExportExcelParas);
+            if (JSON.stringify(mExportExcelParas).length > 2) {
+                mLcationStr += "?";
+                for (var item in mExportExcelParas) {
+                    mLcationStr += item;
+                    mLcationStr += "=";
+                    mLcationStr += mExportExcelParas[item];
+                    mLcationStr += "&";
+                }
+                mLcationStr = mLcationStr.substring(0, mLcationStr.length - 1);
+            }
+            window.location = mLcationStr;
+        }
+
+
+        function handleParaFunc(pParas) {
+            if ($.trim($("#searchOwnerName").val()) != "") {
+                pParas.ownerName = $.trim($("#searchOwnerName").val());
+            }
+            if ($.trim($("#searchTheme").val()) != "") {
+                pParas.theme = $.trim($("#searchTheme").val());
+            }
+            if ($.trim($("#searchProposalStatusSelect").find("option:selected").val()) != "") {
+                pParas.status = $.trim($("#searchProposalStatusSelect").find("option:selected").val());
+            }
+            if ($.trim($("#GoodSelect").find("option:selected").val()) != "") {
+                pParas.good = $.trim($("#GoodSelect").find("option:selected").val());
+            }
+            if ($.trim($("#searchStartDate").val()) != "") {
+                pParas.searchStartDate = $.trim($("#searchStartDate").val()) + " 01:00:00.000";
+                console.log(pParas.searchStartDate);
+            }
+            if ($.trim($("#searchEndDate").val()) != "") {
+                pParas.searchEndDate = $.trim($("#searchEndDate").val()) + " 23:59:59.999";
+                ;
+            }
+        }
+
+        var loadProposalStatus = function () {
+            var mHtmlHead = "<option value=\"\">所有状态</option>";
+            var mDataHtml = "";
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/proposalStatus/getAll",
+                dataType: "json",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / 10) + 1;
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<option value=\"" + item.code + "\">" + item.name + "</option>";
+                        });
+                        $("#searchProposalStatusSelect").html("");
+                        $("#searchProposalStatusSelect").html(mHtmlHead + mDataHtml);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var loadGood = function () {
+            var mHtmlHead = "<option value=\"\">所有提案</option>";
+            var mDataHtml = "";
+
+            mDataHtml += "<option value=\"" + 1 + "\">" + "优秀提案"  + "</option>";
+            mDataHtml += "<option value=\"" + 0 + "\">" + "非优秀提案"  + "</option>";
+            $("#GoodSelect").html("");
+            $("#GoodSelect").html(mHtmlHead + mDataHtml);
+
+        };
+
+        var statisticProposalDetail = function (pParas, pTotalCount) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/proposal/NewGetStatisticProposal",
+                dataType: "json",
+                data: JSON.stringify(pParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        console.log(data);
+                        if (data.data.length > 0) {
+                            var mHtmlStatisticProposal = "  <div class=\"search\" style=\"height: 30px\">\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:2%;width:8%;text-align:center;'>\n" +
+                                pTotalCount + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:2%;width:8%;text-align:center;'>\n" +
+                                "                提案总数 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:15%;width:8%;text-align:center;'>\n" +
+                                data.data[0]["pendingCount"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:15%;width:8%;text-align:center;'>\n" +
+                                "                待处理 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:28%;width:12%;text-align:center;'>\n" +
+                                data.data[0]["rejectCount"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:28%;width:12%;text-align:center;'>\n" +
+                                "                班长驳回专员审批 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:43%;width:8%;text-align:center;'>\n" +
+                                data.data[0]["reNew"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:43%;width:8%;text-align:center;'>\n" +
+                                "                驳回到起草 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:56%;width:8%;text-align:center;'>\n" +
+                                data.data[0]["passedCount"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:56%;width:8%;text-align:center;'>\n" +
+                                "                OA审批 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:69%;width:8%;text-align:center;'>\n" +
+                                data.data[0]["eventuallyReject"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:69%;width:8%;text-align:center;'>\n" +
+                                "                最终驳回 " +
+                                "            </div>\n" +
+                                "            <div style='color:red;position:absolute;margin-top: -2px;margin-left:82%;width:8%;text-align:center;'>\n" +
+                                data.data[0]["eventuallyPass"] + "\n" +
+                                "            </div>\n" +
+                                "            <div style='position:absolute;margin-top: 14px;margin-left:82%;width:8%;text-align:center;'>\n" +
+                                "                最终通过 " +
+                                "            </div>\n" +
+                                "        </div>";
+
+
+                            $("#statisticProposalDiv").html("");
+                            $("#statisticProposalDiv").html(mHtmlStatisticProposal);
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        $(function () {
+            loadPage(1);
+            loadProposalStatus();
+            loadGood();
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        })
+    </script>
+</head>
+<body>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div id="webSetNavigation" class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li>
+                <input type="text" id="searchOwnerName" placeholder="提案人姓名" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block"/>
+            </li>
+            <li>
+                <input type="text" id="searchTheme" placeholder="主题" name="keywords" class="input"
+                       style="width:500px; line-height:17px;display:inline-block"/>
+            </li>
+            <li>
+                <select id="searchProposalStatusSelect" name="s_ishome" class="input"
+                        style="width:100px; line-height:17px; display:inline-block">
+                </select>
+            </li>
+            <li>
+                <select id="GoodSelect" name="s_ishome" class="input"
+                        style="width:100px; line-height:17px; display:inline-block">
+                </select>
+            </li>
+            <li>
+                <input type="text" id="searchStartDate" placeholder="提案开始时间" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block;cursor:hand" unselectable='on'
+                       onfocus="this.blur()"
+                       onClick="WdatePicker()"/>
+            </li>
+            <li>
+                <input type="text" id="searchEndDate" placeholder="提案结束时间" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block;cursor:hand" unselectable='on'
+                       onfocus="this.blur()"
+                       onClick="WdatePicker()"/>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button  icon-search" style="background-color: #03b6fd;color: white;width: 150px;text-align: center; "onclick="loadPage(1)"> 搜索</a>
+
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button "style="background-color: mediumorchid ;color: white " onclick="Clear()">
+                    清空搜索</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button " style="background-color: #22cc77;color: white" onclick="exportProposalExcel()">
+                    导出报表</a>
+            </li>
+        </ul>
+    </div>
+    <div id="statisticProposalDiv" class="padding border-bottom">
+    </div>
+
+
+    <table ID="mainProposalTable" class="table table-hover text-center">
+
+
+    </table>
+
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function Clear() {
+        $("#searchOwnerName").val("");
+        $("#searchTheme").val("");
+        $("#searchProposalStatusSelect").val("");
+        $("#searchStartDate").val("");
+        $("#searchEndDate").val("");
+        $("#GoodSelect").val("");
+    }
+</script>
+</body>
+</html>

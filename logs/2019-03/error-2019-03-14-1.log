@@ -1,0 +1,32 @@
+[14:25:49:181] [ERROR] - com.liangxin.platform.service.New_ProposalService.NewGetAll(New_ProposalService.java:175) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pListInput' in 'class com.liangxin.platform.common.entity.advise.inputParam.proposal.ListInput'
+[14:29:42:023] [ERROR] - com.liangxin.platform.service.New_ProposalService.NewGetAll(New_ProposalService.java:175) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'listInput' in 'class com.liangxin.platform.common.entity.advise.inputParam.proposal.ListInput'
+[14:32:05:446] [ERROR] - com.liangxin.platform.service.New_ProposalService.NewGetAll(New_ProposalService.java:175) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select count(0) from (SELECT a.id_,a.owner_name_,a.theme_,a.create_time_,b.name_ as status_,         a.CAPITAL_NAME_,         FROM         New_Proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_                                 and ( a.owner_ LIKE concat('%',?,'%')             or a.owner_name_ LIKE concat('%',?,'%')             or a.theme_ LIKE concat('%',?,'%') )                              order by a.CREATE_TIME_ desc) tmp_count
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。
+[14:50:58:855] [ERROR] - com.liangxin.platform.service.New_ProposalService.NewGetAll(New_ProposalService.java:177) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select count(0) from (SELECT a.id_,a.owner_name_,a.theme_,a.create_time_,b.name_ as status_,         a.CAPITAL_NAME_         FROM         New_Proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_         where                        and a.capital_id_ = ?                                 and ( a.owner_ LIKE concat('%',?,'%')             or a.owner_name_ LIKE concat('%',?,'%')             or a.theme_ LIKE concat('%',?,'%') )                              order by a.CREATE_TIME_ desc) tmp_count
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+[14:52:16:339] [ERROR] - com.liangxin.platform.service.New_ProposalService.NewGetAll(New_ProposalService.java:177) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select count(0) from (SELECT a.id_,a.owner_name_,a.theme_,a.create_time_,b.name_ as status_,         a.CAPITAL_NAME_         FROM         New_Proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_         where                                 and ( a.owner_ LIKE concat('%',?,'%')             or a.owner_name_ LIKE concat('%',?,'%')             or a.theme_ LIKE concat('%',?,'%') )                                 and a.owner_ = ?                    order by a.CREATE_TIME_ desc) tmp_count
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'and' 附近有语法错误。
+[19:11:09:815] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.
+[19:11:10:281] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.
+[19:11:10:877] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.
+[19:11:11:423] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.
+[19:11:11:961] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.
+[19:11:21:992] [ERROR] - com.liangxin.platform.service.New_ProposalService.GetInfo(New_ProposalService.java:193) - nested exception is org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement 'com.liangxin.platform.mapper.advise.INew_ProposalMapper.GetInfo'.  It's likely that neither a Result Type nor a Result Map was specified.

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="My97/WdatePicker.js"></script>
+    <script type="text/javascript">
+        var gPageCount = 0;
+        var gPageSize = 20;
+
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"15%\">工作中心</th>\n" +
+                "            <th width=\"12%\">班长</th>\n" +
+                "            <th width=\"30%\">产品大类</th>\n" +
+                "            <th width=\"11%\">当月效率提升</th>\n" +
+                "            <th width=\"14%\">创建时间</th>\n" +
+                "            <th width=\"11%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+
+                type: "post",
+                url: "/TeamBonus/GetTeamBonus",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + (rowNumber++) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.lineName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.teamLeader) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.prdType) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.monthEfficiency) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.prdDate) + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button border-main\" href=\"javascript:window.open('teamBonusDetail.html?sid=" + item.sid + "');\"><span class=\"icon-edit\"></span>详情 </a>\n" +
+                                //"                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                //"                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainBonusTable").html("");
+                        $("#mainBonusTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var loadPage2 = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"15%\">车间</th>\n" +
+                "            <th width=\"15%\">工号</th>\n" +
+                "            <th width=\"15%\">姓名</th>\n" +
+                "            <th width=\"11%\">当月职级</th>\n" +
+                "            <th width=\"14%\">创建时间</th>\n" +
+                "            <th width=\"11%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+
+                type: "post",
+                url: "/TeamEmployee/GetTeamEmployee",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + (rowNumber++) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.workShop) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.employeeNo) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.name) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.rank) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.prdDate) + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button border-main\" href=\"javascript:window.open('employeePerformanceDetail.html?sid=" + item.sid + "');\"><span class=\"icon-edit\"></span>详情 </a>\n" +
+                                //"                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                //"                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainBonusTable").html("");
+                        $("#mainBonusTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage2);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var loadPage3 = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"15%\">车间</th>\n" +
+                "            <th width=\"15%\">线别</th>\n" +
+                "            <th width=\"15%\">工号</th>\n" +
+                "            <th width=\"11%\">姓名</th>\n" +
+                "            <th width=\"11%\">个人奖金</th>\n" +
+                "            <th width=\"14%\">创建时间</th>\n" +
+                "            <th width=\"11%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+
+                type: "post",
+                url: "/EmployeeBonus/GetEmployeeBonus",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + (rowNumber++) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.workShop) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.lineName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.employeeNo) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.name) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.perBonus) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.prdDate) + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button border-main\" href=\"javascript:window.open('employeeBonusDetail.html?sid=" + item.sid + "');\"><span class=\"icon-edit\"></span>详情 </a>\n" +
+                                //"                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                //"                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainBonusTable").html("");
+                        $("#mainBonusTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage3);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var loadPage4 = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"15%\">车间</th>\n" +
+                "            <th width=\"15%\">线别</th>\n" +
+                "            <th width=\"15%\">效率提升率</th>\n" +
+                "            <th width=\"11%\">当月职级</th>\n" +
+                "            <th width=\"14%\">创建时间</th>\n" +
+                "            <th width=\"11%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+
+                type: "post",
+                url: "/TeamPerformance/GetTeamPerformance",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + (rowNumber++) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.workShop) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.lineName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.efficiencyPercent) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.rank) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.prdDate) + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button border-main\" href=\"javascript:window.open('teamPerformanceDetail.html?sid=" + item.sid + "');\"><span class=\"icon-edit\"></span>详情 </a>\n" +
+                                //"                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                //"                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainBonusTable").html("");
+                        $("#mainBonusTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage4);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var Bouns = function () {
+
+            this.init = function () {
+
+                //模拟上传excel
+                $("#uploadEventBtn").unbind("click").bind("click", function () {
+                    $("#uploadEventFile").click();
+                });
+                $("#uploadEventFile").bind("change", function () {
+                    $("#uploadEventPath").attr("value", $("#uploadEventFile").val());
+                });
+
+            };
+            //点击上传按钮
+            this.uploadBtn = function () {
+                var uploadEventFile = $("#uploadEventFile").val();
+                if (uploadEventFile == '') {
+                    alert("请选择excel,再上传");
+                } else if (uploadEventFile.lastIndexOf(".xls") < 0) {//可判断以.xls和.xlsx结尾的excel
+                    alert("只能上传Excel文件");
+                } else {
+                    var url = '/bonus/upload/';
+                    var formData = new FormData($('form')[0]);
+                    bouns.sendAjaxRequest(url, 'POST', formData);
+                }
+            };
+            this.push = function (url, type) {
+                $.ajax({
+                    url: url,
+                    type: type,
+                    data: ""
+
+                })
+            }
+            this.sendAjaxRequest = function (url, type, data) {
+                $.ajax({
+                    url: url,
+                    type: type,
+                    data: data,
+                    success: function (result) {
+                        alert(result);
+                        var url = '/bonus/push/';
+                        bouns.push(url, 'POST');
+                    },
+                    error: function () {
+                        alert("excel上传失败");
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            };
+        }
+
+        var bouns;
+        $(function () {
+            bouns = new Bouns();
+            bouns.init();
+            loadPage(1);
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        });
+    </script>
+</head>
+<body>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div id="webSetNavigation" class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <form enctype="multipart/form-data" id="batchUpload" action="bonus/upload" method="post" class="form-horizontal">
+        <button class="button border-main" id="uploadEventBtn" type="button">选择文件</button>
+        <input type="file" name="file" style="width:0px;height:0px;display:none" id="uploadEventFile">
+        <input id="uploadEventPath" disabled="disabled" type="text"
+               style="font-size: 14px;padding: 10px;border: solid 1px #ddd;line-height: 20px;width: 400px;"
+               placeholder="请选择excel表">
+    </form>
+    <button type="button" class="button border-main" onclick="bouns.uploadBtn()">上传</button>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage(1)">
+                    班组超产奖金</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage2(1)">
+                    员工个人绩效</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage3(1)">
+                    员工个人奖金</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage4(1)">
+                    班组绩效</a>
+            </li>
+        </ul>
+    </div>
+    <div id="statisticProposalDiv" class="padding border-bottom">
+
+    </div>
+    <table ID="mainBonusTable" class="table table-hover text-center">
+
+
+    </table>
+
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("您确定要删除吗?")) {
+
+        }
+    }
+</script>
+</body>
+</html>

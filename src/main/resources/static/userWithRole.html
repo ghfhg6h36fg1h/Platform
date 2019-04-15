@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function getRoleList(pUserId) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/role/getAll",
+                dataType: "json",
+                data: JSON.stringify({userId: pUserId, pageSize: 9999, currentPage: 1}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        var gRoleHtml = "<div class=\"panel admin-panel margin-top\">\n" +
+                            "<div class=\"panel-head\"><strong class=\"icon-reorder\"> 角色列表</strong></div>";
+                        $("#mainDiv").html("");
+                        for (var i = 0; i < data.data.length; i++) {
+                            if (data.data[i].userId == $.trim($("#gUrlUserId").val())) {
+                                gRoleHtml += "<div style=\"padding: 10px 15px; float: left\"><input type=\"checkbox\" checked=\"true\" value=\"" + data.data[i].id + "\"/>：" + data.data[i].name + "</div>";
+                            } else {
+                                gRoleHtml += "<div style=\"padding: 10px 15px; float: left\"><input type=\"checkbox\" value=\"" + data.data[i].id + "\"/>：" + data.data[i].name + "</div>";
+                            }
+                        }
+                        gRoleHtml += "<div style=\"clear: both\"></div>\n" +
+                            "    </div>";
+                        $("#mainDiv").html(gRoleHtml);
+
+                        $("#mainDiv input[type='checkbox']").click(function () {
+                            $(this).attr("checked", true);
+                            var mCheckboxList = $("#mainDiv input[type='checkbox']");
+                            for (var j = 0; j < mCheckboxList.length; j++) {
+                                if ($(mCheckboxList[j]).val() != $(this).val()) {
+                                    $(mCheckboxList[j]).attr("checked", false);
+                                } else {
+
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        function preAddRoleAction() {
+            if ($.trim($("#gUrlUserId").val()) == "") {
+                alert("数据错误，请返回重新加载页面1");
+                window.history.go(-1);
+                return false;
+            }
+            var mListCheckbox = [];
+            var mListCheckboxInput = $("#mainDiv input[type='checkbox']");
+            for (var j = 0; j < mListCheckboxInput.length; j++) {
+                if (mListCheckboxInput[j].checked == true) {
+                    mListCheckbox.push(mListCheckboxInput[j].value)
+                }
+            }
+            addRoleAction($.trim($("#gUrlUserId").val()), mListCheckbox);
+        }
+
+
+        function addRoleAction(pUserId, pUserRoleIdList) {
+            var mParas = {
+                userId: pUserId,
+                roleIdList: pUserRoleIdList
+            };
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/user/addUserRole",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            var mRolelId = getQueryVariable("id");
+            if (mRolelId != "") {
+                $("#gUrlUserId").val(mRolelId);
+            }
+            getRoleList(mRolelId);
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlUserId" value=""/>
+<div id="webSetNavigation" style="display: none;"><strong class="icon-reorder"> 用户与角色对应</strong></div>
+<div id="mainDiv">
+
+</div>
+<div class="form-group">
+    <div class="label">
+        <label></label>
+    </div>
+    <div class="field" style="float: right">
+        <input type="button" class="button bg-main icon-check-square-o" onclick="preAddRoleAction();" value="提交"/>
+    </div>
+</div>
+</body>
+</html>

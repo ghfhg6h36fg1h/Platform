@@ -1,0 +1,410 @@
+[11:23:04:737] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:515) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:27:47:128] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:515) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:30:37:978] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:515) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:32:42:843] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:515) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:36:18:502] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:36:31:475] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:39:24:577] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:47:08:507] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:48:31:372] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[11:50:14:191] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[13:08:50:728] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[13:08:54:264] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[13:08:58:836] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[13:10:15:596] [ERROR] - com.liangxin.platform.service.ProposalService.getOAAll(ProposalService.java:516) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+### The error may exist in com/liangxin/platform/mapper/advise/IProposalMapper.xml
+### The error may involve com.liangxin.platform.mapper.advise.IProposalMapper.getOAAll_COUNT
+### The error occurred while handling results
+### SQL: SELECT count(0) FROM proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ LEFT JOIN capital_ c ON a.CAPITAL_ID_ = c.work_id_ WHERE a.delete_flag_ = 0 AND a.status_ = ?
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+; uncategorized SQLException for SQL []; SQL state [S0001]; error code [245]; 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 在将 varchar 值 '驳回起草点' 转换成数据类型 int 时失败。
+[13:11:49:694] [ERROR] - org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:581) - Destroy method on bean with name 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory' threw an exception
+java.lang.IllegalStateException: ApplicationEventMulticaster not initialized - call 'refresh' before multicasting events via the context: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@78aa1f72: startup date [Thu Mar 21 13:11:49 CST 2019]; root of context hierarchy
+	at org.springframework.context.support.AbstractApplicationContext.getApplicationEventMulticaster(AbstractApplicationContext.java:414) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.ApplicationListenerDetector.postProcessBeforeDestruction(ApplicationListenerDetector.java:97) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:253) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1030) [spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:556) [spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at com.liangxin.platform.Main.main(Main.java:8) [classes/:?]
+[13:11:49:735] [ERROR] - org.springframework.boot.SpringApplication.reportFailure(SpringApplication.java:771) - Application startup failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to read candidate component class: file [E:\Platform\platform\out\production\classes\com\liangxin\platform\common\entity\advise\inputParam\user\BaseInput.class]; nested exception is java.io.FileNotFoundException: E:\Platform\platform\out\production\classes\com\liangxin\platform\common\entity\advise\inputParam\user\BaseInput.class (另一个程序正在使用此文件，进程无法访问。)
+	at org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider.findCandidateComponents(ClassPathScanningCandidateComponentProvider.java:311) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:272) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:135) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:287) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:198) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:167) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:308) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:228) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:272) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:92) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:687) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:525) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at com.liangxin.platform.Main.main(Main.java:8) [classes/:?]
+Caused by: java.io.FileNotFoundException: E:\Platform\platform\out\production\classes\com\liangxin\platform\common\entity\advise\inputParam\user\BaseInput.class (另一个程序正在使用此文件，进程无法访问。)
+	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_201]
+	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_201]
+	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_201]
+	at org.springframework.core.io.FileSystemResource.getInputStream(FileSystemResource.java:114) ~[spring-core-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.core.type.classreading.SimpleMetadataReader.<init>(SimpleMetadataReader.java:50) ~[spring-core-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:98) ~[spring-core-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.core.type.classreading.CachingMetadataReaderFactory.getMetadataReader(CachingMetadataReaderFactory.java:102) ~[spring-core-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider.findCandidateComponents(ClassPathScanningCandidateComponentProvider.java:287) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+[15:47:43:273] [ERROR] - org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:83) - Error while adding the mapper 'interface com.liangxin.platform.mapper.advise.INew_ProposalMapper' to configuration.
+org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:169) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.parse(MapperAnnotationBuilder.java:120) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.binding.MapperRegistry.addMapper(MapperRegistry.java:72) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:706) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:81) [mybatis-spring-1.3.0.jar:1.3.0]
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44) [spring-tx-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) [spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867) [spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) [spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at com.liangxin.platform.Main.main(Main.java:8) [classes/:?]
+Caused by: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:837) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:809) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration.addResultMap(Configuration.java:591) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.MapperBuilderAssistant.addResultMap(MapperBuilderAssistant.java:214) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.ResultMapResolver.resolve(ResultMapResolver.java:47) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:285) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:252) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElements(XMLMapperBuilder.java:244) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:116) ~[mybatis-3.4.0.jar:3.4.0]
+	... 51 more
+[15:47:43:470] [ERROR] - org.springframework.boot.SpringApplication.reportFailure(SpringApplication.java:771) - Application startup failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'new_ProposalControler': Unsatisfied dependency expressed through field 'ProposalService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'new_ProposalService': Unsatisfied dependency expressed through field 'ProposalMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'INew_ProposalMapper' defined in file [E:\Platform\platform\out\production\classes\com\liangxin\platform\mapper\advise\INew_ProposalMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.8.RELEASE.jar:1.5.8.RELEASE]
+	at com.liangxin.platform.Main.main(Main.java:8) [classes/:?]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'new_ProposalService': Unsatisfied dependency expressed through field 'ProposalMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'INew_ProposalMapper' defined in file [E:\Platform\platform\out\production\classes\com\liangxin\platform\mapper\advise\INew_ProposalMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'INew_ProposalMapper' defined in file [E:\Platform\platform\out\production\classes\com\liangxin\platform\mapper\advise\INew_ProposalMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+Caused by: java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:84) ~[mybatis-spring-1.3.0.jar:1.3.0]
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44) ~[spring-tx-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:169) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.parse(MapperAnnotationBuilder.java:120) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.binding.MapperRegistry.addMapper(MapperRegistry.java:72) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:706) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:81) ~[mybatis-spring-1.3.0.jar:1.3.0]
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44) ~[spring-tx-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+Caused by: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.liangxin.platform.mapper.advise.INew_ProposalMapper.BaseResultMap
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:837) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:809) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration.addResultMap(Configuration.java:591) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.MapperBuilderAssistant.addResultMap(MapperBuilderAssistant.java:214) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.ResultMapResolver.resolve(ResultMapResolver.java:47) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:285) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:252) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElements(XMLMapperBuilder.java:244) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:116) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:169) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.parse(MapperAnnotationBuilder.java:120) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.binding.MapperRegistry.addMapper(MapperRegistry.java:72) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:706) ~[mybatis-3.4.0.jar:3.4.0]
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:81) ~[mybatis-spring-1.3.0.jar:1.3.0]
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44) ~[spring-tx-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585) ~[spring-beans-4.3.12.RELEASE.jar:4.3.12.RELEASE]
+	... 19 more
+[15:49:08:688] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebAll(New_ProposalService.java:243) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.generate.pt.New_PROPOSALMapper.getWebAll
+[15:53:19:254] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebAll(New_ProposalService.java:243) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'pListOAInput' in 'class com.liangxin.platform.common.entity.advise.inputParam.proposal.ListOAInput'
+[15:55:48:377] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebAll(New_ProposalService.java:243) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select count(0) from (SELECT a.id_,section_name_,owner_name_,owner_,theme_,a.create_time_,b.name_ as status_,         a.proposal_type_,a.oa_proposal_id_,         FROM         New_proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_         where a.delete_flag_=0                                                           order by a.CREATE_TIME_ desc) tmp_count
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 关键字 'FROM' 附近有语法错误。

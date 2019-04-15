@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.IAnniversaryMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.Anniversary" >
+        <id column="ID_" property="id" jdbcType="VARCHAR" />
+        <result column="NAME_" property="name" jdbcType="VARCHAR" />
+        <result column="WORK_ID_" property="workId" jdbcType="VARCHAR" />
+        <result column="EMAIL_" property="email" jdbcType="VARCHAR" />
+        <result column="WORK_DAY_" property="workDay" jdbcType="VARCHAR" />
+        <result column="POST_TIME_" property="postTime" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME_" property="createTime" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME_" property="updateTime" jdbcType="VARCHAR" />
+        <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="TIMESTAMP" />
+        <result column="POST_STATUS_" property="postStatus" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="getAnniversaryAll" resultMap="BaseResultMap">
+        SELECT ID_, NAME_, WORK_ID_, EMAIL_ ,
+        REPLACE (CONVERT(varchar(12) , WORK_DAY_, 111 ),'/','-') WORK_DAY_ ,
+        REPLACE (CONVERT(varchar(12) , POST_TIME_, 111 ),'/','-') POST_TIME_,
+        REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-') CREATE_TIME_,
+        REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-') UPDATE_TIME_,
+        DELETE_FLAG_ , POST_STATUS_
+        FROM
+        ANNIVERSARY_MAIL_SEND_RECORD_
+        <if test="pAnniversaryInput.workDay != null and pAnniversaryInput.workDay != ''">
+        where REPLACE (CONVERT(varchar(12) , POST_TIME_, 111 ),'/','-') = #{pAnniversaryInput.workDay}
+        </if>
+        ORDER BY ID_
+    </select>
+    <update id="ignoreById" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Anniversary" >
+        update ANNIVERSARY_MAIL_SEND_RECORD_
+        set POST_STATUS_ = #{postStatus,jdbcType=TIMESTAMP}
+        where ID_ = #{id,jdbcType=OTHER}
+    </update>
+</mapper>

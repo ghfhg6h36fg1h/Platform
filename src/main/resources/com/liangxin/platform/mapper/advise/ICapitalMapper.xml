@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.ICapitalMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.outputResult.capital.ListCapital">
+        <result column="id_" property="id" jdbcType="VARCHAR"/>
+        <result column="name_" property="name" jdbcType="VARCHAR"/>
+        <result column="status_" property="status" jdbcType="VARCHAR"/>
+        <result column="delete_flag_" property="deleteFlag" jdbcType="INTEGER"/>
+        <result column="create_time_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="workshop_line_" property="workshopLine" jdbcType="VARCHAR"/>
+        <result column="work_id_" property="workId" jdbcType="VARCHAR"/>
+        <result column="is_leave_" property="isLeave" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="isCapital" resultType="java.lang.Integer">
+        select count(0) from capital_ where work_id_=#{pWorkId} and delete_flag_=0 and is_leave_=0
+    </select>
+    <select id="getCapitalList" resultMap="BaseResultMap">
+        select id_,name_,workshop_line_,work_id_ from capital_ where delete_flag_=0 and is_leave_=0
+    </select>
+    <select id="getCapitalListForOA" resultMap="BaseResultMap">
+        select id_,name_,workshop_line_,work_id_,is_leave_ from capital_ where delete_flag_=0
+        <if test="pInputForOAList.id != null">
+            and id_ = #{pInputForOAList.id,jdbcType=NVARCHAR}
+        </if>
+        <if test="pInputForOAList.name != null">
+            and name_ LIKE concat('%',#{pInputForOAList.name,jdbcType=NVARCHAR},'%')
+        </if>
+        <if test="pInputForOAList.workShopLine != null">
+            and workshop_line_ LIKE concat('%',#{pInputForOAList.workShopLine,jdbcType=NVARCHAR},'%')
+        </if>
+        <if test="pInputForOAList.workId != null">
+            and work_id_ LIKE concat('%',#{pInputForOAList.workId,jdbcType=NVARCHAR},'%')
+        </if>
+        <if test="pInputForOAList.isLeave != null">
+            and is_leave_  = #{pInputForOAList.isLeave,jdbcType=INTEGER}
+        </if>
+        order by create_time_ desc
+    </select>
+</mapper>

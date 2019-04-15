@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.AnniversaryMailSendRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.AnniversaryMailSendRecord" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="WORK_ID_" property="workId" jdbcType="VARCHAR" />
+    <result column="EMAIL_" property="email" jdbcType="VARCHAR" />
+    <result column="WORK_DAY_" property="workDay" jdbcType="TIMESTAMP" />
+    <result column="POST_TIME_" property="postTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="POST_STATUS_" property="postStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, WORK_ID_, EMAIL_, WORK_DAY_, POST_TIME_, CREATE_TIME_, UPDATE_TIME_, 
+    DELETE_FLAG_, POST_STATUS_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ANNIVERSARY_MAIL_SEND_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ANNIVERSARY_MAIL_SEND_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.AnniversaryMailSendRecord" >
+    insert into ANNIVERSARY_MAIL_SEND_RECORD_ (ID_, NAME_, WORK_ID_,
+      EMAIL_, WORK_DAY_, POST_TIME_, 
+      CREATE_TIME_, UPDATE_TIME_, DELETE_FLAG_, 
+      POST_STATUS_)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{workId,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{workDay,jdbcType=TIMESTAMP}, #{postTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=DECIMAL}, 
+      #{postStatus,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.AnniversaryMailSendRecord" >
+    insert into ANNIVERSARY_MAIL_SEND_RECORD_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="workId != null" >
+        WORK_ID_,
+      </if>
+      <if test="email != null" >
+        EMAIL_,
+      </if>
+      <if test="workDay != null" >
+        WORK_DAY_,
+      </if>
+      <if test="postTime != null" >
+        POST_TIME_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="postStatus != null" >
+        POST_STATUS_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workDay != null" >
+        #{workDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postTime != null" >
+        #{postTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="postStatus != null" >
+        #{postStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.AnniversaryMailSendRecord" >
+    update ANNIVERSARY_MAIL_SEND_RECORD_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL_ = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workDay != null" >
+        WORK_DAY_ = #{workDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postTime != null" >
+        POST_TIME_ = #{postTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="postStatus != null" >
+        POST_STATUS_ = #{postStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.AnniversaryMailSendRecord" >
+    update ANNIVERSARY_MAIL_SEND_RECORD_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      EMAIL_ = #{email,jdbcType=VARCHAR},
+      WORK_DAY_ = #{workDay,jdbcType=TIMESTAMP},
+      POST_TIME_ = #{postTime,jdbcType=TIMESTAMP},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      POST_STATUS_ = #{postStatus,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

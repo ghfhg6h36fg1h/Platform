@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.Menu" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="DESC_" property="desc" jdbcType="VARCHAR" />
+    <result column="DISABLE_" property="disable" jdbcType="DECIMAL" />
+    <result column="PARENT_ID_" property="parentId" jdbcType="VARCHAR" />
+    <result column="TYPE_" property="type" jdbcType="DECIMAL" />
+    <result column="LEVEL_" property="level" jdbcType="DECIMAL" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTION_URL_" property="actionUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, DESC_, DISABLE_, PARENT_ID_, TYPE_, LEVEL_, DELETE_FLAG_, CREATE_TIME_, 
+    UPDATE_TIME_, ACTION_URL_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from MENU_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from MENU_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Menu" >
+    insert into MENU_ (ID_, NAME_, DESC_,
+      DISABLE_, PARENT_ID_, TYPE_, 
+      LEVEL_, DELETE_FLAG_, CREATE_TIME_, 
+      UPDATE_TIME_, ACTION_URL_)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{disable,jdbcType=DECIMAL}, #{parentId,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, 
+      #{level,jdbcType=DECIMAL}, #{deleteFlag,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{actionUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Menu" >
+    insert into MENU_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="desc != null" >
+        DESC_,
+      </if>
+      <if test="disable != null" >
+        DISABLE_,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID_,
+      </if>
+      <if test="type != null" >
+        TYPE_,
+      </if>
+      <if test="level != null" >
+        LEVEL_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="actionUrl != null" >
+        ACTION_URL_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="disable != null" >
+        #{disable,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionUrl != null" >
+        #{actionUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Menu" >
+    update MENU_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        DESC_ = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="disable != null" >
+        DISABLE_ = #{disable,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID_ = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE_ = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="level != null" >
+        LEVEL_ = #{level,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionUrl != null" >
+        ACTION_URL_ = #{actionUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Menu" >
+    update MENU_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      DESC_ = #{desc,jdbcType=VARCHAR},
+      DISABLE_ = #{disable,jdbcType=DECIMAL},
+      PARENT_ID_ = #{parentId,jdbcType=VARCHAR},
+      TYPE_ = #{type,jdbcType=DECIMAL},
+      LEVEL_ = #{level,jdbcType=DECIMAL},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      ACTION_URL_ = #{actionUrl,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

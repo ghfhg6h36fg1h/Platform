@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.IStrategyAccordMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord">
+        <id column="ID_" property="id" jdbcType="VARCHAR"/>
+        <result column="SUPERVISORS_NUMBER_" property="supervisorsNumber" jdbcType="VARCHAR"/>
+        <result column="DISTRICT_" property="district" jdbcType="VARCHAR"/>
+        <result column="COMPANY_NAME_" property="companyName" jdbcType="VARCHAR"/>
+        <result column="CLIENT_ABBREVIATION_" property="clientAbbreviation" jdbcType="VARCHAR"/>
+        <result column="FIRST_COORPERATION_TIME_" property="firstCoorperationTime" jdbcType="VARCHAR"/>
+        <result column="VALID_ACCORD_START_TIME_" property="validAccordStartTime" jdbcType="VARCHAR"/>
+        <result column="VALID_ACCORD_END_TIME_" property="validAccordEndTime" jdbcType="VARCHAR"/>
+        <result column="COORPERATION_RANGE_" property="coorperationRange" jdbcType="VARCHAR"/>
+        <result column="COORPERATION_PATTERN_" property="coorperationPattern" jdbcType="VARCHAR"/>
+        <result column="QUALIFIED_BRAND_" property="qualifiedBrand" jdbcType="VARCHAR"/>
+        <result column="INFORM_STUFF_ONE_NUMBER_" property="informStuffOneNumber" jdbcType="VARCHAR"/>
+        <result column="INFORM_STATUS_" property="informStatus" jdbcType="DECIMAL"/>
+        <result column="OA_ID_" property="oaId" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL"/>
+        <result column="RANKINGS" property="rankings" jdbcType="VARCHAR"/>
+        <result column="INFORM_STUFF_" property="informStuff" jdbcType="VARCHAR"/>
+        <result column="INFORM_STUFF_TWO_NUMBER_" property="informStuffTwoNumber" jdbcType="VARCHAR"/>
+        <result column="INFORM_STUFF_TWO_NAME_" property="informStuffTwoName" jdbcType="VARCHAR"/>
+        <result column="SUPERVISORS_NAME_" property="supervisorsName" jdbcType="VARCHAR"/>
+        <result column="SUBMITER_NAME_" property="submiterName" jdbcType="VARCHAR"/>
+        <result column="SUBMITER_NUMBER_" property="submiterNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    ID_, SUPERVISORS_NUMBER_, DISTRICT_, COMPANY_NAME_, CLIENT_ABBREVIATION_, FIRST_COORPERATION_TIME_,
+    VALID_ACCORD_START_TIME_, VALID_ACCORD_END_TIME_, COORPERATION_RANGE_, COORPERATION_PATTERN_,
+    QUALIFIED_BRAND_, INFORM_STUFF_ONE_NUMBER_, INFORM_STATUS_, OA_ID_, CREATE_TIME_,
+    UPDATE_TIME_, DELETE_FLAG_, RANKINGS, INFORM_STUFF_, INFORM_STUFF_TWO_NUMBER_, INFORM_STUFF_TWO_NAME_,
+    SUPERVISORS_NAME_, SUBMITER_NAME_, SUBMITER_NUMBER_
+  </sql>
+    <select id="selectByCondition" resultMap="BaseResultMap"
+            parameterType="com.liangxin.platform.common.entity.advise.inputParam.strategyAccord.StrategyAccordMainInput">
+        select
+        <include refid="Base_Column_List"/>
+        from STRATEGY_ACCORD_
+        where DELETE_FLAG_=0
+        <if test="id != null">
+            and ID_ = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="district != null">
+            and DISTRICT_ LIKE concat('%',#{district,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="companyName != null">
+            and COMPANY_NAME_ LIKE concat('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="clientAbbreviation != null">
+            and CLIENT_ABBREVIATION_ = #{clientAbbreviation,jdbcType=VARCHAR}
+        </if>
+        <if test="firstCoorperationTime != null">
+            and FIRST_COORPERATION_TIME_ = #{firstCoorperationTime,jdbcType=VARCHAR}
+        </if>
+        <if test="validAccordStartTime != null">
+            and VALID_ACCORD_START_TIME_ = #{validAccordStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="validAccordEndTime != null">
+            <![CDATA[
+            and VALID_ACCORD_END_TIME_ >= #{validAccordEndTime,jdbcType=VARCHAR}
+        ]]>
+        </if>
+        <if test="coorperationRange != null">
+            and COORPERATION_RANGE_ = #{coorperationRange,jdbcType=VARCHAR}
+        </if>
+        <if test="coorperationPattern != null">
+            and COORPERATION_PATTERN_ = #{coorperationPattern,jdbcType=VARCHAR}
+        </if>
+        <if test="qualifiedBrand != null">
+            and QUALIFIED_BRAND_ = #{qualifiedBrand,jdbcType=VARCHAR}
+        </if>
+        <if test="informStuff != null">
+            and INFORM_STUFF_ LIKE concat('%',#{informStuff,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="informStatus != null">
+            and INFORM_STATUS_ = #{informStatus,jdbcType=DECIMAL}
+        </if>
+        <if test="oaId != null">
+            and OA_ID_ LIKE concat('%',#{oaId,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="updateTime != null">
+            and UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="deleteFlag != null">
+            and DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL}
+        </if>
+        <if test="searchStartDate != null">
+            and VALID_ACCORD_END_TIME_ &gt;= #{searchStartDate,jdbcType=VARCHAR}
+        </if>
+        <if test="searchEndDate != null">
+            and VALID_ACCORD_END_TIME_ &lt;= #{searchEndDate,jdbcType=VARCHAR}
+        </if>
+        <if test="nowDay == 1">
+            and VALID_ACCORD_END_TIME_ &lt; REPLACE (CONVERT(varchar(12) , getdate(), 111 ),'/','-')
+        </if>
+        <if test="nowDay == 0">
+            and VALID_ACCORD_END_TIME_ &gt;= REPLACE (CONVERT(varchar(12) , getdate(), 111 ),'/','-')
+        </if>
+        <if test="submiterNumber != null">
+            and SUBMITER_NUMBER_ = #{submiterNumber,jdbcType=VARCHAR}
+        </if>
+        order by CREATE_TIME_ desc
+    </select>
+    <select id="selectByConditionXieTong" resultMap="BaseResultMap"
+            parameterType="com.liangxin.platform.common.entity.advise.inputParam.strategyAccord.StrategyAccordMainInput">
+        select
+        <include refid="Base_Column_List"/>
+        from STRATEGY_ACCORD_
+        where DELETE_FLAG_=0 and VALID_ACCORD_END_TIME_ &gt;= REPLACE (CONVERT(varchar(12) , getdate(), 111 ),'/','-')
+        <if test="id != null and id != ''">
+            and ID_ = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="informStuff != null and informStuff != ''">
+            and (SUBMITER_NUMBER_ = #{informStuff,jdbcType=VARCHAR}
+            or INFORM_STUFF_TWO_NUMBER_ = #{informStuff,jdbcType=VARCHAR}
+            or SUBMITER_NUMBER_ = #{informStuff,jdbcType=VARCHAR}
+            or INFORM_STUFF_ONE_NUMBER_ = #{informStuff,jdbcType=VARCHAR})
+        </if>
+        <if test="searchEndDate != null and searchEndDate != ''">
+            and cast(VALID_ACCORD_END_TIME_,as datetime) &lt;= cast (#{searchEndDate,jdbcType=VARCHAR},as datetime)
+        </if>
+        <if test="district != null and district != ''">
+            and DISTRICT_ LIKE concat('%',#{district,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="submiterNumber != null">
+            and INFORM_STUFF_ LIKE concat('%',#{informStuff,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+</mapper>

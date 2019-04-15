@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.tax.ITaxMapper">
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.tax.outputParam.TaxListOutput">
+    <result column="SID" jdbcType="INTEGER" property="sid" />
+    <result column="EMPNO" jdbcType="VARCHAR" property="empno" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="APPLYTIME" jdbcType="TIMESTAMP" property="applytime" />
+    <result column="APPROVALTIME" jdbcType="TIMESTAMP" property="approvaltime" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+  </resultMap>
+  <select id="getTaxList" resultMap="BaseResultMap">
+    SELECT SID,EMPNO,NAME,APPLYTIME,APPROVALTIME,STATE FROM TAX
+    WHERE deleteflag = 0 AND STATE != 4
+    <if test="pTaxListInput.empno != null and pTaxListInput.empno != ''">
+      and EMPNO = #{pTaxListInput.empno,jdbcType =VARCHAR}
+    </if>
+    <if test="pTaxListInput.name != null and pTaxListInput.name != ''">
+      and NAME LIKE concat('%',#{pTaxListInput.name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="pTaxListInput.state != null and pTaxListInput.state != ''">
+      and STATE = #{pTaxListInput.state,jdbcType =VARCHAR}
+    </if>
+    ORDER BY CREATETIME DESC
+  </select>
+  <select id="getSearchTaxList" resultMap="BaseResultMap" parameterType="com.liangxin.platform.common.entity.tax.inputParam.TaxSearchListInput">
+    SELECT SID,EMPNO,NAME,APPLYTIME,APPROVALTIME,STATE FROM TAX
+    WHERE deleteflag = 0 AND STATE != 4
+    <if test="empno != null and empno != ''">
+      and EMPNO = #{empno,jdbcType =VARCHAR}
+    </if>
+    <if test="name != null and name != ''">
+      and NAME LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="state != null and state != ''">
+      and STATE = #{state,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApplyStartDate != null and searchApplyStartDate != ''">
+      and REPLACE (CONVERT(varchar(12) , applytime, 111 ),'/','-') >= #{searchApplyStartDate,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApplyEndDate != null and searchApplyEndDate != ''">
+      <![CDATA[
+      and REPLACE (CONVERT(varchar(12) , applytime, 111 ),'/','-') <= #{searchApplyEndDate,jdbcType =VARCHAR}
+      ]]>
+    </if>
+    <if test="searchApprovalStartDate != null and searchApprovalStartDate != ''">
+      and REPLACE (CONVERT(varchar(12) , approvaltime, 111 ),'/','-') >= #{searchApprovalStartDate,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApprovalEndDate != null and searchApprovalEndDate != ''">
+      <![CDATA[
+      and REPLACE (CONVERT(varchar(12) , approvaltime, 111 ),'/','-') <= #{searchApprovalEndDate,jdbcType =VARCHAR}
+      ]]>
+    </if>
+    ORDER BY APPLYTIME DESC
+  </select>
+  <resultMap id="BaseResultMapE" type="com.liangxin.platform.common.entity.tax.outputParam.TaxExportListOutput">
+    <result column="SID" jdbcType="INTEGER" property="sid" />
+    <result column="EMPNO" jdbcType="VARCHAR" property="empno" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="APPLYTIME" jdbcType="TIMESTAMP" property="applytime" />
+    <result column="APPROVALTIME" jdbcType="TIMESTAMP" property="approvaltime" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="MONEY1" jdbcType="DECIMAL" property="money1" />
+    <result column="MONEY2" jdbcType="DECIMAL" property="money2" />
+    <result column="MONEY3" jdbcType="DECIMAL" property="money3" />
+    <result column="MONEY4" jdbcType="DECIMAL" property="money4" />
+    <result column="MONEY5" jdbcType="DECIMAL" property="money5" />
+    <result column="MONEY6" jdbcType="DECIMAL" property="money6" />
+    <result column="MONEY7" jdbcType="DECIMAL" property="money7" />
+    <result column="MONEY8" jdbcType="DECIMAL" property="money8" />
+  </resultMap>
+  <select id="getExportTaxList" resultMap="BaseResultMapE" parameterType="com.liangxin.platform.common.entity.tax.inputParam.TaxSearchListInput">
+    SELECT SID,EMPNO,NAME,APPLYTIME,APPROVALTIME,STATE,MONEY1,MONEY2,MONEY3,MONEY4,MONEY5,MONEY6,MONEY7,MONEY8 FROM TAX
+    WHERE deleteflag = 0 AND STATE != 4
+    <if test="empno != null and empno != ''">
+      and EMPNO = #{empno,jdbcType =VARCHAR}
+    </if>
+    <if test="name != null and name != ''">
+      and NAME LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="state != null and state != ''">
+      and STATE = #{state,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApplyStartDate != null and searchApplyStartDate != ''">
+      and REPLACE (CONVERT(varchar(12) , applytime, 111 ),'/','-') >= #{searchApplyStartDate,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApplyEndDate != null and searchApplyEndDate != ''">
+      <![CDATA[
+      and REPLACE (CONVERT(varchar(12) , applytime, 111 ),'/','-') <= #{searchApplyEndDate,jdbcType =VARCHAR}
+      ]]>
+    </if>
+    <if test="searchApprovalStartDate != null and searchApprovalStartDate != ''">
+      and REPLACE (CONVERT(varchar(12) , approvaltime, 111 ),'/','-') >= #{searchApprovalStartDate,jdbcType =VARCHAR}
+    </if>
+    <if test="searchApprovalEndDate != null and searchApprovalEndDate != ''">
+      <![CDATA[
+      and REPLACE (CONVERT(varchar(12) , approvaltime, 111 ),'/','-') <= #{searchApprovalEndDate,jdbcType =VARCHAR}
+      ]]>
+    </if>
+    ORDER BY APPLYTIME DESC
+  </select>
+  <resultMap id="BaseResultMapT" type="com.liangxin.platform.common.entity.tax.pt.Tax">
+    <result column="SID" jdbcType="INTEGER" property="sid" />
+    <result column="EMPNO" jdbcType="VARCHAR" property="empno" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="APPLYTIME" jdbcType="TIMESTAMP" property="applytime" />
+    <result column="APPROVALTIME" jdbcType="TIMESTAMP" property="approvaltime" />
+    <result column="OPINION" jdbcType="VARCHAR" property="opinion" />
+    <result column="DELETEFLAG" jdbcType="DECIMAL" property="deleteflag" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="MONEY1" jdbcType="DECIMAL" property="money1" />
+    <result column="PIC1_1" jdbcType="VARCHAR" property="pic11" />
+    <result column="PICTEMP1_1" jdbcType="VARCHAR" property="pictemp11" />
+    <result column="PIC1_2" jdbcType="VARCHAR" property="pic12" />
+    <result column="PICTEMP1_2" jdbcType="VARCHAR" property="pictemp12" />
+    <result column="PIC1_3" jdbcType="VARCHAR" property="pic13" />
+    <result column="PICTEMP1_3" jdbcType="VARCHAR" property="pictemp13" />
+    <result column="MONEY2" jdbcType="VARCHAR" property="money2" />
+    <result column="PIC2_1" jdbcType="VARCHAR" property="pic21" />
+    <result column="PICTEMP2_1" jdbcType="VARCHAR" property="pictemp21" />
+    <result column="PIC2_2" jdbcType="VARCHAR" property="pic22" />
+    <result column="PICTEMP2_2" jdbcType="VARCHAR" property="pictemp22" />
+    <result column="PIC2_3" jdbcType="VARCHAR" property="pic23" />
+    <result column="PICTEMP2_3" jdbcType="VARCHAR" property="pictemp23" />
+    <result column="MONEY3" jdbcType="DECIMAL" property="money3" />
+    <result column="PIC3_1" jdbcType="VARCHAR" property="pic31" />
+    <result column="PICTEMP3_1" jdbcType="VARCHAR" property="pictemp31" />
+    <result column="PIC3_2" jdbcType="VARCHAR" property="pic32" />
+    <result column="PICTEMP3_2" jdbcType="VARCHAR" property="pictemp32" />
+    <result column="PIC3_3" jdbcType="VARCHAR" property="pic33" />
+    <result column="PICTEMP3_3" jdbcType="VARCHAR" property="pictemp33" />
+    <result column="MONEY4" jdbcType="DECIMAL" property="money4" />
+    <result column="PIC4_1" jdbcType="VARCHAR" property="pic41" />
+    <result column="PICTEMP4_1" jdbcType="VARCHAR" property="pictemp41" />
+    <result column="PIC4_2" jdbcType="VARCHAR" property="pic42" />
+    <result column="PICTEMP4_2" jdbcType="VARCHAR" property="pictemp42" />
+    <result column="PIC4_3" jdbcType="VARCHAR" property="pic43" />
+    <result column="PICTEMP4_3" jdbcType="VARCHAR" property="pictemp43" />
+    <result column="MONEY5" jdbcType="DECIMAL" property="money5" />
+    <result column="PIC5_1" jdbcType="VARCHAR" property="pic51" />
+    <result column="PICTEMP5_1" jdbcType="VARCHAR" property="pictemp51" />
+    <result column="PIC5_2" jdbcType="VARCHAR" property="pic52" />
+    <result column="PICTEMP5_2" jdbcType="VARCHAR" property="pictemp52" />
+    <result column="PIC5_3" jdbcType="VARCHAR" property="pic53" />
+    <result column="PICTEMP5_3" jdbcType="VARCHAR" property="pictemp53" />
+    <result column="MONEY6" jdbcType="DECIMAL" property="money6" />
+    <result column="PIC6_1" jdbcType="VARCHAR" property="pic61" />
+    <result column="PICTEMP6_1" jdbcType="VARCHAR" property="pictemp61" />
+    <result column="PIC6_2" jdbcType="VARCHAR" property="pic62" />
+    <result column="PICTEMP6_2" jdbcType="VARCHAR" property="pictemp62" />
+    <result column="PIC6_3" jdbcType="VARCHAR" property="pic63" />
+    <result column="PICTEMP6_3" jdbcType="VARCHAR" property="pictemp63" />
+    <result column="MONEY7" jdbcType="DECIMAL" property="money7" />
+    <result column="PIC7_1" jdbcType="VARCHAR" property="pic71" />
+    <result column="PICTEMP7_1" jdbcType="VARCHAR" property="pictemp71" />
+    <result column="PIC7_2" jdbcType="VARCHAR" property="pic72" />
+    <result column="PICTEMP7_2" jdbcType="VARCHAR" property="pictemp72" />
+    <result column="PIC7_3" jdbcType="VARCHAR" property="pic73" />
+    <result column="PICTEMP7_3" jdbcType="VARCHAR" property="pictemp73" />
+    <result column="MONEY8" jdbcType="DECIMAL" property="money8" />
+    <result column="PIC8_1" jdbcType="VARCHAR" property="pic81" />
+    <result column="PICTEMP8_1" jdbcType="VARCHAR" property="pictemp81" />
+    <result column="PIC8_2" jdbcType="VARCHAR" property="pic82" />
+    <result column="PICTEMP8_2" jdbcType="VARCHAR" property="pictemp82" />
+    <result column="PIC8_3" jdbcType="VARCHAR" property="pic83" />
+    <result column="PICTEMP8_3" jdbcType="VARCHAR" property="pictemp83" />
+  </resultMap>
+  <select id="getTaxDetail" resultMap="BaseResultMapT">
+        SELECT * FROM Tax
+        WHERE SID = #{sid,jdbcType =INTEGER}
+  </select>
+  <select id="selectByState" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM TAX WHERE STATE = 4 AND EMPNO = #{empno,jdbcType=VARCHAR}
+  </select>
+  <insert id="taxInsert" parameterType="com.liangxin.platform.common.entity.tax.pt.Tax">
+    insert into TAX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        SID,
+      </if>
+      <if test="empno != null">
+        EMPNO,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="applytime != null">
+        APPLYTIME,
+      </if>
+      <if test="approvaltime != null">
+        APPROVALTIME,
+      </if>
+      <if test="opinion != null">
+        OPINION,
+      </if>
+      <if test="deleteflag != null">
+        DELETEFLAG,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="money1 != null">
+        MONEY1,
+      </if>
+      <if test="pic11 != null">
+        PIC1_1,
+      </if>
+      <if test="pictemp11 != null">
+        PICTEMP1_1,
+      </if>
+      <if test="pic12 != null">
+        PIC1_2,
+      </if>
+      <if test="pictemp12 != null">
+        PICTEMP1_2,
+      </if>
+      <if test="pic13 != null">
+        PIC1_3,
+      </if>
+      <if test="pictemp13 != null">
+        PICTEMP1_3,
+      </if>
+      <if test="money2 != null">
+        MONEY2,
+      </if>
+      <if test="pic21 != null">
+        PIC2_1,
+      </if>
+      <if test="pictemp21 != null">
+        PICTEMP2_1,
+      </if>
+      <if test="pic22 != null">
+        PIC2_2,
+      </if>
+      <if test="pictemp22 != null">
+        PICTEMP2_2,
+      </if>
+      <if test="pic23 != null">
+        PIC2_3,
+      </if>
+      <if test="pictemp23 != null">
+        PICTEMP2_3,
+      </if>
+      <if test="money3 != null">
+        MONEY3,
+      </if>
+      <if test="pic31 != null">
+        PIC3_1,
+      </if>
+      <if test="pictemp31 != null">
+        PICTEMP3_1,
+      </if>
+      <if test="pic32 != null">
+        PIC3_2,
+      </if>
+      <if test="pictemp32 != null">
+        PICTEMP3_2,
+      </if>
+      <if test="pic33 != null">
+        PIC3_3,
+      </if>
+      <if test="pictemp33 != null">
+        PICTEMP3_3,
+      </if>
+      <if test="money4 != null">
+        MONEY4,
+      </if>
+      <if test="pic41 != null">
+        PIC4_1,
+      </if>
+      <if test="pictemp41 != null">
+        PICTEMP4_1,
+      </if>
+      <if test="pic42 != null">
+        PIC4_2,
+      </if>
+      <if test="pictemp42 != null">
+        PICTEMP4_2,
+      </if>
+      <if test="pic43 != null">
+        PIC4_3,
+      </if>
+      <if test="pictemp43 != null">
+        PICTEMP4_3,
+      </if>
+      <if test="money5 != null">
+        MONEY5,
+      </if>
+      <if test="pic51 != null">
+        PIC5_1,
+      </if>
+      <if test="pictemp51 != null">
+        PICTEMP5_1,
+      </if>
+      <if test="pic52 != null">
+        PIC5_2,
+      </if>
+      <if test="pictemp52 != null">
+        PICTEMP5_2,
+      </if>
+      <if test="pic53 != null">
+        PIC5_3,
+      </if>
+      <if test="pictemp53 != null">
+        PICTEMP5_3,
+      </if>
+      <if test="money6 != null">
+        MONEY6,
+      </if>
+      <if test="pic61 != null">
+        PIC6_1,
+      </if>
+      <if test="pictemp61 != null">
+        PICTEMP6_1,
+      </if>
+      <if test="pic62 != null">
+        PIC6_2,
+      </if>
+      <if test="pictemp62 != null">
+        PICTEMP6_2,
+      </if>
+      <if test="pic63 != null">
+        PIC6_3,
+      </if>
+      <if test="pictemp63 != null">
+        PICTEMP6_3,
+      </if>
+      <if test="money7 != null">
+        MONEY7,
+      </if>
+      <if test="pic71 != null">
+        PIC7_1,
+      </if>
+      <if test="pictemp71 != null">
+        PICTEMP7_1,
+      </if>
+      <if test="pic72 != null">
+        PIC7_2,
+      </if>
+      <if test="pictemp72 != null">
+        PICTEMP7_2,
+      </if>
+      <if test="pic73 != null">
+        PIC7_3,
+      </if>
+      <if test="pictemp73 != null">
+        PICTEMP7_3,
+      </if>
+      <if test="money8 != null">
+        MONEY8,
+      </if>
+      <if test="pic81 != null">
+        PIC8_1,
+      </if>
+      <if test="pictemp81 != null">
+        PICTEMP8_1,
+      </if>
+      <if test="pic82 != null">
+        PIC8_2,
+      </if>
+      <if test="pictemp82 != null">
+        PICTEMP8_2,
+      </if>
+      <if test="pic83 != null">
+        PIC8_3,
+      </if>
+      <if test="pictemp83 != null">
+        PICTEMP8_3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="empno != null">
+        #{empno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applytime != null">
+        #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvaltime != null">
+        #{approvaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="money1 != null">
+        #{money1,jdbcType=DECIMAL},
+      </if>
+      <if test="pic11 != null">
+        #{pic11,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp11 != null">
+        #{pictemp11,jdbcType=VARCHAR},
+      </if>
+      <if test="pic12 != null">
+        #{pic12,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp12 != null">
+        #{pictemp12,jdbcType=VARCHAR},
+      </if>
+      <if test="pic13 != null">
+        #{pic13,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp13 != null">
+        #{pictemp13,jdbcType=VARCHAR},
+      </if>
+      <if test="money2 != null">
+        #{money2,jdbcType=VARCHAR},
+      </if>
+      <if test="pic21 != null">
+        #{pic21,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp21 != null">
+        #{pictemp21,jdbcType=VARCHAR},
+      </if>
+      <if test="pic22 != null">
+        #{pic22,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp22 != null">
+        #{pictemp22,jdbcType=VARCHAR},
+      </if>
+      <if test="pic23 != null">
+        #{pic23,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp23 != null">
+        #{pictemp23,jdbcType=VARCHAR},
+      </if>
+      <if test="money3 != null">
+        #{money3,jdbcType=DECIMAL},
+      </if>
+      <if test="pic31 != null">
+        #{pic31,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp31 != null">
+        #{pictemp31,jdbcType=VARCHAR},
+      </if>
+      <if test="pic32 != null">
+        #{pic32,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp32 != null">
+        #{pictemp32,jdbcType=VARCHAR},
+      </if>
+      <if test="pic33 != null">
+        #{pic33,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp33 != null">
+        #{pictemp33,jdbcType=VARCHAR},
+      </if>
+      <if test="money4 != null">
+        #{money4,jdbcType=DECIMAL},
+      </if>
+      <if test="pic41 != null">
+        #{pic41,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp41 != null">
+        #{pictemp41,jdbcType=VARCHAR},
+      </if>
+      <if test="pic42 != null">
+        #{pic42,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp42 != null">
+        #{pictemp42,jdbcType=VARCHAR},
+      </if>
+      <if test="pic43 != null">
+        #{pic43,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp43 != null">
+        #{pictemp43,jdbcType=VARCHAR},
+      </if>
+      <if test="money5 != null">
+        #{money5,jdbcType=DECIMAL},
+      </if>
+      <if test="pic51 != null">
+        #{pic51,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp51 != null">
+        #{pictemp51,jdbcType=VARCHAR},
+      </if>
+      <if test="pic52 != null">
+        #{pic52,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp52 != null">
+        #{pictemp52,jdbcType=VARCHAR},
+      </if>
+      <if test="pic53 != null">
+        #{pic53,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp53 != null">
+        #{pictemp53,jdbcType=VARCHAR},
+      </if>
+      <if test="money6 != null">
+        #{money6,jdbcType=DECIMAL},
+      </if>
+      <if test="pic61 != null">
+        #{pic61,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp61 != null">
+        #{pictemp61,jdbcType=VARCHAR},
+      </if>
+      <if test="pic62 != null">
+        #{pic62,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp62 != null">
+        #{pictemp62,jdbcType=VARCHAR},
+      </if>
+      <if test="pic63 != null">
+        #{pic63,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp63 != null">
+        #{pictemp63,jdbcType=VARCHAR},
+      </if>
+      <if test="money7 != null">
+        #{money7,jdbcType=DECIMAL},
+      </if>
+      <if test="pic71 != null">
+        #{pic71,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp71 != null">
+        #{pictemp71,jdbcType=VARCHAR},
+      </if>
+      <if test="pic72 != null">
+        #{pic72,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp72 != null">
+        #{pictemp72,jdbcType=VARCHAR},
+      </if>
+      <if test="pic73 != null">
+        #{pic73,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp73 != null">
+        #{pictemp73,jdbcType=VARCHAR},
+      </if>
+      <if test="money8 != null">
+        #{money8,jdbcType=DECIMAL},
+      </if>
+      <if test="pic81 != null">
+        #{pic81,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp81 != null">
+        #{pictemp81,jdbcType=VARCHAR},
+      </if>
+      <if test="pic82 != null">
+        #{pic82,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp82 != null">
+        #{pictemp82,jdbcType=VARCHAR},
+      </if>
+      <if test="pic83 != null">
+        #{pic83,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp83 != null">
+        #{pictemp83,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getTaxDetailByState" resultMap="BaseResultMapT">
+        SELECT * FROM Tax
+        WHERE STATE = 4 AND EMPNO = #{empno,jdbcType =VARCHAR}
+  </select>
+  <update id="updateTax" parameterType="com.liangxin.platform.common.entity.tax.pt.Tax">
+    update TAX
+    <set>
+      <if test="empno != null">
+        EMPNO = #{empno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applytime != null">
+        APPLYTIME = #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvaltime != null">
+        APPROVALTIME = #{approvaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opinion != null">
+        OPINION = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteflag != null">
+        DELETEFLAG = #{deleteflag,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="money1 != null">
+        MONEY1 = #{money1,jdbcType=DECIMAL},
+      </if>
+      <if test="pic11 != null">
+        PIC1_1 = #{pic11,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp11 != null">
+        PICTEMP1_1 = #{pictemp11,jdbcType=VARCHAR},
+      </if>
+      <if test="pic12 != null">
+        PIC1_2 = #{pic12,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp12 != null">
+        PICTEMP1_2 = #{pictemp12,jdbcType=VARCHAR},
+      </if>
+      <if test="pic13 != null">
+        PIC1_3 = #{pic13,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp13 != null">
+        PICTEMP1_3 = #{pictemp13,jdbcType=VARCHAR},
+      </if>
+      <if test="money2 != null">
+        MONEY2 = #{money2,jdbcType=VARCHAR},
+      </if>
+      <if test="pic21 != null">
+        PIC2_1 = #{pic21,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp21 != null">
+        PICTEMP2_1 = #{pictemp21,jdbcType=VARCHAR},
+      </if>
+      <if test="pic22 != null">
+        PIC2_2 = #{pic22,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp22 != null">
+        PICTEMP2_2 = #{pictemp22,jdbcType=VARCHAR},
+      </if>
+      <if test="pic23 != null">
+        PIC2_3 = #{pic23,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp23 != null">
+        PICTEMP2_3 = #{pictemp23,jdbcType=VARCHAR},
+      </if>
+      <if test="money3 != null">
+        MONEY3 = #{money3,jdbcType=DECIMAL},
+      </if>
+      <if test="pic31 != null">
+        PIC3_1 = #{pic31,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp31 != null">
+        PICTEMP3_1 = #{pictemp31,jdbcType=VARCHAR},
+      </if>
+      <if test="pic32 != null">
+        PIC3_2 = #{pic32,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp32 != null">
+        PICTEMP3_2 = #{pictemp32,jdbcType=VARCHAR},
+      </if>
+      <if test="pic33 != null">
+        PIC3_3 = #{pic33,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp33 != null">
+        PICTEMP3_3 = #{pictemp33,jdbcType=VARCHAR},
+      </if>
+      <if test="money4 != null">
+        MONEY4 = #{money4,jdbcType=DECIMAL},
+      </if>
+      <if test="pic41 != null">
+        PIC4_1 = #{pic41,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp41 != null">
+        PICTEMP4_1 = #{pictemp41,jdbcType=VARCHAR},
+      </if>
+      <if test="pic42 != null">
+        PIC4_2 = #{pic42,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp42 != null">
+        PICTEMP4_2 = #{pictemp42,jdbcType=VARCHAR},
+      </if>
+      <if test="pic43 != null">
+        PIC4_3 = #{pic43,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp43 != null">
+        PICTEMP4_3 = #{pictemp43,jdbcType=VARCHAR},
+      </if>
+      <if test="money5 != null">
+        MONEY5 = #{money5,jdbcType=DECIMAL},
+      </if>
+      <if test="pic51 != null">
+        PIC5_1 = #{pic51,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp51 != null">
+        PICTEMP5_1 = #{pictemp51,jdbcType=VARCHAR},
+      </if>
+      <if test="pic52 != null">
+        PIC5_2 = #{pic52,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp52 != null">
+        PICTEMP5_2 = #{pictemp52,jdbcType=VARCHAR},
+      </if>
+      <if test="pic53 != null">
+        PIC5_3 = #{pic53,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp53 != null">
+        PICTEMP5_3 = #{pictemp53,jdbcType=VARCHAR},
+      </if>
+      <if test="money6 != null">
+        MONEY6 = #{money6,jdbcType=DECIMAL},
+      </if>
+      <if test="pic61 != null">
+        PIC6_1 = #{pic61,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp61 != null">
+        PICTEMP6_1 = #{pictemp61,jdbcType=VARCHAR},
+      </if>
+      <if test="pic62 != null">
+        PIC6_2 = #{pic62,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp62 != null">
+        PICTEMP6_2 = #{pictemp62,jdbcType=VARCHAR},
+      </if>
+      <if test="pic63 != null">
+        PIC6_3 = #{pic63,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp63 != null">
+        PICTEMP6_3 = #{pictemp63,jdbcType=VARCHAR},
+      </if>
+      <if test="money7 != null">
+        MONEY7 = #{money7,jdbcType=DECIMAL},
+      </if>
+      <if test="pic71 != null">
+        PIC7_1 = #{pic71,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp71 != null">
+        PICTEMP7_1 = #{pictemp71,jdbcType=VARCHAR},
+      </if>
+      <if test="pic72 != null">
+        PIC7_2 = #{pic72,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp72 != null">
+        PICTEMP7_2 = #{pictemp72,jdbcType=VARCHAR},
+      </if>
+      <if test="pic73 != null">
+        PIC7_3 = #{pic73,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp73 != null">
+        PICTEMP7_3 = #{pictemp73,jdbcType=VARCHAR},
+      </if>
+      <if test="money8 != null">
+        MONEY8 = #{money8,jdbcType=DECIMAL},
+      </if>
+      <if test="pic81 != null">
+        PIC8_1 = #{pic81,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp81 != null">
+        PICTEMP8_1 = #{pictemp81,jdbcType=VARCHAR},
+      </if>
+      <if test="pic82 != null">
+        PIC8_2 = #{pic82,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp82 != null">
+        PICTEMP8_2 = #{pictemp82,jdbcType=VARCHAR},
+      </if>
+      <if test="pic83 != null">
+        PIC8_3 = #{pic83,jdbcType=VARCHAR},
+      </if>
+      <if test="pictemp83 != null">
+        PICTEMP8_3 = #{pictemp83,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="uploadPic">
+    UPDATE TAX SET ${param}=#{value,jdbcType =VARCHAR},${paramtemp}=#{temp,jdbcType=VARCHAR},UPDATETIME = #{updatetime,jdbcType=TIMESTAMP} WHERE SID = #{sid,jdbcType = INTEGER}
+  </update>
+  <update id="deletePic">
+    UPDATE TAX SET ${pDeletePicInput.pic}=#{pDeletePicInput.emptyStr,jdbcType =VARCHAR},${pDeletePicInput.pictemp}=#{pDeletePicInput.emptyStr,jdbcType =VARCHAR},UPDATETIME = #{pDeletePicInput.updatetime,jdbcType=TIMESTAMP} WHERE SID = #{pDeletePicInput.sid,jdbcType = INTEGER}
+  </update>
+</mapper>

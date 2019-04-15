@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.IRegularBusMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+        <id column="ID_" property="id" jdbcType="OTHER" />
+        <result column="NAME_" property="name" jdbcType="OTHER" />
+        <result column="DESC_" property="desc" jdbcType="OTHER" />
+        <result column="CAR_NUMBER_" property="carNumber" jdbcType="OTHER" />
+        <result column="FROM_" property="from" jdbcType="DECIMAL" />
+        <result column="TO_" property="to" jdbcType="DECIMAL" />
+        <result column="SET_OUT_TIME_" property="setOutTime" jdbcType="OTHER" />
+        <result column="ARRIVE_TIME_" property="arriveTime" jdbcType="OTHER" />
+        <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+        <result column="TIME_TYPE_" property="timeType" jdbcType="DECIMAL" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    ID_, NAME_, DESC_, CAR_NUMBER_, FROM_, TO_, SET_OUT_TIME_, ARRIVE_TIME_, UPDATE_TIME_,
+    CREATE_TIME_, DELETE_FLAG_, TIME_TYPE_
+  </sql>
+    <select id="getAll" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+        <include refid="Base_Column_List"/>
+        from REGULAR_BUS_ a
+        where a.delete_flag_=0
+        <if test="pRegularBusInputForGetAllList.id != null">
+            and a.id_ = #{pRegularBusInputForGetAllList.id,jdbcType=NVARCHAR}
+        </if>
+        <if test="pRegularBusInputForGetAllList.name != null">
+            and a.name_ LIKE concat('%',#{pRegularBusInputForGetAllList.name,jdbcType=NVARCHAR},'%')
+        </if>
+        <if test="pRegularBusInputForGetAllList.parentId != null">
+            and a.TIME_TYPE_ = #{pRegularBusInputForGetAllList.timeType,jdbcType=NVARCHAR}
+        </if>
+        <if test="pRegularBusInputForGetAllList.disable != null">
+            and a.FROM_ = #{pRegularBusInputForGetAllList.disable,jdbcType=INTEGER}
+        </if>
+        order by a.create_time_ desc
+    </select>
+    <select id="getMaxUpdateTime" resultType="java.lang.String">
+       <![CDATA[
+        select
+        MAX(update_time_)
+        from PT.PROPOSAL_ a
+        where a.delete_flag_=0
+        ]]>
+    </select>
+</mapper>

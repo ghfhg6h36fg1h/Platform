@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IConsumeMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.ConsumeInfo">
+        <result column="DevName" property="devName" jdbcType="VARCHAR"/>
+        <result column="XFPosDay" property="posDay" jdbcType="VARCHAR"/>
+        <result column="XFPosMoney" property="posMoney" jdbcType="VARCHAR"/>
+        <result column="XFCardUseNum" property="cardUseNum" jdbcType="VARCHAR"/>
+        <result column="XFCardMoney" property="cardMoney" jdbcType="VARCHAR"/>
+        <result column="secid" property="secid" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getConsumeInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+       SELECT (SELECT Com_Dev.DevName FROM Com_Dev WHERE Pos_XFData.DevID = Com_Dev.DevID) AS DevName,
+	   Pos_XFData.XFPosDay,Pos_XFData.XFPosMoney,Pos_XFData.XFCardUseNum,Pos_XFData.XFCardMoney,
+	   (SELECT Com_NSysCardSector.NUserSectorUsgDesc FROM Com_NSysCardSector WHERE Pos_XFData.secid = Com_NSysCardSector.NUserSector) AS secid
+	   FROM Pos_XFData,Hrms_Emp,Com_EmpCard WHERE Pos_XFData.CardID = Com_EmpCard.CardID AND Com_EmpCard.EmpID = Hrms_Emp.EmpID
+	   AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+	   AND DateDiff(dd,Pos_XFData.XFPosDay,getdate())<=30
+	   UNION ALL
+	   SELECT Pos_PutMoney.Remark,Pos_PutMoney.PutMoneyDay,Pos_PutMoney.PutMoneyValue,Pos_PutMoney.CardUseNum,Pos_PutMoney.CardMoneyAfter,
+	   (SELECT Com_NSysCardSector.NUserSectorUsgDesc FROM Com_NSysCardSector WHERE Pos_PutMoney.SecId = Com_NSysCardSector.NUserSector) AS secid
+	   FROM Pos_PutMoney,Hrms_Emp WHERE Pos_PutMoney.Empid = Hrms_Emp.EmpID
+	   AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+	   AND DateDiff(dd,Pos_PutMoney.PutMoneyDay,getdate())<=30
+	   ORDER BY XFCardUseNum DESC
+]]>
+    </select>
+    <select id="getConsumeInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT (SELECT Com_Dev.DevName FROM Com_Dev WHERE Pos_XFData.DevID = Com_Dev.DevID) AS DevName,
+		Pos_XFData.XFPosDay,Pos_XFData.XFPosMoney,Pos_XFData.XFCardUseNum,Pos_XFData.XFCardMoney,
+		(SELECT Com_NSysCardSector.NUserSectorUsgDesc FROM Com_NSysCardSector WHERE Pos_XFData.secid = Com_NSysCardSector.NUserSector) AS secid
+		FROM Pos_XFData,Hrms_Emp,Com_EmpCard WHERE Pos_XFData.CardID = Com_EmpCard.CardID AND Com_EmpCard.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_XFData.XFPosDay,112) >= #{startdate,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_XFData.XFPosDay,112) <= #{enddate,jdbcType=VARCHAR}
+		UNION ALL
+		SELECT Pos_PutMoney.Remark,Pos_PutMoney.PutMoneyDay,Pos_PutMoney.PutMoneyValue,Pos_PutMoney.CardUseNum,Pos_PutMoney.CardMoneyAfter,
+		(SELECT Com_NSysCardSector.NUserSectorUsgDesc FROM Com_NSysCardSector WHERE Pos_PutMoney.SecId = Com_NSysCardSector.NUserSector) AS secid
+		FROM Pos_PutMoney,Hrms_Emp WHERE Pos_PutMoney.Empid = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_PutMoney.PutMoneyDay,112) >= #{startdate,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_PutMoney.PutMoneyDay,112) <= #{enddate,jdbcType=VARCHAR}
+		ORDER BY XFCardUseNum DESC
+]]>
+    </select>
+</mapper>

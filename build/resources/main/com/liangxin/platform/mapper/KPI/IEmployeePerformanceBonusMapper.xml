@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.KPI.IEmployeePerformanceBonusMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.KPI.EmployeeBonus">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="EMPLOYEENO" property="employeeNo" jdbcType="NVARCHAR"/>
+        <result column="NAME" property="name" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="TEAMOVERFULFILLBONUS" property="teamOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="WASTAGE" property="wastage" jdbcType="NVARCHAR"/>
+        <result column="DEDUCTBONUS" property="deductBonus" jdbcType="NVARCHAR"/>
+        <result column="TEAMPERFORMANCEBONUS" property="teamPerformanceBonus" jdbcType="NVARCHAR"/>
+        <result column="BONUSFACTOR" property="bonusFactor" jdbcType="NVARCHAR"/>
+        <result column="PERBONUS" property="perBonus" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="getEmployeeBonus" resultMap="BaseResultMap">
+        select * from prdemployeebonus where prddate in (select max(prddate) from prdemployeebonus)
+        <if test="employeeNo != null and employeeNo != ''">
+            and (EMPLOYEENO = #{employeeNo,jdbcType =NVARCHAR} OR NAME like CONCAT('%',#{employeeNo,jdbcType =NVARCHAR},'%'))
+        </if>
+        <if test="lineName != null and lineName != ''">
+            and LINENAME like CONCAT('%',#{lineName,jdbcType =NVARCHAR},'%')
+        </if>
+        order by sid
+    </select>
+    <select id="getEmployeeBonusList" resultMap="BaseResultMap">
+        SELECT * FROM prdemployeebonus where prddate in (select max(prddate) from prdemployeebonus) order by sid
+    </select>
+    <resultMap id="BaseResultMapP" type="com.liangxin.platform.common.entity.KPI.EmployeePerformance">
+        <result column="QUALITYVIOLATION" property="qualityViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING1" property="ranking1" jdbcType="NVARCHAR"/>
+        <result column="CROSSCHECKVIOLATIONS" property="crossCheckViolations" jdbcType="NVARCHAR"/>
+        <result column="RANKING2" property="ranking2" jdbcType="NVARCHAR"/>
+        <result column="ATTENDANCEVIOLATION" property="attendanceViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING3" property="ranking3" jdbcType="NVARCHAR"/>
+        <result column="CASUALLEAVE" property="casualLeave" jdbcType="NVARCHAR"/>
+        <result column="RANKING4" property="ranking4" jdbcType="NVARCHAR"/>
+        <result column="WORKSHOPDISCIPLINE" property="workshopDiscipline" jdbcType="NVARCHAR"/>
+        <result column="RANKING5" property="ranking5" jdbcType="NVARCHAR"/>
+        <result column="PPEWEARSTANDARD" property="ppeWearStandard" jdbcType="NVARCHAR"/>
+        <result column="RANKING6" property="ranking6" jdbcType="NVARCHAR"/>
+        <result column="TRAFFICSAFETY" property="trafficSafety" jdbcType="NVARCHAR"/>
+        <result column="RANKING7" property="ranking7" jdbcType="NVARCHAR"/>
+        <result column="REDCARDPOSTING" property="redCardPosting" jdbcType="NVARCHAR"/>
+        <result column="RANKING8" property="ranking8" jdbcType="NVARCHAR"/>
+        <result column="TYPICALEVENTS" property="typicalEvents" jdbcType="NVARCHAR"/>
+        <result column="RANKING9" property="ranking9" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="getEmployeePerformance" resultMap="BaseResultMapP">
+        SELECT QUALITYVIOLATION,
+        RANKING1,CROSSCHECKVIOLATIONS,RANKING2,ATTENDANCEVIOLATION,
+        RANKING3,CASUALLEAVE,RANKING4,WORKSHOPDISCIPLINE,RANKING5,
+        PPEWEARSTANDARD,RANKING6,TRAFFICSAFETY,RANKING7,REDCARDPOSTING,
+        RANKING8,TYPICALEVENTS,RANKING9
+        FROM prdemployeeperformance
+        where sid is not null
+        <if test="prdDate != null and prdDate != ''">
+            and prddate = #{prdDate,jdbcType =NVARCHAR}
+        </if>
+        <if test="employeeNo != null and employeeNo != ''">
+            and EMPLOYEENO = #{employeeNo,jdbcType =NVARCHAR}
+        </if>
+    </select>
+    <resultMap id="BaseResultMapEpi" type="com.liangxin.platform.common.entity.KPI.EmployeePerformanceImport">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="EMPLOYEENO" property="employeeNo" jdbcType="NVARCHAR"/>
+        <result column="NAME" property="name" jdbcType="NVARCHAR"/>
+        <result column="QUALITYVIOLATION" property="qualityViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING1" property="ranking1" jdbcType="NVARCHAR"/>
+        <result column="CROSSCHECKVIOLATIONS" property="crossCheckViolations" jdbcType="NVARCHAR"/>
+        <result column="RANKING2" property="ranking2" jdbcType="NVARCHAR"/>
+        <result column="ATTENDANCEVIOLATION" property="attendanceViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING3" property="ranking3" jdbcType="NVARCHAR"/>
+        <result column="CASUALLEAVE" property="casualLeave" jdbcType="NVARCHAR"/>
+        <result column="RANKING4" property="ranking4" jdbcType="NVARCHAR"/>
+        <result column="WORKSHOPDISCIPLINE" property="workshopDiscipline" jdbcType="NVARCHAR"/>
+        <result column="RANKING5" property="ranking5" jdbcType="NVARCHAR"/>
+        <result column="PPEWEARSTANDARD" property="ppeWearStandard" jdbcType="NVARCHAR"/>
+        <result column="RANKING6" property="ranking6" jdbcType="NVARCHAR"/>
+        <result column="TRAFFICSAFETY" property="trafficSafety" jdbcType="NVARCHAR"/>
+        <result column="RANKING7" property="ranking7" jdbcType="NVARCHAR"/>
+        <result column="REDCARDPOSTING" property="redCardPosting" jdbcType="NVARCHAR"/>
+        <result column="RANKING8" property="ranking8" jdbcType="NVARCHAR"/>
+        <result column="TYPICALEVENTS" property="typicalEvents" jdbcType="NVARCHAR"/>
+        <result column="RANKING9" property="ranking9" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="getEmployeePerformanceImport" resultMap="BaseResultMapEpi">
+        select SID,WORKSHOP,EMPLOYEENO,NAME,QUALITYVIOLATION,RANKING1,CROSSCHECKVIOLATIONS,RANKING2,ATTENDANCEVIOLATION,RANKING3,CASUALLEAVE,RANKING4,WORKSHOPDISCIPLINE,RANKING5,PPEWEARSTANDARD,RANKING6,TRAFFICSAFETY,RANKING7,REDCARDPOSTING,RANKING8,TYPICALEVENTS,RANKING9,RANK,PRDDATE
+        from prdemployeeperformance
+        where prddate in (select max(prddate) from prdemployeeperformance)
+        order by sid
+    </select>
+    <select id="getEmployeePerformanceImportbysid" resultMap="BaseResultMapEpi">
+        select WORKSHOP,EMPLOYEENO,NAME,QUALITYVIOLATION,RANKING1,CROSSCHECKVIOLATIONS,RANKING2,ATTENDANCEVIOLATION,RANKING3,CASUALLEAVE,RANKING4,WORKSHOPDISCIPLINE,RANKING5,PPEWEARSTANDARD,RANKING6,TRAFFICSAFETY,RANKING7,REDCARDPOSTING,RANKING8,TYPICALEVENTS,RANKING9,RANK,PRDDATE
+        from prdemployeeperformance
+        where prddate in (select max(prddate) from prdemployeeperformance)
+        <if test="sid != null and sid != ''">
+            and SID = #{sid,jdbcType =NVARCHAR}
+        </if>
+    </select>
+</mapper>

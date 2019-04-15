@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var gIsLeave = 0;
+
+        $(document).ready(function () {
+            var mCapitalId = getQueryVariable("id");
+            if (mCapitalId != false) {
+                $("#gUrlCapitalId").val(mCapitalId);
+            }
+            //获取当前班长；
+            getById(mCapitalId);
+            //设置当前选中checkbox的状态
+            $(":checkbox").click(function () {
+                $(this).attr("checked", true);//设置当前选中checkbox的状态为checked
+
+                if ($(this).attr("id") == "isLeaveFalse") {
+                    gIsLeave = 0;
+                } else {
+                    gIsLeave = 1;
+                }
+
+                $(this).siblings().attr("checked", false); //设置当前选中的checkbox同级(兄弟级)其他checkbox状态为未选中
+            });
+            window.parent.document.getElementById("a_leader_txt_next").innerText=$("#webSetNavigation strong").text();
+        })
+
+        function updateCapital() {
+            var mParas = {isLeave: gIsLeave};
+
+            if ($.trim($("#gUrlCapitalId").val()) == "") {
+                alert("数据问题！会返回至列表页面重新回来继续修改！");
+                window.location.go(-1);
+            } else {
+                mParas.id = $.trim($("#gUrlCapitalId").val());
+            }
+
+            if (!$.trim($("#capitalName").val()) == "") {
+                mParas.name = $.trim($("#capitalName").val());
+            }
+            if (!$.trim($("#capitalWorkShopLine").val()) == "") {
+                mParas.workshopLine = $.trim($("#capitalWorkShopLine").val());
+            }
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/capital/update",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href="/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        function getById(id) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/capital/" + id + "",
+                dataType: "json",
+                data: {},
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        if(data.data.length>0){
+                            $("#capitalName").val(data.data[0]["name"].toString());
+                            $("#capitalWorkShopLine").val(data.data[0]["workshopLine"].toString());
+                            if(data.data[0]["isLeave"].toString()=="0"){
+                                $("#isLeaveFalse").attr("checked",true);
+                            }else {
+                                $("#isLeaveTrue").attr("checked",true);
+                            }
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href="/loginPage";
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlCapitalId" value=""/>
+<div class="panel admin-panel">
+    <div class="panel-head" id="webSetNavigation"><strong><span class="icon-pencil-square-o"></span>修改班长</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="capitalName" class="input w50" value="" name="title" onblur="stringLengthRestrict(this,15)"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>车间线别：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="capitalWorkShopLine" name="img" class="input tips" onblur="stringLengthRestrict(this,30)"
+                           style="width:25%; float:left;" value=""/>
+                </div>
+            </div>
+
+            <if condition="$iscid eq 1">
+                <div class="form-group">
+                    <div class="label">
+                        <label>是否有效：</label>
+                    </div>
+                    <div id="checkboxListId" class="field" style="padding-top:8px;">
+                        有效 <input id="isLeaveFalse" type="checkbox"/>
+                        无效 <input id="isLeaveTrue" type="checkbox"/>
+                    </div>
+                </div>
+            </if>
+            <div class="clear"></div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input class="button bg-main icon-check-square-o" type="button" value="提交"
+                           onclick="updateCapital();"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

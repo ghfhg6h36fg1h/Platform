@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.ReadyToMemberRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.ReadyToMemberRecord" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="WORK_ID_" property="workId" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="POST_TIME_" property="postTime" jdbcType="TIMESTAMP" />
+    <result column="POST_STATUS_" property="postStatus" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="MEMBER_DATE_" property="memberDate" jdbcType="TIMESTAMP" />
+    <result column="CONTENT_" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, WORK_ID_, EMAIL, POST_TIME_, POST_STATUS_, UPDATE_TIME_, CREATE_TIME_, 
+    DELETE_FLAG_, MEMBER_DATE_, CONTENT_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from READY_TO_MEMBER_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from READY_TO_MEMBER_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ReadyToMemberRecord" >
+    insert into READY_TO_MEMBER_RECORD_ (ID_, NAME_, WORK_ID_,
+      EMAIL, POST_TIME_, POST_STATUS_, 
+      UPDATE_TIME_, CREATE_TIME_, DELETE_FLAG_, 
+      MEMBER_DATE_, CONTENT_)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{workId,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{postTime,jdbcType=TIMESTAMP}, #{postStatus,jdbcType=DECIMAL}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=DECIMAL}, 
+      #{memberDate,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ReadyToMemberRecord" >
+    insert into READY_TO_MEMBER_RECORD_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="workId != null" >
+        WORK_ID_,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="postTime != null" >
+        POST_TIME_,
+      </if>
+      <if test="postStatus != null" >
+        POST_STATUS_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="memberDate != null" >
+        MEMBER_DATE_,
+      </if>
+      <if test="content != null" >
+        CONTENT_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        #{postTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postStatus != null" >
+        #{postStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="memberDate != null" >
+        #{memberDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ReadyToMemberRecord" >
+    update READY_TO_MEMBER_RECORD_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        POST_TIME_ = #{postTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postStatus != null" >
+        POST_STATUS_ = #{postStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="memberDate != null" >
+        MEMBER_DATE_ = #{memberDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        CONTENT_ = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ReadyToMemberRecord" >
+    update READY_TO_MEMBER_RECORD_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      POST_TIME_ = #{postTime,jdbcType=TIMESTAMP},
+      POST_STATUS_ = #{postStatus,jdbcType=DECIMAL},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      MEMBER_DATE_ = #{memberDate,jdbcType=TIMESTAMP},
+      CONTENT_ = #{content,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

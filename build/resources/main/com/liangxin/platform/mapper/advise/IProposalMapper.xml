@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.IProposalMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.outputResult.proposal.ListOutResult">
+        <id column="id_" property="id" jdbcType="VARCHAR"/>
+        <result column="content_" property="content" jdbcType="VARCHAR"/>
+        <result column="status_" property="status" jdbcType="VARCHAR"/>
+        <result column="delete_flag_" property="deleteFlag" jdbcType="BOOLEAN"/>
+        <result column="create_time_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="owner_" property="owner" jdbcType="VARCHAR"/>
+        <result column="capital_" property="capital" jdbcType="VARCHAR"/>
+        <result column="capital_id_" property="capitalId" jdbcType="VARCHAR"/>
+        <result column="section_name_" property="sectionName" jdbcType="VARCHAR"/>
+        <result column="theme_" property="theme" jdbcType="VARCHAR"/>
+        <result column="owner_name_" property="ownerName" jdbcType="VARCHAR"/>
+        <result column="present_situation_" property="presentSituation" jdbcType="VARCHAR"/>
+        <result column="examine_opinion_" property="examineOpinion" jdbcType="VARCHAR"/>
+        <result column="month_interest_" property="monthInterest" jdbcType="BIGINT"/>
+        <result column="reward_amount_" property="rewardAmount" jdbcType="BIGINT"/>
+        <result column="oa_proposal_id_" property="oaProposalId" jdbcType="VARCHAR"/>
+        <result column="occuption_" property="occupation" jdbcType="VARCHAR"/>
+        <result column="proposal_type_" property="proposalType" jdbcType="VARCHAR"/>
+        <result column="oa_step_" property="step" jdbcType="VARCHAR"/>
+        <result column="status_code_" property="statusCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="BaseResultStatisticMap" type="com.liangxin.platform.common.entity.advise.outputResult.proposal.ProposalStatisticOut">
+        <result column="pendingCount" property="pendingCount" jdbcType="VARCHAR"/>
+        <result column="passedCount" property="passedCount" jdbcType="VARCHAR"/>
+        <result column="rejectCount" property="rejectCount" jdbcType="VARCHAR"/>
+        <result column="eventuallyReject" property="eventuallyReject" jdbcType="VARCHAR"/>
+        <result column="reNew" property="reNew" jdbcType="VARCHAR"/>
+        <result column="eventuallyPass" property="eventuallyPass" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT a.id_,section_name_,owner_name_,owner_,theme_,a.create_time_,b.name_ as status_,c.name_ as
+        capital_,a.proposal_type_
+        ,a.oa_step_
+        FROM
+        proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_
+        LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_
+        where a.delete_flag_=0
+        <if test="pListInput.presentWorkId != null">
+            and a.capital_id_ = #{pListInput.presentWorkId,jdbcType=VARCHAR}
+        </if>
+        <if test="pListInput.searchContent != null">
+            and ( a.owner_ LIKE concat('%',#{pListInput.searchContent,jdbcType=VARCHAR},'%')
+            or a.owner_name_ LIKE concat('%',#{pListInput.searchContent,jdbcType=VARCHAR},'%')
+            or a.theme_ LIKE concat('%',#{pListInput.searchContent,jdbcType=VARCHAR},'%') )
+        </if>
+        <if test="pListInput.owner != null">
+            and a.owner_ = #{pListInput.owner,jdbcType=VARCHAR}
+        </if>
+        <!--<if test="pListInput.searchContent != null">-->
+        <!--and   theme_ LIKE concat(concat('%',#{pListInput.searchContent,jdbcType=NVARCHAR}),'%')-->
+        <!--</if>-->
+        <if test="pListInput.status != null">
+            and a.status_ = #{pListInput.status,jdbcType=VARCHAR}
+        </if>
+        order by a.CREATE_TIME_ desc
+    </select>
+    <select id="getOAAll" resultMap="BaseResultMap">
+        SELECT a.id_,section_name_,owner_name_,owner_,theme_,a.create_time_,b.name_ as status_,c.name_ as
+        capital_,a.proposal_type_,a.OCCUPTION_,a.oa_proposal_id_,c.work_id_ as capital_id_
+        ,a.oa_step_
+        FROM
+        proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_
+        LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_
+        where a.delete_flag_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.status != null">
+            and a.status_ = #{pListOAInput.status,jdbcType=VARCHAR}
+        </if>
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        order by a.CREATE_TIME_ desc
+    </select>
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT a.id_,section_name_,owner_name_,owner_,theme_,a.create_time_,b.name_ as status_,
+        c.name_ as capital_,a.present_situation_,a.examine_opinion_,
+        a.month_interest_,a.reward_amount_,a.content_,a.oa_proposal_id_,a.occuption_,a.proposal_type_,a.oa_step_,
+        a.status_ as status_code_,
+        c.work_id_ as capital_id_
+        FROM
+        proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_
+                    left join capital_ c on a.capital_id_=c.work_id_
+        where a.delete_flag_=0  and a.id_=#{pId}
+    </select>
+    <insert id="addProposal" parameterType="com.liangxin.platform.common.entity.advise.Proposal" useGeneratedKeys="true"
+            keyProperty="record.id">
+        insert into proposal_
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id_,
+            </if>
+            <if test="content != null">
+                content_,
+            </if>
+            <if test="status != null">
+                status_,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag_,
+            </if>
+            <if test="owner != null">
+                owner_,
+            </if>
+            <if test="capitalId != null">
+                capital_id_,
+                section_name_,
+            </if>
+            <if test="theme != null">
+                theme_,
+            </if>
+            <if test="ownerName != null">
+                owner_name_,
+            </if>
+            <if test="presentSituation != null">
+                present_situation_,
+            </if>
+            <if test="examineOpinion != null">
+                examine_opinion_,
+            </if>
+            <if test="monthInterest != null">
+                month_interest_,
+            </if>
+            <if test="rewardAmount != null">
+                reward_amount_,
+            </if>
+            <if test="oaProposalId != null">
+                oa_proposal_id_,
+            </if>
+            <if test="createTime != null">
+                create_time_,
+            </if>
+            <if test="updateTime != null">
+                update_time_,
+            </if>
+            <if test="proposalType != null">
+                proposal_type_,
+            </if>
+            <if test="occupation != null">
+                occuption_,
+            </if>
+            <if test="oaStep != null">
+                oa_step_
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="owner != null">
+                #{owner,jdbcType=VARCHAR},
+            </if>
+            <if test="capitalId != null">
+                #{capitalId,jdbcType=VARCHAR},
+                (select TOP 1 WORKSHOP_LINE_  from CAPITAL_  where  work_id_ = #{capitalId,jdbcType=VARCHAR} ),
+            </if>
+            <if test="theme != null">
+                #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerName != null">
+                #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="presentSituation != null">
+                #{presentSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="examineOpinion != null">
+                #{examineOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="monthInterest != null">
+                #{monthInterest,jdbcType=BIGINT},
+            </if>
+            <if test="rewardAmount != null">
+                #{rewardAmount,jdbcType=BIGINT},
+            </if>
+            <if test="oaProposalId != null">
+                #{oaProposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="proposalType != null">
+                #{proposalType,jdbcType=INTEGER},
+            </if>
+            <if test="occupation != null">
+                #{occupation,jdbcType=VARCHAR},
+            </if>
+            <if test="oaStep != null">
+                #{oaStep,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.liangxin.platform.common.entity.advise.Proposal">
+        update proposal_
+        <set>
+            <if test="content != null">
+                content_ = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status_ = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag_ = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="owner != null">
+                owner_ = #{owner,jdbcType=VARCHAR},
+            </if>
+            <if test="capitalId != null">
+                capital_id_ = #{capitalId,jdbcType=VARCHAR},
+            </if>
+            <if test="sectionName != null">
+                section_name_ = #{sectionName,jdbcType=VARCHAR},
+            </if>
+            <if test="theme != null">
+                theme_ = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerName != null">
+                owner_name_ = #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="presentSituation != null">
+                present_situation_ = #{presentSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="examineOpinion != null">
+                examine_opinion_ = #{examineOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="monthInterest != null">
+                month_interest_ = #{monthInterest,jdbcType=BIGINT},
+            </if>
+            <if test="rewardAmount != null">
+                reward_amount_ = #{rewardAmount,jdbcType=BIGINT},
+            </if>
+            <if test="oaProposalId != null">
+                oa_proposal_id_ = #{oaProposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time_ = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time_ = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oaStep != null">
+                oa_step_= #{oaStep,jdbcType=VARCHAR},
+            </if>
+            <if test="occupation != null">
+                occuption_= #{occupation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id_ = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByOwner" parameterType="com.liangxin.platform.common.entity.advise.Proposal">
+        update proposal_
+        <set>
+            <if test="content != null">
+                content_ = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status_ = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag_ = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="owner != null">
+                owner_ = #{owner,jdbcType=VARCHAR},
+            </if>
+            <if test="capitalId != null">
+                capital_id_ = #{capitalId,jdbcType=VARCHAR},
+                section_name_ = (select TOP 1 WORKSHOP_LINE_  from CAPITAL_  where  work_id_ = #{capitalId,jdbcType=VARCHAR} ),
+            </if>
+            <if test="theme != null">
+                theme_ = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerName != null">
+                owner_name_ = #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="presentSituation != null">
+                present_situation_ = #{presentSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="examineOpinion != null">
+                examine_opinion_ = #{examineOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="monthInterest != null">
+                month_interest_ = #{monthInterest,jdbcType=BIGINT},
+            </if>
+            <if test="rewardAmount != null">
+                reward_amount_ = #{rewardAmount,jdbcType=BIGINT},
+            </if>
+            <if test="oaProposalId != null">
+                oa_proposal_id_ = #{oaProposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time_ = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time_ = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oaStep != null">
+                oa_step_= #{oaStep,jdbcType=VARCHAR},
+            </if>
+            <if test="occupation != null">
+                occuption_= #{occupation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id_ = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="getCapitalIdById" resultType="java.lang.String">
+        SELECT TOP 1 capital_id_
+        FROM
+        proposal_
+        where delete_flag_=0  and id_=#{pId}
+    </select>
+
+    <select id="getStatisticProposal" resultMap="BaseResultStatisticMap">
+        select
+        (select count(0) from PROPOSAL_ a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='2' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as pendingCount,
+        (select count(0) from PROPOSAL_  a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='1' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as passedCount,
+        (select count(0) from PROPOSAL_ a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='0' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as rejectCount,
+        (select count(0) from PROPOSAL_ a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='3' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as eventuallyReject,
+        (select count(0) from PROPOSAL_ a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='4' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as reNew,
+        (select count(0) from PROPOSAL_ a LEFT JOIN capital_ c on a.CAPITAL_ID_=c.work_id_ where a.STATUS_='5' and a.DELETE_FLAG_=0
+        <if test="pListOAInput.ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{pListOAInput.ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.capitalName != null">
+            and c.name_ LIKE concat('%',#{pListOAInput.capitalName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pListOAInput.theme != null">
+            and a.theme_ LIKE concat('%',#{pListOAInput.theme,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="pListOAInput.searchStartDate != null">
+            and a.create_time_ &gt;= #{pListOAInput.searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pListOAInput.searchEndDate != null">
+            and a.create_time_ &lt;= #{pListOAInput.searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as eventuallyPass
+        from PROPOSAL_STATUS_
+    </select>
+</mapper>

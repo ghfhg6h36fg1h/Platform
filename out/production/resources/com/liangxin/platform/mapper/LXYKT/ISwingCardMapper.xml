@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.ISwingCardMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.SwingCardInfo">
+        <result column="KqDate" property="kqDate" jdbcType="VARCHAR"/>
+        <result column="KqTime" property="kqTime" jdbcType="VARCHAR"/>
+        <result column="Remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="DataTypeID" property="dataTypeID" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getSwingCardInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT KqDate,KqTime,Remark,DataTypeID
+        FROM Att_KqData
+        LEFT JOIN Hrms_Emp
+        ON Att_KqData.EmpID = Hrms_Emp.EmpID
+        WHERE Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+        AND DateDiff(dd,KqDate,getdate())<=30
+        ORDER BY KqDate DESC
+]]>
+    </select>
+    <select id="getSwingCardInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT KqDate,KqTime,Remark,DataTypeID
+        FROM Att_KqData
+        LEFT JOIN Hrms_Emp
+        ON Att_KqData.EmpID = Hrms_Emp.EmpID
+        WHERE Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+        AND CONVERT(VARCHAR(24),KqDate,112) >= #{startdate,jdbcType=VARCHAR}
+        AND CONVERT(VARCHAR(24),KqDate,112) <= #{enddate,jdbcType=VARCHAR}
+        ORDER BY KqDate DESC
+]]>
+    </select>
+</mapper>

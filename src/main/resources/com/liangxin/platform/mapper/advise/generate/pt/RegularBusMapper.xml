@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.RegularBusMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+    <id column="ID_" property="id" jdbcType="OTHER" />
+    <result column="NAME_" property="name" jdbcType="OTHER" />
+    <result column="DESC_" property="desc" jdbcType="OTHER" />
+    <result column="CAR_NUMBER_" property="carNumber" jdbcType="OTHER" />
+    <result column="FROM_" property="from" jdbcType="DECIMAL" />
+    <result column="TO_" property="to" jdbcType="DECIMAL" />
+    <result column="SET_OUT_TIME_" property="setOutTime" jdbcType="OTHER" />
+    <result column="ARRIVE_TIME_" property="arriveTime" jdbcType="OTHER" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="TIME_TYPE_" property="timeType" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, DESC_, CAR_NUMBER_, FROM_, TO_, SET_OUT_TIME_, ARRIVE_TIME_, UPDATE_TIME_, 
+    CREATE_TIME_, DELETE_FLAG_, TIME_TYPE_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Object" >
+    select 
+    <include refid="Base_Column_List" />
+    from REGULAR_BUS_
+    where ID_ = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object" >
+    delete from REGULAR_BUS_
+    where ID_ = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+    insert into REGULAR_BUS_ (ID_, NAME_, DESC_, CAR_NUMBER_,
+      FROM_, TO_, SET_OUT_TIME_, 
+      ARRIVE_TIME_, UPDATE_TIME_, CREATE_TIME_, 
+      DELETE_FLAG_, TIME_TYPE_)
+    values (#{id,jdbcType=OTHER}, #{name,jdbcType=OTHER}, #{desc,jdbcType=OTHER}, #{carNumber,jdbcType=OTHER}, 
+      #{from,jdbcType=DECIMAL}, #{to,jdbcType=DECIMAL}, #{setOutTime,jdbcType=OTHER}, 
+      #{arriveTime,jdbcType=OTHER}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=DECIMAL}, #{timeType,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+    insert into REGULAR_BUS_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="desc != null" >
+        DESC_,
+      </if>
+      <if test="carNumber != null" >
+        CAR_NUMBER_,
+      </if>
+      <if test="from != null" >
+        FROM_,
+      </if>
+      <if test="to != null" >
+        TO_,
+      </if>
+      <if test="setOutTime != null" >
+        SET_OUT_TIME_,
+      </if>
+      <if test="arriveTime != null" >
+        ARRIVE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="timeType != null" >
+        TIME_TYPE_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=OTHER},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=OTHER},
+      </if>
+      <if test="carNumber != null" >
+        #{carNumber,jdbcType=OTHER},
+      </if>
+      <if test="from != null" >
+        #{from,jdbcType=DECIMAL},
+      </if>
+      <if test="to != null" >
+        #{to,jdbcType=DECIMAL},
+      </if>
+      <if test="setOutTime != null" >
+        #{setOutTime,jdbcType=OTHER},
+      </if>
+      <if test="arriveTime != null" >
+        #{arriveTime,jdbcType=OTHER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="timeType != null" >
+        #{timeType,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+    update REGULAR_BUS_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=OTHER},
+      </if>
+      <if test="desc != null" >
+        DESC_ = #{desc,jdbcType=OTHER},
+      </if>
+      <if test="carNumber != null" >
+        CAR_NUMBER_ = #{carNumber,jdbcType=OTHER},
+      </if>
+      <if test="from != null" >
+        FROM_ = #{from,jdbcType=DECIMAL},
+      </if>
+      <if test="to != null" >
+        TO_ = #{to,jdbcType=DECIMAL},
+      </if>
+      <if test="setOutTime != null" >
+        SET_OUT_TIME_ = #{setOutTime,jdbcType=OTHER},
+      </if>
+      <if test="arriveTime != null" >
+        ARRIVE_TIME_ = #{arriveTime,jdbcType=OTHER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="timeType != null" >
+        TIME_TYPE_ = #{timeType,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.RegularBus" >
+    update REGULAR_BUS_
+    set NAME_ = #{name,jdbcType=OTHER},
+      DESC_ = #{desc,jdbcType=OTHER},
+      CAR_NUMBER_ = #{carNumber,jdbcType=OTHER},
+      FROM_ = #{from,jdbcType=DECIMAL},
+      TO_ = #{to,jdbcType=DECIMAL},
+      SET_OUT_TIME_ = #{setOutTime,jdbcType=OTHER},
+      ARRIVE_TIME_ = #{arriveTime,jdbcType=OTHER},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      TIME_TYPE_ = #{timeType,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

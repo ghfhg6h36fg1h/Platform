@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.INew_IntegralMapper">
+
+    <resultMap id="BaseResultListMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.IntegralListOutResult">
+        <result column="Apply_Date_" property="applyDate" jdbcType="VARCHAR"/>
+        <result column="Money_" property="money" jdbcType="INTEGER"/>
+        <result column="status_" property="state" jdbcType="VARCHAR"/>
+        <result column="id_" property="id" jdbcType="VARCHAR"/>
+        <result column="Empno_" property="empno" jdbcType="VARCHAR"/>
+        <result column="Commission_Date_" property="Commission_Date" jdbcType="VARCHAR"/>
+        <result column="Wait_Date_" property="Wait_Date" jdbcType="VARCHAR"/>
+        <result column="Get_Date_" property="Get_Date" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <resultMap id="BaseResultTopMap"
+               type="com.liangxin.platform.common.entity.advise.generate.pt.New_Integral">
+
+        <result column="id_" property="id" jdbcType="INTEGER"/>
+        <result column="empno_" property="empno" jdbcType="VARCHAR"/>
+        <result column="integralsum_" property="integralsum" jdbcType="INTEGER"/>
+        <result column="use_Integral_" property="useIntegral" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <select id="getTopData" resultMap="BaseResultTopMap">
+        select * from New_Integral_ where empno_=#{empno,jdbcType=VARCHAR}
+    </select>
+    <select id="getListData" resultMap="BaseResultListMap">
+        select id_,status_,Apply_Date_,Money_ from New_IntegralDetail_ where empno_=#{empno,jdbcType=VARCHAR}
+        order by Apply_Date_ desc
+    </select>
+
+    <update id="ChangeIntegral"
+            parameterType="com.liangxin.platform.common.entity.advise.inputParam.proposal.ChangeMoneyInput">
+      update  New_Integral_ set Use_Integral_=(Use_Integral_-#{money,jdbcType=INTEGER}) where empno_=#{empno,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getWebIntegralList" resultMap="BaseResultListMap">
+       with  emp1 as(
+select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5)
+when len(q.orgcode5)>0 then q.orgcode5 end,
+case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end,
+case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org
+ from new_Employee1 q
+ where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')
+ --------------------
+select e_name as  depart,c_name+'（'+empno_+')'as name,empno_,Apply_Date_,status_,Money_
+from New_IntegralDetail_ ni
+left join emp1  e1
+on ni.empno_=e1.empcode
+left join new_organization nn
+on nn.orgcode2=e1.org
+where status_ = #{status,jdbcType=VARCHAR}
+order by ni.Apply_Date_ desc
+    </select>
+
+    <select id="getWebIntegralListByName" resultMap="BaseResultListMap">
+with  emp1 as(
+select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5)
+when len(q.orgcode5)>0 then q.orgcode5 end,
+case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end,
+case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org
+ from new_Employee1 q
+ where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')
+ --------------------
+select e_name as  depart,c_name+'（'+ni.empno_+')'as name,empno_,IntegralSum_ as integralsum ,Use_Integral_ as useIntegral,ID_ from New_Integral_ ni
+left join emp1  e1
+on ni.empno_=e1.empcode
+left join new_organization nn
+on nn.orgcode2=e1.org
+where ni.empno_ like '%'+ #{keyword,jdbcType=VARCHAR}+'%' or c_name like '%'+ #{keyword,jdbcType=VARCHAR}+'%'
+order by ni.IntegralSum_ desc
+
+    </select>
+
+
+    <select id="getWebIntegralListByState" resultMap="BaseResultListMap">
+        select id_,status_,Apply_Date_,Money_,Empno_,Commission_Date_,Wait_Date_,Get_Date_ from New_IntegralDetail_
+            where status_ = #{state,jdbcType=VARCHAR}
+        order by Apply_Date_ desc
+    </select>
+
+    <select id="getWebIntegralListByEmpno" resultMap="BaseResultListMap">
+        select id_,status_,Apply_Date_,Money_,Empno_,Commission_Date_,Wait_Date_,Get_Date_ from New_IntegralDetail_
+            where Empno_ = #{keyword,jdbcType=VARCHAR}
+        order by Apply_Date_ desc
+    </select>
+
+
+    <update id="updateWebIntegralListByState">
+        <if test='state=="1"'>
+            update New_IntegralDetail_ set status_='1',Commission_Date_= getdate() where status_='0'
+        </if>
+        <if test='state=="2"'>
+            update New_IntegralDetail_ set status_='2',Wait_Date_= getdate()where status_='1'
+        </if>
+    </update>
+</mapper>

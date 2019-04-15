@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var gPageCount = 0;
+        var gPageSize = 10;
+
+        var gLevel = 0;
+        var gParentId = 0;
+
+        var gMenuSearchDisable = "";
+
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"15%\">名称</th>\n" +
+                "            <th width=\"15%\">父节点</th>\n" +
+                "            <th width=\"20%\">描述</th>\n" +
+                "            <th width=\"15%\">是否有效</th>\n" +
+                "            <th width=\"35%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                currentPage: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            handleParaFunc(mParas);
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/menu/getAll",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / 10) + 1;
+                        $.each(data.data, function (i, item) {
+                            var mEditButton = "";
+                            if (item.level == 0) {
+                                mEditButton = "<a class=\"button border-main\" target='add' href=\"javascript:void(0);\"  onclick=\"addChildMenu('" + item.id + "','" + item.name + "');\"><span class=\"icon-edit\"></span>增加子节点</a>\n";
+                            }
+                            mDataHtml += "<tr><td>" + replaceNIL(item.name) + "</td>\n" +
+                                "            <td>" + (replaceNIL(item.parentId) == "" ? "(菜单为一级节点)" : replaceNIL(item.parentId)) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.desc) + "</td>\n" +
+                                "            <td>" + (item.disable == 0 ? "禁用" : "启用") + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" + mEditButton +
+                                "                    <a class=\"button border-main\" href=\"updateMenu.html?id=" + item.id + "\"><span class=\"icon-edit\"></span> 修改</a>\n" +
+                                "                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                "                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainMenuTable").html("");
+                        $("#mainMenuTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage)
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+
+        function handleParaFunc(pParas) {
+            if (!$.trim($("#searchMenuName").val()) == "") {
+                pParas.name = $.trim($("#searchMenuName").val());
+            }
+            if (gMenuSearchDisable != "") {
+                pParas.disable = gMenuSearchDisable;
+            }
+        }
+
+
+        function addMenu(pLevel, pParentId) {
+            if ($.trim($("#menuName").val()) == "") {
+                alert("名称不能为空！");
+                return false;
+            }
+            if (pLevel != 0) {
+                if ($.trim($("#menuUrl").val()) == "") {
+                    alert("指向URL不能为空不能为空！");
+                    return false;
+                }
+            }
+            var mParas = {
+                name: $.trim($("#menuName").val()),
+                actionUrl: $.trim($("#menuUrl").val()) == "" ? 'nothing' : $.trim($("#menuUrl").val()),
+                level: pLevel
+            };
+            if (!($.trim($("#menuDesc").val()) == "")) {
+                mParas.desc = $.trim($("#menuDesc").val());
+            }
+
+            if (pLevel == 1) {
+                mParas.parentId = pParentId;
+            }
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/menu/add",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                        LevelOneAdd();
+                        loadPage(1);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+
+
+        }
+
+        function prepLevelAdd() {
+            addMenu(gLevel, gParentId);
+        }
+
+        function LevelOneAdd() {
+            $("#menuName").val("");
+            $("#menuUrl").val("");
+            $("#menuDesc").val("");
+            gLevel = 0;
+            gParentId = 0;
+            document.getElementById("attentionMenuLabel").innerHTML = "您正在增加第一层菜单";
+            document.getElementById("attentionMenuLabel").style.color = "green";
+            document.getElementById("inputLevelOneAdd").style.display = "none";
+        }
+
+        function addChildMenu(pParentId, pParentName) {
+            document.getElementById("attentionMenuLabel").innerHTML = "您现在增加的是菜单第二层，父菜单名称为：" + pParentName;
+            document.getElementById("attentionMenuLabel").style.color = "red";
+            gLevel = 1;
+            gParentId = pParentId;
+            document.getElementById("inputLevelOneAdd").style.display = "block";
+        }
+
+
+        function deleteById(id) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/menu/delMenuNode/" + id,
+                dataType: "json",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                        loadPage(1);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+        function changeDisableSelect(pSelectItem) {
+            gMenuSearchDisable = $("#searchDisableSelect").find("option:selected").val();
+        }
+
+        $(function () {
+            loadPage(1);
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        })
+    </script>
+</head>
+<body id="bottomDiv">
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li>搜索：</li>
+            <li>
+                <input type="text" id="searchMenuName" placeholder="请输入角色名称" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block"/>
+            </li>
+            <li>
+                <select id="searchDisableSelect" name="s_ishome" class="input" onchange="changeDisableSelect()"
+                        style="width:150px; line-height:17px; display:inline-block">
+                    <option value="">选择是否启用</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage(1)"> 搜索</a>
+            </li>
+        </ul>
+    </div>
+    <table ID="mainMenuTable" class="table table-hover text-center">
+
+
+    </table>
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("删除后所有的子菜单都将删除,您确定要删除吗?")) {
+            deleteById(id);
+        }
+    }
+</script>
+<div class="panel admin-panel margin-top" id="add">
+    <div id="webSetNavigation" class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div id="attentionMenu" class="form-group">
+                <div class="label">
+                    <label>注意：</label>
+                </div>
+                <div class="field">
+                    <label id="attentionMenuLabel"
+                           style="color: green; font-size:14px;padding-top:7px; width:100%;line-height:20px;display:block; border-radius:3px; -webkit-appearance:none;">您正在增加第一层菜单</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>菜单名称：</label>
+                </div>
+                <div class="field">
+                    <input id="menuName" type="text" name="name" value="" class="input w50"
+                           onblur="stringLengthRestrict(this,25)"
+                           data-validate="required:菜单名称"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>URL：</label>
+                </div>
+                <div class="field">
+                    <input id="menuUrl" type="text" class="input w50" name="url" value=""
+                           onblur="stringLengthRestrict(this,100)"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>描述：</label>
+                </div>
+                <div class="field">
+                    <textarea id="menuDesc" type="text" class="input" style="height:80px;"
+                              onblur="stringLengthRestrict(this,160)"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <table>
+                        <tr>
+                            <td><input type="button" class="button bg-main icon-check-square-o"
+                                       onclick="prepLevelAdd();"
+                                       value="提交"/></td>
+                            <td><input id="inputLevelOneAdd" type="button" class="button bg-main icon-check-square-o"
+                                       style="display: none;margin-left: 20px" onclick="LevelOneAdd();"
+                                       value="增加一级菜单"/></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

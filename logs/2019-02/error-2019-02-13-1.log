@@ -1,0 +1,2 @@
+[18:56:22:544] [ERROR] - com.liangxin.platform.service.KPI.TeamOverfulfillBonusService.getTeamBonus(TeamOverfulfillBonusService.java:50) - org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'SID' from result set.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 不支持从 int 到 NCHAR 的转换。
+; uncategorized SQLException for SQL []; SQL state [null]; error code [0]; 不支持从 int 到 NCHAR 的转换。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 不支持从 int 到 NCHAR 的转换。

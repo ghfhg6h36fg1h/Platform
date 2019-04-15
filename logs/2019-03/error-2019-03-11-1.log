@@ -1,0 +1,36 @@
+[17:14:03:865] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:33) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:14:54:573] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:16:33:678] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:16:36:766] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:17:31:599] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:18:48:500] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:20:53:016] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:22:02:128] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:22:51:372] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:24:24:431] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:32:25:026] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:32) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSumData
+[17:39:26:186] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:34) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSum
+[17:41:07:166] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:34) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSum
+[20:12:51:860] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:35) - Invalid bound statement (not found): com.liangxin.platform.mapper.advise.INew_ProposalMapper.getSum
+[20:21:52:629] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:38) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'benefit' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT count (*) as AllProposal ,sum (benefit) as Allbenefit         FROM         New_Worker_PROPOSAL a         where a.delete_flag_=0
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'benefit' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'benefit' 无效。
+[20:23:29:275] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:38) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'BENEFIT' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT count (*) as AllProposal ,sum (BENEFIT) as Allbenefit         FROM         New_Worker_PROPOSAL a         where a.delete_flag_=0
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'BENEFIT' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'BENEFIT' 无效。
+[21:38:23:080] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:53) - Index: 0, Size: 0
+[21:39:29:243] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:53) - Index: 0, Size: 0
+[21:40:11:551] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:53) - Index: 0, Size: 0
+[21:41:10:534] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:53) - Index: 0, Size: 0
+[21:41:47:471] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:54) - Index: 0, Size: 0
+[21:46:32:868] [ERROR] - com.liangxin.platform.service.New_ProposalService.getSumData(New_ProposalService.java:54) - Index: 0, Size: 0

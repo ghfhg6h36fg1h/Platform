@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.INew_ProposalMapper">
+    <resultMap id="BaseResultAllSumMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.AllSumOutResult">
+        <result column="AllProposal" property="AllProposal" jdbcType="INTEGER"/>
+        <result column="Allbenefit" property="Allbenefit" jdbcType="INTEGER"/>
+        <result column="Integral" property="Integral" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="BaseResultRankMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.RankOutResult">
+        <result column="orgname" property="depart" jdbcType="VARCHAR"/>
+        <result column="Clasum_sl" property="ClaProposal" jdbcType="INTEGER"/>
+        <result column="average" property="average" jdbcType="INTEGER"/>
+        <result column="Clawc" property="ClaUseful" jdbcType="INTEGER"/>
+        <result column="empname" property="name" jdbcType="INTEGER"/>
+        <result column="empno" property="empno" jdbcType="INTEGER"/>
+        <result column="sum_sl" property="PerProposal" jdbcType="INTEGER"/>
+        <result column="wc" property="PerUseful" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <resultMap id="BaseResultMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.New_ListOutResult">
+        <id column="id_" property="id" jdbcType="VARCHAR"/>
+        <result column="content_" property="content" jdbcType="VARCHAR"/>
+        <result column="status_" property="status" jdbcType="VARCHAR"/>
+        <result column="delete_flag_" property="deleteFlag" jdbcType="BOOLEAN"/>
+        <result column="create_time_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="owner_" property="owner" jdbcType="VARCHAR"/>
+        <result column="capital_" property="capital" jdbcType="VARCHAR"/>
+        <result column="capital_id_" property="capitalId" jdbcType="VARCHAR"/>
+        <result column="section_name_" property="sectionName" jdbcType="VARCHAR"/>
+        <result column="theme_" property="theme" jdbcType="VARCHAR"/>
+        <result column="owner_name_" property="ownerName" jdbcType="VARCHAR"/>
+        <result column="present_situation_" property="presentSituation" jdbcType="VARCHAR"/>
+        <result column="examine_opinion_" property="examineOpinion" jdbcType="VARCHAR"/>
+        <result column="month_interest_" property="monthInterest" jdbcType="BIGINT"/>
+        <result column="reward_amount_" property="rewardAmount" jdbcType="BIGINT"/>
+        <result column="oa_proposal_id_" property="oaProposalId" jdbcType="VARCHAR"/>
+        <result column="occuption_" property="occupation" jdbcType="VARCHAR"/>
+        <result column="proposal_type_" property="proposalType" jdbcType="VARCHAR"/>
+        <result column="oa_step_" property="step" jdbcType="VARCHAR"/>
+        <result column="benefit_" property="benefit" jdbcType="BIGINT"/>
+        <result column="integral_" property="integral" jdbcType="INTEGER"/>
+        <result column="picture1_" property="picture1" jdbcType="VARCHAR"/>
+        <result column="picture1Tem_" property="picture1Tem" jdbcType="VARCHAR"/>
+        <result column="picture2_" property="picture2" jdbcType="VARCHAR"/>
+        <result column="picture2Tem_" property="picture2Tem" jdbcType="VARCHAR"/>
+        <result column="oaProposalNum_" property="oaProposalNum" jdbcType="VARCHAR"/>
+        <result column="type_" property="type" jdbcType="VARCHAR"/>
+        <result column="good_" property="good" jdbcType="INTEGER"/>
+        <result column="CAPITAL_NAME_" property="capitalName" jdbcType="VARCHAR"/>
+        <result column="implement_Name_" property="implementName" jdbcType="VARCHAR"/>
+        <result column="Implement_empno_" property="implementEmpno" jdbcType="VARCHAR"/>
+        <result column="Implement_integral_" property="implementIntegral" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <resultMap id="BaseResultInfoMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.PersonInfoOutResult">
+        <result column="empcode" property="empcode" jdbcType="NVARCHAR"/>
+        <result column="c_name" property="c_name" jdbcType="NVARCHAR"/>
+        <result column="pos_empcode" property="pos_empcode" jdbcType="NVARCHAR"/>
+        <result column="pos_c_name" property="pos_c_name" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <resultMap id="BaseResultOAInfoMap"
+               type="com.liangxin.platform.common.entity.advise.outputResult.New_proposal.OAStepOutResult">
+        <result column="ID_" property="ID" jdbcType="VARCHAR"/>
+        <result column="Node_Name_" property="Node_Name" jdbcType="VARCHAR"/>
+        <result column="Action_Key" property="ActionKey" jdbcType="VARCHAR"/>
+        <result column="Action_info" property="ActionInfo" jdbcType="VARCHAR"/>
+        <result column="Node_Date_" property="Node_Date" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+    <resultMap id="BaseResultStatisticMap" type="com.liangxin.platform.common.entity.advise.outputResult.proposal.ProposalStatisticOut">
+        <result column="pendingCount" property="pendingCount" jdbcType="VARCHAR"/>
+        <result column="passedCount" property="passedCount" jdbcType="VARCHAR"/>
+        <result column="rejectCount" property="rejectCount" jdbcType="VARCHAR"/>
+        <result column="eventuallyReject" property="eventuallyReject" jdbcType="VARCHAR"/>
+        <result column="reNew" property="reNew" jdbcType="VARCHAR"/>
+        <result column="eventuallyPass" property="eventuallyPass" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getSumData" resultMap="BaseResultAllSumMap">
+        SELECT count (*) as AllProposal ,sum (BENEFIT_) as Allbenefit
+        FROM
+        New_PROPOSAL_ a
+        where a.delete_flag_=0 and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')>= #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getUserNum" resultType="INTEGER">
+        SELECT count (*)
+        FROM
+        New_PROPOSAL_ a
+        where a.delete_flag_=0 and status_=5 and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')>=
+        #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="getPersonData" resultMap="BaseResultAllSumMap">
+        SELECT count (*) as AllProposal ,sum (BENEFIT_) as Allbenefit,sum(integral_) as Integral
+        FROM
+        New_PROPOSAL_ a
+        where a.delete_flag_=0 and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')>=
+        #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        and OWNER_=#{empno,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getPersonUserNum" resultType="INTEGER">
+        SELECT count (*)
+        FROM
+        New_PROPOSAL_ a
+        where a.delete_flag_=0 and status_=5 and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')>=
+        #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        and OWNER_=#{empno,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getPerRank" resultMap="BaseResultRankMap">
+        select isnull(q.OWNER_,w.OWNER_) empcode,isnull(q.OWNER_NAME_,w.OWNER_NAME_) empname,
+        isnull(q.STATUS_all,1) sum_sl,isnull(w.STATUS_,0) sl,
+        100*cast(isnull(w.STATUS_,0)*1.0/isnull(q.STATUS_all,1)as decimal(10,2)) wc
+        from (
+        select OWNER_,OWNER_NAME_,count(STATUS_) STATUS_all from New_PROPOSAL_
+        where REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')>=  #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        group by OWNER_,OWNER_NAME_) q
+        full join (select OWNER_,OWNER_NAME_,count(STATUS_) STATUS_ from New_PROPOSAL_
+        where REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')>=#{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        and STATUS_=5
+        group by OWNER_,OWNER_NAME_) w
+        on q.OWNER_=w.OWNER_
+        order by sum_sl desc
+    </select>
+    <select id="getClaRank" resultMap="BaseResultRankMap">
+
+        with temp1 as (
+        select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5)
+        when len(q.orgcode5)>0 then q.orgcode5 end,
+        case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end,
+        case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org
+        from new_Employee1 q
+        where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')
+
+        select isnull(q.e_name,w.e_name) orgname   ---部门名称
+        ,isnull(q.persons,w.persons) persons,  ---部门人数，
+        isnull(q.STATUS_all,1) Clasum_sl ,---提案数
+        cast(isnull(q.STATUS_all,1)*1.0/isnull(q.persons,w.persons) as decimal(10,2)) average,  --人均
+        isnull(w.STATUS_,0) sl,   --实施数
+        100*cast(isnull(w.STATUS_,0)*1.0/isnull(q.STATUS_all,1)as decimal(10,2)) Clawc   --实施率
+        from (
+        select n.e_name,s.persons,count(q.STATUS_) STATUS_all from New_PROPOSAL_ q
+        left join temp1 p on q.OWNER_=p.empcode
+        left join new_organization n on p.org=n.orgcode2
+        left join new_org_persons s on p.org=s.orgconde
+        where REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')>=  #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , CREATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        group by n.e_name,s.persons) q
+        full join (select n.e_name,s.persons,count(q.STATUS_) STATUS_ from New_PROPOSAL_ q
+        left join temp1 p on q.OWNER_=p.empcode
+        left join new_organization n on p.org=n.orgcode2
+        left join new_org_persons s on p.org=s.orgconde
+        where REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')>=  #{StartTime,jdbcType=VARCHAR}
+        and REPLACE (CONVERT(varchar(12) , UPDATE_TIME_, 111 ),'/','-')<![CDATA[<=]]> #{EndTime,jdbcType=VARCHAR}
+        and STATUS_=5
+        group by n.e_name,s.persons) w
+        on q.e_name=w.e_name
+        order by Clasum_sl desc
+
+    </select>
+    <select id="getOrgRank" resultMap="BaseResultRankMap">
+      with  emp1 as(
+select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5)
+when len(q.orgcode5)>0 then q.orgcode5 end,
+case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end,
+case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org
+ from new_Employee1 q
+ where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')
+ --------------------
+
+
+ select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w
+ left join  New_PROPOSAL_ q on q.OWNER_=w.empcode
+ and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)
+ left join new_organization org1
+ on org1.orgcode2=w.org
+where
+   w.org in (select p.org  from emp1 p where  p.empcode=#{empno,jdbcType=VARCHAR})
+  group by w.empcode,w.c_name,w.org,org1.e_name
+  order by sum_sl desc
+
+    </select>
+
+    <select id="NewGetAll" resultMap="BaseResultMap">
+        SELECT a.id_,a.owner_name_,a.theme_,a.create_time_,b.name_ as status_,
+        a.CAPITAL_NAME_
+        FROM
+        New_Proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_
+        where a.delete_flag_=0
+        <if test="presentWorkId != null">
+            and a.capital_id_ = #{presentWorkId,jdbcType=VARCHAR}
+        </if>
+        <if test="searchContent != null">
+            and ( a.owner_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%')
+            or a.owner_name_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%')
+            or a.theme_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%') )
+        </if>
+        <if test="owner != null">
+            and a.owner_ = #{owner,jdbcType=VARCHAR}
+        </if>
+
+        order by a.CREATE_TIME_ desc
+    </select>
+
+    <select id="NewGetAllGood" resultMap="BaseResultMap">
+        SELECT a.id_,a.owner_name_,a.theme_,a.create_time_,a.integral_,
+        a.CAPITAL_NAME_
+        FROM
+        New_Proposal_ a
+        where a.delete_flag_=0 and good_=1
+        <if test="searchContent != null">
+            and ( a.owner_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%')
+            or a.owner_name_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%')
+            or a.theme_ LIKE concat('%',#{searchContent,jdbcType=VARCHAR},'%') )
+        </if>
+        order by a.CREATE_TIME_ desc
+    </select>
+
+    <select id="GetInfo" resultMap="BaseResultInfoMap">
+      select empcode,c_name,pos_empcode,pos_c_name
+       from new_empploy_pso
+       where empcode=#{empno,jdbcType=NVARCHAR}
+    </select>
+
+    <select id="GetDepart" resultType="String">
+select n.e_name from (
+select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5)
+--when len(q.orgcode5)=10 then (q.orgcode5+'0')
+when len(q.orgcode5)>0 then q.orgcode5 end,
+case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end,
+case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org
+ from new_Employee1 q
+ where  id !='' and orgcode1 != '' and c_name != ''  and empcode !=''  ) w
+ left join new_organization n on w.org=n.orgcode2
+where empcode=#{empno,jdbcType=NVARCHAR}
+    </select>
+
+    <select id="selectOAByID" resultMap="BaseResultOAInfoMap">
+        select Node_Name_,Action_Key,Node_Date_ from New_OAInfo_
+        where ID_=#{id,jdbcType=VARCHAR}
+        order by Node_Date_ desc
+    </select>
+
+    <select id="getWebAll" resultMap="BaseResultMap">
+        SELECT a.id_,section_name_,owner_name_,owner_,theme_,a.create_time_,b.name_ as status_,
+        a.proposal_type_,a.oa_proposal_id_,a.present_situation_,a.examine_opinion_,a.type_,a.integral_,
+        a.Implement_empno_,a.implement_Name_,a.Implement_integral_,a.good_,a.benefit_
+        FROM
+        New_proposal_ a LEFT JOIN proposal_status_ b ON a.status_=b.code_
+        where a.delete_flag_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="status != null">
+            and a.status_ = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="good != null">
+            and a.good_ = #{good,jdbcType=INTEGER}
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        order by a.CREATE_TIME_ desc
+    </select>
+
+    <select id="NewGetStatisticProposal" resultMap="BaseResultStatisticMap">
+        select
+        (select count(0) from New_proposal_ a  where a.STATUS_='2' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as pendingCount,
+        (select count(0) from New_proposal_  a  where a.STATUS_='1' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as passedCount,
+        (select count(0) from New_proposal_ a  where a.STATUS_='0' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as rejectCount,
+        (select count(0) from New_proposal_ a  where a.STATUS_='3' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as eventuallyReject,
+        (select count(0) from New_proposal_ a where a.STATUS_='4' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as reNew,
+        (select count(0) from New_proposal_ a  where a.STATUS_='5' and a.DELETE_FLAG_=0
+        <if test="ownerName != null">
+            and a.owner_name_ LIKE concat('%',#{ownerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="theme != null">
+            and a.theme_ LIKE concat('%',#{theme,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchStartDate != null">
+            and a.create_time_ &gt;= #{searchStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="searchEndDate != null">
+            and a.create_time_ &lt;= #{searchEndDate,jdbcType=TIMESTAMP}
+        </if>
+        ) as eventuallyPass
+        from New_proposal_
+    </select>
+
+    <select id="getImplementName" resultType="String">
+        select c_name from new_Employee1 where empcode=#{empno,jdbcType=VARCHAR}
+    </select>
+
+
+
+</mapper>

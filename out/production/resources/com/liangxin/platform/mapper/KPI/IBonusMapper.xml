@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.KPI.IBonusMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.KPI.TeamOverfulfillBonus">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="LINETYPE" property="lineType" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="TEAMLEADER" property="teamLeader" jdbcType="NVARCHAR"/>
+        <result column="PRDTYPE" property="prdType" jdbcType="NVARCHAR"/>
+        <result column="DAYPRODUCTIONNUMBER" property="dayProductionNumber" jdbcType="NVARCHAR"/>
+        <result column="TIMEOFDAY" property="timeOfDay" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOUR" property="capacityPerHour" jdbcType="NVARCHAR"/>
+        <result column="DAYOVERFULFILLBONUS" property="dayOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="MONTHLYCUMULATIVEOUTPUT" property="monthlyCumulativeOutput" jdbcType="NVARCHAR"/>
+        <result column="MONTHLYCUMULATIVETIME" property="monthlyCumulativeTime" jdbcType="NVARCHAR"/>
+        <result column="CUMHOURLYCAPACITY" property="cumHourlyCapacity" jdbcType="NVARCHAR"/>
+        <result column="CUMOVERFULFILLBONUS" property="cumOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOURSTANDARD" property="capacityPerHourStandard" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOURGOAL" property="capacityPerHourGoal" jdbcType="NVARCHAR"/>
+        <result column="CHALLENGEVALUE" property="challengeValue" jdbcType="NVARCHAR"/>
+        <result column="MONTHEFFICIENCY" property="monthEfficiency" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <insert id="insertTeamOverfulfillBonus" useGeneratedKeys="false">
+        insert into prdteamoverfulfillbonus
+        (LINETYPE,LINENAME,TEAMLEADER,PRDTYPE,DAYPRODUCTIONNUMBER,TIMEOFDAY,CAPACITYPERHOUR,DAYOVERFULFILLBONUS,MONTHLYCUMULATIVEOUTPUT,MONTHLYCUMULATIVETIME,CUMHOURLYCAPACITY,CUMOVERFULFILLBONUS,CAPACITYPERHOURSTANDARD,CAPACITYPERHOURGOAL,CHALLENGEVALUE,MONTHEFFICIENCY,PRDDATE)
+       VALUES
+        <foreach collection="teamOverfulfillBonusList" item="item" separator=",">
+            (
+            #{item.lineType,jdbcType =NVARCHAR} ,
+            #{item.lineName,jdbcType =NVARCHAR} ,
+            #{item.teamLeader,jdbcType =NVARCHAR} ,
+            #{item.prdType,jdbcType =NVARCHAR} ,
+            #{item.dayProductionNumber,jdbcType =NVARCHAR} ,
+            #{item.timeOfDay,jdbcType =NVARCHAR} ,
+            #{item.capacityPerHour,jdbcType =NVARCHAR} ,
+            #{item.dayOverfulfillBonus,jdbcType =NVARCHAR} ,
+            #{item.monthlyCumulativeOutput,jdbcType =NVARCHAR} ,
+            #{item.monthlyCumulativeTime,jdbcType =NVARCHAR} ,
+            #{item.cumHourlyCapacity,jdbcType =NVARCHAR} ,
+            #{item.cumOverfulfillBonus,jdbcType =NVARCHAR} ,
+            #{item.capacityPerHourStandard,jdbcType =NVARCHAR} ,
+            #{item.capacityPerHourGoal,jdbcType =NVARCHAR} ,
+            #{item.challengeValue,jdbcType =NVARCHAR} ,
+            #{item.monthEfficiency,jdbcType =NVARCHAR} ,
+            #{item.prdDate,jdbcType =NVARCHAR}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteTeamOverfulfillBonus" parameterType = "java.util.List">
+    delete from prdteamoverfulfillbonus where prddate in
+        <foreach collection="teamOverfulfillBonusList" item="item" separator="," open="(" close=")">
+            #{item.prdDate}
+        </foreach>
+    </delete>
+    <resultMap id="BaseResultMapEpi" type="com.liangxin.platform.common.entity.KPI.EmployeePerformanceImport">
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="EMPLOYEENO" property="employeeNo" jdbcType="NVARCHAR"/>
+        <result column="NAME" property="name" jdbcType="NVARCHAR"/>
+        <result column="QUALITYVIOLATION" property="qualityViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING1" property="ranking1" jdbcType="NVARCHAR"/>
+        <result column="CROSSCHECKVIOLATIONS" property="crossCheckViolations" jdbcType="NVARCHAR"/>
+        <result column="RANKING2" property="ranking2" jdbcType="NVARCHAR"/>
+        <result column="ATTENDANCEVIOLATION" property="attendanceViolation" jdbcType="NVARCHAR"/>
+        <result column="RANKING3" property="ranking3" jdbcType="NVARCHAR"/>
+        <result column="CASUALLEAVE" property="casualLeave" jdbcType="NVARCHAR"/>
+        <result column="RANKING4" property="ranking4" jdbcType="NVARCHAR"/>
+        <result column="WORKSHOPDISCIPLINE" property="workshopDiscipline" jdbcType="NVARCHAR"/>
+        <result column="RANKING5" property="ranking5" jdbcType="NVARCHAR"/>
+        <result column="PPEWEARSTANDARD" property="ppeWearStandard" jdbcType="NVARCHAR"/>
+        <result column="RANKING6" property="ranking6" jdbcType="NVARCHAR"/>
+        <result column="TRAFFICSAFETY" property="trafficSafety" jdbcType="NVARCHAR"/>
+        <result column="RANKING7" property="ranking7" jdbcType="NVARCHAR"/>
+        <result column="REDCARDPOSTING" property="redCardPosting" jdbcType="NVARCHAR"/>
+        <result column="RANKING8" property="ranking8" jdbcType="NVARCHAR"/>
+        <result column="TYPICALEVENTS" property="typicalEvents" jdbcType="NVARCHAR"/>
+        <result column="RANKING9" property="ranking9" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <insert id="insertEmployeePerformance" useGeneratedKeys="false">
+        insert into prdemployeeperformance
+        (WORKSHOP,EMPLOYEENO,NAME,QUALITYVIOLATION,RANKING1,CROSSCHECKVIOLATIONS,RANKING2,ATTENDANCEVIOLATION,RANKING3,CASUALLEAVE,RANKING4,WORKSHOPDISCIPLINE,RANKING5,PPEWEARSTANDARD,RANKING6,TRAFFICSAFETY,RANKING7,REDCARDPOSTING,RANKING8,TYPICALEVENTS,RANKING9,RANK,PRDDATE)
+       VALUES
+        <foreach collection="employeePerformanceImportList" item="item" separator=",">
+            (
+            #{item.workShop,jdbcType =NVARCHAR} ,
+            #{item.employeeNo,jdbcType =NVARCHAR} ,
+            #{item.name,jdbcType =NVARCHAR} ,
+            #{item.qualityViolation,jdbcType =NVARCHAR} ,
+            #{item.ranking1,jdbcType =NVARCHAR} ,
+            #{item.crossCheckViolations,jdbcType =NVARCHAR} ,
+            #{item.ranking2,jdbcType =NVARCHAR} ,
+            #{item.attendanceViolation,jdbcType =NVARCHAR} ,
+            #{item.ranking3,jdbcType =NVARCHAR} ,
+            #{item.casualLeave,jdbcType =NVARCHAR} ,
+            #{item.ranking4,jdbcType =NVARCHAR} ,
+            #{item.workshopDiscipline,jdbcType =NVARCHAR} ,
+            #{item.ranking5,jdbcType =NVARCHAR} ,
+            #{item.ppeWearStandard,jdbcType =NVARCHAR} ,
+            #{item.ranking6,jdbcType =NVARCHAR} ,
+            #{item.trafficSafety,jdbcType =NVARCHAR} ,
+            #{item.ranking7,jdbcType =NVARCHAR} ,
+            #{item.redCardPosting,jdbcType =NVARCHAR} ,
+            #{item.ranking8,jdbcType =NVARCHAR} ,
+            #{item.typicalEvents,jdbcType =NVARCHAR} ,
+            #{item.ranking9,jdbcType =NVARCHAR} ,
+            #{item.rank,jdbcType =NVARCHAR} ,
+            #{item.prdDate,jdbcType =NVARCHAR}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteEmployeePerformance" parameterType = "java.util.List">
+    delete from prdemployeeperformance where prddate in
+        <foreach collection="employeePerformanceImportList" item="item" separator="," open="(" close=")">
+            #{item.prdDate}
+        </foreach>
+    </delete>
+    <resultMap id="BaseResultMapEb" type="com.liangxin.platform.common.entity.KPI.EmployeeBonus">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="EMPLOYEENO" property="employeeNo" jdbcType="NVARCHAR"/>
+        <result column="NAME" property="name" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="TEAMOVERFULFILLBONUS" property="teamOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="WASTAGE" property="wastage" jdbcType="NVARCHAR"/>
+        <result column="DEDUCTBONUS" property="deductBonus" jdbcType="NVARCHAR"/>
+        <result column="TEAMPERFORMANCEBONUS" property="teamPerformanceBonus" jdbcType="NVARCHAR"/>
+        <result column="BONUSFACTOR" property="bonusFactor" jdbcType="NVARCHAR"/>
+        <result column="PERBONUS" property="perBonus" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <insert id="insertEmployeeBonus" useGeneratedKeys="false">
+        insert into prdemployeebonus
+        (WORKSHOP,EMPLOYEENO,NAME,LINENAME,TEAMOVERFULFILLBONUS,WASTAGE,DEDUCTBONUS,TEAMPERFORMANCEBONUS,BONUSFACTOR,PERBONUS,RANK,PRDDATE)
+        VALUES
+        <foreach collection="employeeBonusList" item="item" separator=",">
+            (
+            #{item.workShop,jdbcType =NVARCHAR} ,
+            #{item.employeeNo,jdbcType =NVARCHAR} ,
+            #{item.name,jdbcType =NVARCHAR} ,
+            #{item.lineName,jdbcType =NVARCHAR} ,
+            #{item.teamOverfulfillBonus,jdbcType =NVARCHAR} ,
+            #{item.wastage,jdbcType =NVARCHAR} ,
+            #{item.deductBonus,jdbcType =NVARCHAR} ,
+            #{item.teamPerformanceBonus,jdbcType =NVARCHAR} ,
+            #{item.bonusFactor,jdbcType =NVARCHAR} ,
+            #{item.perBonus,jdbcType =NVARCHAR} ,
+            #{item.rank,jdbcType =NVARCHAR} ,
+            #{item.prdDate,jdbcType =NVARCHAR}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteEmployeeBonus" parameterType = "java.util.List">
+    delete from prdemployeebonus where prddate in
+        <foreach collection="employeeBonusList" item="item" separator="," open="(" close=")">
+            #{item.prdDate}
+        </foreach>
+    </delete>
+    <select id="getEmployeeBonus" resultMap="BaseResultMapEb">
+        SELECT * FROM prdemployeebonus
+        where prddate in (select max(prddate) from prdemployeebonus) order by sid
+    </select>
+    <resultMap id="BaseResultMapTp" type="com.liangxin.platform.common.entity.KPI.TeamPerformance">
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="EFFICIENCYPERCENT" property="efficiencyPercent" jdbcType="NVARCHAR"/>
+        <result column="RANKING1" property="ranking1" jdbcType="NVARCHAR"/>
+        <result column="QUALITYASSESSMENT" property="qualityAssessment" jdbcType="NVARCHAR"/>
+        <result column="RANKING2" property="ranking2" jdbcType="NVARCHAR"/>
+        <result column="REDLIGHT360" property="redLight360" jdbcType="NVARCHAR"/>
+        <result column="RANKING3" property="ranking3" jdbcType="NVARCHAR"/>
+        <result column="ORDERDELIVERYINTIME" property="orderDeliveryInTime" jdbcType="NVARCHAR"/>
+        <result column="RANKING4" property="ranking4" jdbcType="NVARCHAR"/>
+        <result column="EMPTURNOVERRATE" property="empTurnoverRate" jdbcType="NVARCHAR"/>
+        <result column="RANKING5" property="ranking5" jdbcType="NVARCHAR"/>
+        <result column="PROCESSINSPECTION" property="processInspection" jdbcType="NVARCHAR"/>
+        <result column="RANKING6" property="ranking6" jdbcType="NVARCHAR"/>
+        <result column="TYPICALEVENTS" property="typicalEvents" jdbcType="NVARCHAR"/>
+        <result column="RANKING7" property="ranking7" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <insert id="insertTeamPerformance" useGeneratedKeys="false">
+        insert into prdteamperformance
+        (WORKSHOP,LINENAME,EFFICIENCYPERCENT,RANKING1,QUALITYASSESSMENT,RANKING2,REDLIGHT360,RANKING3,ORDERDELIVERYINTIME,RANKING4,EMPTURNOVERRATE,RANKING5,PROCESSINSPECTION,RANKING6,TYPICALEVENTS,RANKING7,RANK,PRDDATE)
+        VALUES
+        <foreach collection="teamPerformanceList" item="item" separator=",">
+            (
+            #{item.workShop,jdbcType =NVARCHAR} ,
+            #{item.lineName,jdbcType =NVARCHAR} ,
+            #{item.efficiencyPercent,jdbcType =NVARCHAR} ,
+            #{item.ranking1,jdbcType =NVARCHAR} ,
+            #{item.qualityAssessment,jdbcType =NVARCHAR} ,
+            #{item.ranking2,jdbcType =NVARCHAR} ,
+            #{item.redLight360,jdbcType =NVARCHAR} ,
+            #{item.ranking3,jdbcType =NVARCHAR} ,
+            #{item.orderDeliveryInTime,jdbcType =NVARCHAR} ,
+            #{item.ranking4,jdbcType =NVARCHAR} ,
+            #{item.empTurnoverRate,jdbcType =NVARCHAR} ,
+            #{item.ranking5,jdbcType =NVARCHAR} ,
+            #{item.processInspection,jdbcType =NVARCHAR} ,
+            #{item.ranking6,jdbcType =NVARCHAR} ,
+            #{item.typicalEvents,jdbcType =NVARCHAR} ,
+            #{item.ranking7,jdbcType =NVARCHAR} ,
+            #{item.rank,jdbcType =NVARCHAR} ,
+            #{item.prdDate,jdbcType =NVARCHAR}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteTeamPerformance" parameterType = "java.util.List">
+    delete from prdteamperformance where prddate in
+        <foreach collection="teamPerformanceList" item="item" separator="," open="(" close=")">
+            #{item.prdDate}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,48 @@
+[14:31:48:500] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+[14:31:48:500] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+[14:31:48:500] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+[14:31:48:841] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+[14:31:53:544] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+[14:32:06:483] [ERROR] - com.liangxin.platform.service.New_ProposalService.OrgRanking(New_ProposalService.java:1023) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: with  emp1 as( select empcode,c_name,coalesce(case when len(q.orgcode5)=2 then (q.orgcode4+q.orgcode5) when len(q.orgcode5)>0 then q.orgcode5 end, case when len(q.orgcode4)>0 then q.orgcode4 end,case when len(q.orgcode3)>0 then q.orgcode3 end, case when len(q.orgcode2)>0 then q.orgcode2 end,q.orgcode1) org  from new_Employee1 q  where  id !='' and orgcode1 != '' and c_name != ''  and empcode !='')  --------------------    select w.empcode empno,w.c_name empname,org1.e_name orgname,isnull(count(q.id_),0) sum_sl from emp1 w  left join  New_PROPOSAL_ q on q.OWNER_=w.empcode  and   substring(CONVERT(varchar(100),q.CREATE_TIME_,112),1,6)=substring(CONVERT(varchar(100),GETDATE(),112),1,6)  left join new_organization org1  on org1.orgcode2=w.org where    w.org in (select p.org  from emp1 p where  p.empcode=?)   group by w.empcode,w.c_name,w.org,org1.e_name   order by tian desc
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'tian' 无效。

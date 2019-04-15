@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.IMenuMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.outputResult.menu.BaseMenuOut">
+        <id column="ID_" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME_" property="name" jdbcType="VARCHAR"/>
+        <result column="DESC_" property="desc" jdbcType="VARCHAR"/>
+        <result column="DISABLE_" property="disable" jdbcType="DECIMAL"/>
+        <result column="PARENT_ID_" property="parentId" jdbcType="VARCHAR"/>
+        <result column="TYPE_" property="type" jdbcType="DECIMAL"/>
+        <result column="LEVEL_" property="level" jdbcType="DECIMAL"/>
+        <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTION_URL_" property="actionUrl" jdbcType="VARCHAR"/>
+        <result column="ROLE_ID_" property="roleId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.ID_,a.NAME_,a.DISABLE_,a.DESC_,a.ACTION_URL_,a.LEVEL_,b.NAME_ as PARENT_ID_ from menu_ a
+        left join menu_ b on a.PARENT_ID_=b.id_
+        where a.delete_flag_=0
+        <if test="pInputMenuForOAList.id != null">
+            and a.id_ = #{pInputMenuForOAList.id,jdbcType=NVARCHAR}
+        </if>
+        <if test="pInputMenuForOAList.name != null">
+            and a.name_ LIKE concat('%',#{pInputMenuForOAList.name,jdbcType=NVARCHAR},'%')
+        </if>
+        <if test="pInputMenuForOAList.parentId != null">
+            and a.PARENT_ID_ = #{pInputMenuForOAList.parentId,jdbcType=NVARCHAR}
+        </if>
+        <if test="pInputMenuForOAList.disable != null">
+            and a.DISABLE_ = #{pInputMenuForOAList.disable,jdbcType=INTEGER}
+        </if>
+        order by a.create_time_ desc
+    </select>
+    <update id="updateMenuNode" parameterType="java.lang.String">
+
+        with cte_child(ID_)
+        as
+        (
+        select ID_
+        from MENU_
+        where ID_ = #{pId,jdbcType=NVARCHAR}
+        union all
+        select a.ID_
+        from MENU_ a
+        inner join
+        cte_child b
+        on(a.PARENT_ID_ = b.ID_ )and a.DELETE_FLAG_=0
+        )
+
+        update MENU_ set
+        <choose>
+            <when test="pIsDel">
+                DELETE_FLAG_ = #{pValue,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                DISABLE_ = #{pValue,jdbcType=INTEGER}
+            </otherwise>
+        </choose>
+        where ID_ in
+        (
+        select *from cte_child
+        )
+    </update>
+    <select id="isExistsTopDisable" parameterType="java.lang.String" resultType="java.lang.Integer">
+       with cte_child(ID_,PARENT_ID_,DISABLE_)
+       as
+       (
+         select ID_,PARENT_ID_,DISABLE_
+         from MENU_
+         where ID_ = #{pId,jdbcType=NVARCHAR}
+         union all
+         select a.ID_,a.PARENT_ID_,a.DISABLE_
+         from MENU_  a
+         inner join
+           cte_child  b
+         on(a.ID_=b.PARENT_ID_)
+         )
+
+        select count(0) from  cte_child c
+        where c.ID_ not in(#{pId,jdbcType=NVARCHAR}) and c.DISABLE_=0
+    </select>
+    <select id="getAllByUser" resultMap="BaseResultMap">
+        select   c.*,b.ROLE_ID_
+        from USER_ROLE_ a left join ROLE_MENU_ b on a.ROLE_ID_=b.ROLE_ID_
+        left join MENU_ c on c.ID_=b.MENU_ID_ where c.delete_flag_=0
+        and a.USER_ID_=#{pUserId,jdbcType=VARCHAR}
+        order by create_time_ desc
+    </select>
+    <select id="getAllConsistRole" resultMap="BaseResultMap">
+        select a.* ,b.role_id_ from menu_ a
+        left join  (select * from ROLE_MENU_ where role_id_=#{pRoleId}) b on a.id_=b.menu_id_
+        where a.delete_flag_=0
+        order by create_time_ desc
+    </select>
+    <delete id="delRoleRelationToMenu">
+       with cte_child(ID_)
+       as
+       (
+         select ID_
+         from MENU_
+         where ID_ = #{pId,jdbcType=NVARCHAR}
+         union all
+         select a.ID_
+         from MENU_  a
+         inner join
+           cte_child  b
+         on(a.PARENT_ID_ = b.ID_ )and a.DELETE_FLAG_=0
+         )
+        delete from ROLE_MENU_  where MENU_ID_ in
+        (
+             select *from cte_child
+        )
+    </delete>
+    <select id="isExistsByAction" resultType="java.lang.Integer">
+        <![CDATA[
+
+
+
+
+
+
+
+
+        SELECT TOP 1 count(0) FROM MENU_ where  DELETE_FLAG_=0 and ACTION_URL_=#{pAction}
+
+
+
+
+
+
+
+
+        ]]>
+    </select>
+</mapper>

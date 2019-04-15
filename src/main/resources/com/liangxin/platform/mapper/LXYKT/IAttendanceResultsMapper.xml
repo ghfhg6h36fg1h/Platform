@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IAttendanceResultsMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.AttendanceResultsInfo">
+        <result column="Kqdate" property="kqDate" jdbcType="VARCHAR"/>
+        <result column="RunName" property="runno" jdbcType="VARCHAR"/>
+        <result column="KqIntime1" property="kqIntime" jdbcType="VARCHAR"/>
+        <result column="KqOuttime1" property="kqOuttime" jdbcType="VARCHAR"/>
+        <result column="Kqtype" property="kqType" jdbcType="VARCHAR"/>
+        <result column="KqLaterTime" property="kqLaterTime" jdbcType="VARCHAR"/>
+        <result column="KqleaveTime" property="kqLeaveTime" jdbcType="VARCHAR"/>
+        <result column="JBResult" property="jbResult" jdbcType="VARCHAR"/>
+        <result column="JbTime1" property="jbTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAttendanceResultsInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_KqEmpResultTotal.Kqdate, Att_Runs.RunName,Att_KqEmpResultTotal.KqIntime1,Att_KqEmpResultTotal.KqOuttime1,Att_KqEmpResultTotal.Kqtype,
+        Att_KqEmpResultTotal.KqLaterTime,Att_KqEmpResultTotal.KqleaveTime,Att_KqEmpResultTotal.JBResult,Att_KqEmpResultTotal.JbTime1
+        FROM Att_KqEmpResultTotal,Att_Runs,Hrms_Emp
+        WHERE Att_KqEmpResultTotal.runno = Att_Runs.RunNo
+        AND Att_KqEmpResultTotal.Empid = Hrms_Emp.EmpID
+        AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+        AND DateDiff(dd,Att_KqEmpResultTotal.Kqdate,getdate())<=30
+        ORDER BY Att_KqEmpResultTotal.Kqdate DESC
+]]>
+    </select>
+    <select id="getAttendanceResultsInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_KqEmpResultTotal.Kqdate, Att_Runs.RunName,Att_KqEmpResultTotal.KqIntime1,Att_KqEmpResultTotal.KqOuttime1,Att_KqEmpResultTotal.Kqtype,
+        Att_KqEmpResultTotal.KqLaterTime,Att_KqEmpResultTotal.KqleaveTime,Att_KqEmpResultTotal.JBResult,Att_KqEmpResultTotal.JbTime1
+        FROM Att_KqEmpResultTotal,Att_Runs,Hrms_Emp
+        WHERE Att_KqEmpResultTotal.runno = Att_Runs.RunNo
+        AND Att_KqEmpResultTotal.Empid = Hrms_Emp.EmpID
+        AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+        AND CONVERT(VARCHAR(24),Att_KqEmpResultTotal.KqDate,112) >= #{startdate,jdbcType=VARCHAR}
+        AND CONVERT(VARCHAR(24),Att_KqEmpResultTotal.KqDate,112) <= #{enddate,jdbcType=VARCHAR}
+        ORDER BY Att_KqEmpResultTotal.Kqdate DESC
+]]>
+    </select>
+</mapper>

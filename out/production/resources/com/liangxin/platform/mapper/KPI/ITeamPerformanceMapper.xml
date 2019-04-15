@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.KPI.ITeamPerformanceMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.KPI.TeamPerformance">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="WORKSHOP" property="workShop" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="EFFICIENCYPERCENT" property="efficiencyPercent" jdbcType="NVARCHAR"/>
+        <result column="RANKING1" property="ranking1" jdbcType="NVARCHAR"/>
+        <result column="QUALITYASSESSMENT" property="qualityAssessment" jdbcType="NVARCHAR"/>
+        <result column="RANKING2" property="ranking2" jdbcType="NVARCHAR"/>
+        <result column="REDLIGHT360" property="redLight360" jdbcType="NVARCHAR"/>
+        <result column="RANKING3" property="ranking3" jdbcType="NVARCHAR"/>
+        <result column="ORDERDELIVERYINTIME" property="orderDeliveryInTime" jdbcType="NVARCHAR"/>
+        <result column="RANKING4" property="ranking4" jdbcType="NVARCHAR"/>
+        <result column="EMPTURNOVERRATE" property="empTurnoverRate" jdbcType="NVARCHAR"/>
+        <result column="RANKING5" property="ranking5" jdbcType="NVARCHAR"/>
+        <result column="PROCESSINSPECTION" property="processInspection" jdbcType="NVARCHAR"/>
+        <result column="RANKING6" property="ranking6" jdbcType="NVARCHAR"/>
+        <result column="TYPICALEVENTS" property="typicalEvents" jdbcType="NVARCHAR"/>
+        <result column="RANKING7" property="ranking7" jdbcType="NVARCHAR"/>
+        <result column="RANK" property="rank" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="getTeamPerformance" resultMap="BaseResultMap">
+        SELECT * FROM prdteamperformance where prddate in (select max(prddate) from prdteamperformance) order by sid
+    </select>
+    <select id="getTeamPerformanceList" resultMap="BaseResultMap">
+        SELECT * FROM prdteamperformance where prddate in (select max(prddate) from prdteamperformance) order by sid
+    </select>
+</mapper>

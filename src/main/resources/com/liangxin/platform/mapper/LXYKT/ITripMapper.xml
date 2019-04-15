@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.ITripMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.TripInfo">
+        <result column="TripDate" property="tripDate" jdbcType="VARCHAR"/>
+        <result column="AmTripStartTime" property="amTripStartTime" jdbcType="VARCHAR"/>
+        <result column="AmTripEndTime" property="amTripEndTime" jdbcType="VARCHAR"/>
+        <result column="AmTripType" property="amTripType" jdbcType="VARCHAR"/>
+        <result column="AmTripMinutes" property="amTripMinutes" jdbcType="VARCHAR"/>
+        <result column="PmTripStartTime" property="pmTripStartTime" jdbcType="VARCHAR"/>
+        <result column="PmTripEndTime" property="pmTripEndTime" jdbcType="VARCHAR"/>
+        <result column="PmTripType" property="pmTripType" jdbcType="VARCHAR"/>
+        <result column="PmTripMinutes" property="pmTripMinutes" jdbcType="VARCHAR"/>
+        <result column="TripIsConfirmed" property="tripisConfirmed" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getTripInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_EmpTrip.TripDate,Att_EmpTrip.AmTripStartTime,Att_EmpTrip.AmTripEndTime,(SELECT Att_TripType.TripTypeName
+		FROM Att_TripType WHERE Att_EmpTrip.AmTripTypeID = Att_TripType.TripTypeID) as AmTripType,Att_EmpTrip.AmTripMinutes,
+		Att_EmpTrip.PmTripStartTime,Att_EmpTrip.PmTripEndTime,(SELECT Att_TripType.TripTypeName
+		FROM Att_TripType WHERE Att_EmpTrip.PmTripTypeID = Att_TripType.TripTypeID) as PmTripType,Att_EmpTrip.PmTripMinutes,
+		Att_EmpTrip.TripIsConfirmed
+		FROM Att_EmpTrip,Hrms_Emp
+		WHERE Att_EmpTrip.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND DateDiff(dd,Att_EmpTrip.TripDate,getdate())<=30
+		ORDER BY Att_EmpTrip.TripDate DESC
+]]>
+    </select>
+    <select id="getTripInfo" resultMap="BaseResultMap">
+        <![CDATA[
+       SELECT Att_EmpTrip.TripDate,Att_EmpTrip.AmTripStartTime,Att_EmpTrip.AmTripEndTime,(SELECT Att_TripType.TripTypeName
+	   FROM Att_TripType WHERE Att_EmpTrip.AmTripTypeID = Att_TripType.TripTypeID) as AmTripType,Att_EmpTrip.AmTripMinutes,
+	   Att_EmpTrip.PmTripStartTime,Att_EmpTrip.PmTripEndTime,(SELECT Att_TripType.TripTypeName
+	   FROM Att_TripType WHERE Att_EmpTrip.PmTripTypeID = Att_TripType.TripTypeID) as PmTripType,Att_EmpTrip.PmTripMinutes,
+	   Att_EmpTrip.TripIsConfirmed
+	   FROM Att_EmpTrip,Hrms_Emp
+	   WHERE Att_EmpTrip.EmpID = Hrms_Emp.EmpID
+	   AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+	   AND CONVERT(VARCHAR(24),Att_EmpTrip.TripDate,112) >= #{startdate,jdbcType=VARCHAR}
+	   AND CONVERT(VARCHAR(24),Att_EmpTrip.TripDate,112) <= #{enddate,jdbcType=VARCHAR}
+	   ORDER BY Att_EmpTrip.TripDate DESC
+]]>
+    </select>
+</mapper>

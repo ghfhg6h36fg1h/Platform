@@ -1,0 +1,195 @@
+oABaseViewHrefdevContent: devConfig
+dev: ${devContent}
+
+
+myPrivilege: horizon,heaven
+
+#启动端口配置
+server:
+  port: 8085
+banner:
+  location: classpath:banner.txt
+
+security:
+  basic:
+    enabled: true
+    path: ["/services/**"]
+  user:
+    name: admin
+    password: 123456
+
+
+mainPath: HLHAPIDEV
+#radis配置
+#spring:
+#  redis:
+#    host: xxx.xxx.xxx.xxx
+#    port: 6379
+#    pool:
+#      max-idle: 100
+#      min-idle: 1
+#      max-active: 1000
+#      max-wait: -1
+
+logging:
+  level:
+    root: debug
+
+#数据库配置
+spring:
+  datasource:
+    advise:
+            url: jdbc:sqlserver://192.168.1.157;DatabaseName=PortalDEV
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            username: sa
+            password: nader123!
+            initial-size: 5
+            min-idle: 5
+            max-wait: 60000
+            validation-query: 'select 1'
+            test-while-idle: true
+            test-on-borrow: true
+            idle-timeout: 60000
+    LXYKT:
+      url: jdbc:sqlserver://192.168.1.62;DatabaseName=C3_LXDQ
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      username: sa
+      password: Hqzn@55238186
+      initial-size: 5
+      min-idle: 5
+      max-wait: 60000
+      validation-query: 'select 1'
+      test-while-idle: true
+      test-on-borrow: true
+      idle-timeout: 60000
+    KPI:
+                  url: jdbc:sqlserver://192.168.1.157;DatabaseName=PortalDEV
+                  driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                  username: sa
+                  password: nader123!
+                  initial-size: 5
+                  min-idle: 5
+                  max-wait: 60000
+                  validation-query: 'select 1'
+                  test-while-idle: true
+                  test-on-borrow: true
+                  idle-timeout: 60000
+    care:
+      url: jdbc:sqlserver://192.168.1.67;DatabaseName=APP_TEST_
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      username: sa
+      password: nader123!
+      initial-size: 5
+      min-idle: 5
+      max-wait: 60000
+      validation-query: 'select 1'
+      test-while-idle: true
+      test-on-borrow: true
+      idle-timeout: 60000
+
+
+#The information of create flow API!
+oa:
+  certify:
+    userName: MOBILEALEUSER
+    passWord: Nader@mobile1
+  createProposal:
+    fdTemplateId: 162ada9159286c15132167e4d29a89fb
+    node:
+      equalOneNode: N5
+      equalTwoNode: N4
+      equalThreeNode: N6
+  oaWebServicePath: 'oaConfig/webservice/dev/'
+  oABaseViewHref: 'http://oadev.sh-liangxin.com:8008/km/review/km_review_main/kmReviewMain.do?method=view&fdId='
+
+#The information of message API
+message:
+  getToken:
+    url: https://portal.sh-liangxin.com/appsapi/token/apptoken
+    appId: fe8056be363906edbb50980264e61fc9
+    corpId: X6HGI658CAMzfglk
+    corpSecret: UcbPm4nAejTaBvAgaZNDdIqx4NqKHN9j
+  sendMessageToWorkId:
+    url: https://portal.sh-liangxin.com/appsapi/message/send
+
+
+#系统功能配置
+sys:
+  mail:
+    sendType: 'smtp'
+    sendServer: 'smtp.sh-liangxin.com'
+    sendFromAddress: 'wangna@sh-liangxin.com'
+    userName: 'wangna@sh-liangxin.com'
+    passWard: 'nader@123'
+
+
+#良信一卡通的配置
+LXYKTMainPath: YKTAPIDEV
+
+LXYKT:
+  appId: 88d75c24b94bd1b4d73b916ea8eea62c
+  clockPush:
+    schedule: '0 11 11 5 5 ?'
+    #schedule: '5/5 * * * * ?'
+
+#制造绩效管理的配置
+KPIMainPath: ZZKPIAPIDEV
+
+KPI:
+  appId: 925d4d0efb60ec5bf54526f2e77be397
+
+
+#个税管理的配置
+TAXMainPath: TAXAPIDEV
+
+#上传图片路劲
+UploadPath: '/java/web/MANAGEFILEDEV/img'
+UploadAdvicePath: '/java/web/Advice_MANAGEFILEDEV/img'
+UploadAdviceReadPath: '/java/web/Advice_MANAGEFILEDEV'
+#nginx访问路径
+FakePath: 'img/'
+
+#上传图片大小设置
+multipart:
+    maxFileSize: 10Mb
+    maxRequestSize: 50Mb
+
+Tax:
+  appId: bd5fdf462951ad189652112037a7b33d
+
+#careconfig
+care:
+  schedule:
+    birthday:
+      isOn: true
+      cron: '0 0 3 * * ?'
+      #cron: '0/5 * * * * ?'
+    anniversary:
+      isOn: true
+      cron: '0 0 4 * * ?'
+      #cron: '0/5 * * * * ?'
+  #The information of message API
+  message:
+    getToken:
+      url: https://portal.sh-liangxin.com/appsapi/token/apptoken
+      appId: 66f6717e56767f1348456fbb6e60e8a3
+      corpId: X6HGI658CAMzfglk
+      corpSecret: UcbPm4nAejTaBvAgaZNDdIqx4NqKHN9j
+    sendMessageToWorkId:
+      url: https://portal.sh-liangxin.com/appsapi/message/send
+  file:
+    imageRootPath:  '/java/release/images/'
+    #imageRootPath: '/home/wangxiaochen/File/Java/Code/Platform/stage/trunk/platform/build/libs/images/'
+
+
+#营销系统配置
+strategyAccordAndProjectRecordConf:
+  strategyAccord:
+    cron:
+      str: '0 0 9 * * ?'
+      #str: '0 0/2 * * * ?'
+      weChatUrl: 'https://wechatqas.sh-liangxin.com/test/wechat/outSendTextMessage'
+
+
+YXYHMainPath: 'YXTSYHAPIDEV'
+

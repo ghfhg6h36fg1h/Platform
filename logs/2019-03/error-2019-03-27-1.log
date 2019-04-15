@@ -1,0 +1,25 @@
+[11:30:51:162] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:184) - 
+### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'statue_' 无效。
+### The error may involve com.liangxin.platform.mapper.advise.INew_IntegralMapper.updateWebIntegralListByState-Inline
+### The error occurred while setting parameters
+### SQL: update  New_IntegralDetail_ set statue_="1" where statue_="0"
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'statue_' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'statue_' 无效。
+[11:31:33:138] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:184) - 
+### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 '0' 无效。
+### The error may involve com.liangxin.platform.mapper.advise.INew_IntegralMapper.updateWebIntegralListByState-Inline
+### The error occurred while setting parameters
+### SQL: update  New_IntegralDetail_ set status_="1" where status_="0"
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 '0' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 '0' 无效。
+[11:39:39:901] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:188) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'state' in 'class java.lang.String'
+[11:39:56:278] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:188) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'state' in 'class java.lang.String'
+[11:42:15:825] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:188) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'state' in 'class java.lang.String'
+[11:46:37:322] [ERROR] - com.liangxin.platform.service.New_IntegralService.WebChangeState(New_IntegralService.java:193) - nested exception is org.apache.ibatis.builder.BuilderException: Error evaluating expression 'state==\'1\''. Cause: org.apache.ibatis.ognl.ExpressionSyntaxException: Malformed OGNL expression: state==\'1\' [org.apache.ibatis.ognl.TokenMgrError: Lexical error at line 1, column 8.  Encountered: "\\" (92), after : ""]
+[15:11:16:195] [ERROR] - com.liangxin.platform.service.New_ProposalService.WebUpdate(New_ProposalService.java:766) - 
+### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'IntegralSum' 无效。
+### The error may involve com.liangxin.platform.mapper.advise.generate.pt.New_IntegralMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into New_Integral_      ( IntegralSum,                       Use_Integral_ )       values ( ?,                       ? )
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'IntegralSum' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'IntegralSum' 无效。

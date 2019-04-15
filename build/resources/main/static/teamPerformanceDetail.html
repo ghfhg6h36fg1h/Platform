@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var loadDetail = function (pSId) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/TeamPerformance/GetTeamPerformancebysid/" + pSId,
+                dataType: "json",
+                data: JSON.stringify({}),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (data.data.length > 0) {
+                        $("#workShop").val(replaceNIL(data.data[0]["workShop"]));
+                        $("#lineName").val(replaceNIL(data.data[0]["lineName"]));
+                        $("#efficiencyPercent").val(replaceNIL(data.data[0]["efficiencyPercent"]));
+                        $("#ranking1").val(replaceNIL(data.data[0]["ranking1"]));
+                        $("#qualityAssessment").val(replaceNIL(data.data[0]["qualityAssessment"]));
+                        $("#ranking2").val(replaceNIL(data.data[0]["ranking2"]));
+                        $("#redLight360").val(replaceNIL(data.data[0]["redLight360"]));
+                        $("#ranking3").val(replaceNIL(data.data[0]["ranking3"]));
+                        $("#orderDeliveryInTime").val(replaceNIL(data.data[0]["orderDeliveryInTime"]));
+                        $("#ranking4").val(replaceNIL(data.data[0]["ranking4"]));
+                        $("#empTurnoverRate").val(replaceNIL(data.data[0]["empTurnoverRate"]));
+                        $("#ranking5").val(replaceNIL(data.data[0]["ranking5"]));
+                        $("#processInspection").val(replaceNIL(data.data[0]["processInspection"]));
+                        $("#ranking6").val(replaceNIL(data.data[0]["ranking6"]));
+                        $("#typicalEvents").val(replaceNIL(data.data[0]["typicalEvents"]));
+                        $("#ranking7").val(replaceNIL(data.data[0]["ranking7"]));
+                        $("#rank").val(replaceNIL(data.data[0]["rank"]));
+                        $("#prdDate").val(replaceNIL(data.data[0]["prdDate"]));
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        $(document).ready(function () {
+            var mSId = getQueryVariable("sid");
+            if (null == mSId || "" == $.trim(mSId)) {
+                alert("Data Error");
+                window.history.go(-1);
+            }
+            $("#gUrlSId").val(mSId);
+            loadDetail(mSId);
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlSId" value=""/>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div class="panel-head" id="webSetNavigation"><strong><span class="icon-pencil-square-o"></span>班组绩效详情</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label >车间：</label>
+                </div>
+                <div >
+                    <input id="workShop" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>车间线别：</label>
+                </div>
+                <div >
+                    <input id="lineName" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>效率提升率：</label>
+                </div>
+                <div >
+                    <input id="efficiencyPercent" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级1：</label>
+                </div>
+                <div >
+                    <input id="ranking1" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>质量考核：</label>
+                </div>
+                <div >
+                    <input id="qualityAssessment" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级2：</label>
+                </div>
+                <div >
+                    <input id="ranking2" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>360亮红灯次数：</label>
+                </div>
+                <div >
+                    <input id="redLight360" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级3：</label>
+                </div>
+                <div >
+                    <input id="ranking3" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>生产订单及时交付率：</label>
+                </div>
+                <div >
+                    <input id="orderDeliveryInTime" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级4：</label>
+                </div>
+                <div >
+                    <input id="ranking4" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>员工流失人数：</label>
+                </div>
+                <div >
+                    <input id="empTurnoverRate" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级5：</label>
+                </div>
+                <div >
+                    <input id="ranking5" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>制程抽检不符合项：</label>
+                </div>
+                <div >
+                    <input id="processInspection" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级6：</label>
+                </div>
+                <div >
+                    <input id="ranking6" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>典型事项：</label>
+                </div>
+                <div >
+                    <input id="typicalEvents" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>评定等级7：</label>
+                </div>
+                <div >
+                    <input id="ranking7" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="label">
+                <label>当月职级：</label>
+            </div>
+            <div >
+                <input id="rank" type="text" class="input w50" value="" name="title"
+                       readonly="readonly">
+                <div class="tips"></div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>日期：</label>
+                </div>
+                <div >
+                    <input id="prdDate" type="text" class="laydate-icon input w50" name="datetime"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.CapitalMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.Capital" >
+    <id column="ID_" property="id" jdbcType="OTHER" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="WORK_ID_" property="workId" jdbcType="VARCHAR" />
+    <result column="WORKSHOP_LINE_" property="workshopLine" jdbcType="VARCHAR" />
+    <result column="IS_LEAVE_" property="isLeave" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, DELETE_FLAG_, CREATE_TIME_, UPDATE_TIME_, WORK_ID_, WORKSHOP_LINE_, IS_LEAVE_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Object" >
+    select 
+    <include refid="Base_Column_List" />
+    from CAPITAL_
+    where ID_ = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object" >
+    delete from CAPITAL_
+    where ID_ = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Capital" >
+    insert into CAPITAL_ (ID_, NAME_, DELETE_FLAG_,
+      CREATE_TIME_, UPDATE_TIME_, WORK_ID_, 
+      WORKSHOP_LINE_, IS_LEAVE_)
+    values (#{id,jdbcType=OTHER}, #{name,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{workId,jdbcType=VARCHAR}, 
+      #{workshopLine,jdbcType=VARCHAR}, #{isLeave,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Capital" >
+    insert into CAPITAL_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="workId != null" >
+        WORK_ID_,
+      </if>
+      <if test="workshopLine != null" >
+        WORKSHOP_LINE_,
+      </if>
+      <if test="isLeave != null" >
+        IS_LEAVE_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workId != null" >
+        #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopLine != null" >
+        #{workshopLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeave != null" >
+        #{isLeave,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Capital" >
+    update CAPITAL_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workId != null" >
+        WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopLine != null" >
+        WORKSHOP_LINE_ = #{workshopLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeave != null" >
+        IS_LEAVE_ = #{isLeave,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.Capital" >
+    update CAPITAL_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      WORKSHOP_LINE_ = #{workshopLine,jdbcType=VARCHAR},
+      IS_LEAVE_ = #{isLeave,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

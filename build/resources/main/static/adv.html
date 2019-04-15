@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var gPageCount = 0;
+        var gPageSize = 20;
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">编号</th>\n" +
+                "            <th width=\"15%\">姓名</th>\n" +
+                "            <th width=\"15%\">工号</th>\n" +
+                "            <th width=\"30%\">车间线别</th>\n" +
+                "            <th width=\"10%\">是否有效</th>\n" +
+                "            <th width=\"25%\">操作</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+
+            handleParaFunc(mParas);
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/capital/getCapitalList",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data, textStatus, request) {
+
+                    if (request.getResponseHeader("loginStatus") != null && request.getResponseHeader("loginStatus") == "unLogin") {
+                            top.location.href="/loginPage";
+                    }
+
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber=pageStartIndex(currentPageIndex,gPageSize);
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr>" +  "<td>" + (rowNumber++) + "</td>\n" +
+                                "<td>" + replaceNIL(item.name) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.workId) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.workshopLine) + "</td>\n" +
+                                "            <td>" + (item.isLeave == 0 ? "有效" : "无效") + "</td>\n" +
+                                "            <td>\n" +
+                                "                <div class=\"button-group\">\n" +
+                                "                    <a class=\"button border-main\" href=\"updateCapital.html?id=" + item.id + "\"><span class=\"icon-edit\"></span> 修改</a>\n" +
+                                // "                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return del('" + item.id + "')\"><span\n" +
+                                // "                            class=\"icon-trash-o\"></span> 删除</a>\n" +
+                                "                </div>\n" +
+                                "            </td></tr>"
+                        });
+                        $("#mainCapitalTable").html("");
+                        $("#mainCapitalTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage)
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href="/loginPage";
+                    }
+                }
+            });
+        };
+
+
+        function handleParaFunc(pParas) {
+            if (!$.trim($("#searchCapitalName").val()) == "") {
+                pParas.name = $.trim($("#searchCapitalName").val());
+            }
+            if (!$.trim($("#searchCapitalWorkId").val()) == "") {
+                pParas.workId = $.trim($("#searchCapitalWorkId").val());
+            }
+            if (!$.trim($("#searchCapitalWorkshopLine").val()) == "") {
+                pParas.workShopLine = $.trim($("#searchCapitalWorkshopLine").val());
+            }
+        }
+
+        function addCapital() {
+            if ($.trim($("#capitalName").val()) == "") {
+                alert("姓名不能为空！");
+                return false;
+            }
+            if ($.trim($("#capitalWorkId").val()) == "") {
+                alert("工号不能为空！");
+                return false;
+            }
+            if ($.trim($("#capitalWorkShopLine").val()) == "") {
+                alert("车间线别不能为空！");
+                return false;
+            }
+            var mParas = {
+                name: $.trim($("#capitalName").val()),
+                workId: $.trim($("#capitalWorkId").val()),
+                workshopLine: $.trim($("#capitalWorkShopLine").val())
+            };
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/capital/add",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                        $("#capitalName").val("");
+                        $("#capitalWorkId").val("");
+                        $("#capitalWorkShopLine").val("");
+                        loadPage(1);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href="/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        function deleteById(id) {
+            var mParas = {
+                id: id,
+                deleteFlag: 1
+            };
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/capital/update",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                        loadPage(1);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href="/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        $(function () {
+            loadPage(1);
+            window.parent.document.getElementById("a_leader_txt_next").innerText=$("#webSetNavigation strong").text();
+        })
+    </script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div id="webSetNavigation" class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li>搜索：</li>
+            <li>
+                <input type="text" id="searchCapitalName" placeholder="班长姓名" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block"/>
+            </li>
+            <li>
+                <input type="text" id="searchCapitalWorkId" placeholder="班长工号" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block"/>
+            </li>
+            <li>
+                <input type="text" id="searchCapitalWorkshopLine" placeholder="车间线别" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block"/>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage(1)"> 搜索</a>
+            </li>
+        </ul>
+    </div>
+    <table ID="mainCapitalTable" class="table table-hover text-center">
+
+    </table>
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("您确定要删除吗?")) {
+            deleteById(id);
+        }
+    }
+</script>
+<div class="panel admin-panel margin-top" id="addCapital">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加班长 </strong></div>
+    <div class="body-content">
+        <form class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div class="field">
+                    <input id="capitalName" type="text" class="input w50" value="" name="title" onblur="stringLengthRestrict(this,15)"
+                           data-validate="required:请输入姓名"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>工号：</label>
+                </div>
+                <div class="field">
+                    <input id="capitalWorkId" type="text" class="input w50" name="url" value="" onblur="isNumber(this);stringLengthRestrict(this,15);"
+                           data-validate="required:请输入工号"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>车间线别：</label>
+                </div>
+                <div class="field">
+                    <input id="capitalWorkShopLine" type="text" id="url1" name="img" class="input tips" onblur="stringLengthRestrict(this,30)"
+                           style="width:25%; float:left;" value="" data-validate="required:请输入车间线别"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input type="button" class="button bg-main icon-check-square-o" onclick="addCapital();" value="提交"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

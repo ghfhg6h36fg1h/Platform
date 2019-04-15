@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.StrategyAccordMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="SUPERVISORS_NUMBER_" property="supervisorsNumber" jdbcType="VARCHAR" />
+    <result column="DISTRICT_" property="district" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME_" property="companyName" jdbcType="VARCHAR" />
+    <result column="CLIENT_ABBREVIATION_" property="clientAbbreviation" jdbcType="VARCHAR" />
+    <result column="FIRST_COORPERATION_TIME_" property="firstCoorperationTime" jdbcType="VARCHAR" />
+    <result column="VALID_ACCORD_START_TIME_" property="validAccordStartTime" jdbcType="VARCHAR" />
+    <result column="VALID_ACCORD_END_TIME_" property="validAccordEndTime" jdbcType="VARCHAR" />
+    <result column="COORPERATION_RANGE_" property="coorperationRange" jdbcType="VARCHAR" />
+    <result column="COORPERATION_PATTERN_" property="coorperationPattern" jdbcType="VARCHAR" />
+    <result column="QUALIFIED_BRAND_" property="qualifiedBrand" jdbcType="VARCHAR" />
+    <result column="INFORM_STUFF_ONE_NUMBER_" property="informStuffOneNumber" jdbcType="VARCHAR" />
+    <result column="INFORM_STATUS_" property="informStatus" jdbcType="DECIMAL" />
+    <result column="OA_ID_" property="oaId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="RANKINGS" property="rankings" jdbcType="VARCHAR" />
+    <result column="INFORM_STUFF_" property="informStuff" jdbcType="VARCHAR" />
+    <result column="INFORM_STUFF_TWO_NUMBER_" property="informStuffTwoNumber" jdbcType="VARCHAR" />
+    <result column="INFORM_STUFF_TWO_NAME_" property="informStuffTwoName" jdbcType="VARCHAR" />
+    <result column="SUPERVISORS_NAME_" property="supervisorsName" jdbcType="VARCHAR" />
+    <result column="SUBMITER_NAME_" property="submiterName" jdbcType="VARCHAR" />
+    <result column="SUBMITER_NUMBER_" property="submiterNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, SUPERVISORS_NUMBER_, DISTRICT_, COMPANY_NAME_, CLIENT_ABBREVIATION_, FIRST_COORPERATION_TIME_, 
+    VALID_ACCORD_START_TIME_, VALID_ACCORD_END_TIME_, COORPERATION_RANGE_, COORPERATION_PATTERN_, 
+    QUALIFIED_BRAND_, INFORM_STUFF_ONE_NUMBER_, INFORM_STATUS_, OA_ID_, CREATE_TIME_, 
+    UPDATE_TIME_, DELETE_FLAG_, RANKINGS, INFORM_STUFF_, INFORM_STUFF_TWO_NUMBER_, INFORM_STUFF_TWO_NAME_, 
+    SUPERVISORS_NAME_, SUBMITER_NAME_, SUBMITER_NUMBER_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from STRATEGY_ACCORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from STRATEGY_ACCORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord" >
+    insert into STRATEGY_ACCORD_ (ID_, SUPERVISORS_NUMBER_, DISTRICT_,
+      COMPANY_NAME_, CLIENT_ABBREVIATION_, FIRST_COORPERATION_TIME_, 
+      VALID_ACCORD_START_TIME_, VALID_ACCORD_END_TIME_, 
+      COORPERATION_RANGE_, COORPERATION_PATTERN_, 
+      QUALIFIED_BRAND_, INFORM_STUFF_ONE_NUMBER_, INFORM_STATUS_, 
+      OA_ID_, CREATE_TIME_, UPDATE_TIME_, 
+      DELETE_FLAG_, RANKINGS, INFORM_STUFF_, 
+      INFORM_STUFF_TWO_NUMBER_, INFORM_STUFF_TWO_NAME_, 
+      SUPERVISORS_NAME_, SUBMITER_NAME_, SUBMITER_NUMBER_
+      )
+    values (#{id,jdbcType=VARCHAR}, #{supervisorsNumber,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{clientAbbreviation,jdbcType=VARCHAR}, #{firstCoorperationTime,jdbcType=VARCHAR}, 
+      #{validAccordStartTime,jdbcType=VARCHAR}, #{validAccordEndTime,jdbcType=VARCHAR}, 
+      #{coorperationRange,jdbcType=VARCHAR}, #{coorperationPattern,jdbcType=VARCHAR}, 
+      #{qualifiedBrand,jdbcType=VARCHAR}, #{informStuffOneNumber,jdbcType=VARCHAR}, #{informStatus,jdbcType=DECIMAL}, 
+      #{oaId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=DECIMAL}, #{rankings,jdbcType=VARCHAR}, #{informStuff,jdbcType=VARCHAR}, 
+      #{informStuffTwoNumber,jdbcType=VARCHAR}, #{informStuffTwoName,jdbcType=VARCHAR}, 
+      #{supervisorsName,jdbcType=VARCHAR}, #{submiterName,jdbcType=VARCHAR}, #{submiterNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord" >
+    insert into STRATEGY_ACCORD_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="supervisorsNumber != null" >
+        SUPERVISORS_NUMBER_,
+      </if>
+      <if test="district != null" >
+        DISTRICT_,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME_,
+      </if>
+      <if test="clientAbbreviation != null" >
+        CLIENT_ABBREVIATION_,
+      </if>
+      <if test="firstCoorperationTime != null" >
+        FIRST_COORPERATION_TIME_,
+      </if>
+      <if test="validAccordStartTime != null" >
+        VALID_ACCORD_START_TIME_,
+      </if>
+      <if test="validAccordEndTime != null" >
+        VALID_ACCORD_END_TIME_,
+      </if>
+      <if test="coorperationRange != null" >
+        COORPERATION_RANGE_,
+      </if>
+      <if test="coorperationPattern != null" >
+        COORPERATION_PATTERN_,
+      </if>
+      <if test="qualifiedBrand != null" >
+        QUALIFIED_BRAND_,
+      </if>
+      <if test="informStuffOneNumber != null" >
+        INFORM_STUFF_ONE_NUMBER_,
+      </if>
+      <if test="informStatus != null" >
+        INFORM_STATUS_,
+      </if>
+      <if test="oaId != null" >
+        OA_ID_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="rankings != null" >
+        RANKINGS,
+      </if>
+      <if test="informStuff != null" >
+        INFORM_STUFF_,
+      </if>
+      <if test="informStuffTwoNumber != null" >
+        INFORM_STUFF_TWO_NUMBER_,
+      </if>
+      <if test="informStuffTwoName != null" >
+        INFORM_STUFF_TWO_NAME_,
+      </if>
+      <if test="supervisorsName != null" >
+        SUPERVISORS_NAME_,
+      </if>
+      <if test="submiterName != null" >
+        SUBMITER_NAME_,
+      </if>
+      <if test="submiterNumber != null" >
+        SUBMITER_NUMBER_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisorsNumber != null" >
+        #{supervisorsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAbbreviation != null" >
+        #{clientAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCoorperationTime != null" >
+        #{firstCoorperationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="validAccordStartTime != null" >
+        #{validAccordStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="validAccordEndTime != null" >
+        #{validAccordEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="coorperationRange != null" >
+        #{coorperationRange,jdbcType=VARCHAR},
+      </if>
+      <if test="coorperationPattern != null" >
+        #{coorperationPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="qualifiedBrand != null" >
+        #{qualifiedBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffOneNumber != null" >
+        #{informStuffOneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="informStatus != null" >
+        #{informStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="oaId != null" >
+        #{oaId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="rankings != null" >
+        #{rankings,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuff != null" >
+        #{informStuff,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffTwoNumber != null" >
+        #{informStuffTwoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffTwoName != null" >
+        #{informStuffTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisorsName != null" >
+        #{supervisorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="submiterName != null" >
+        #{submiterName,jdbcType=VARCHAR},
+      </if>
+      <if test="submiterNumber != null" >
+        #{submiterNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord" >
+    update STRATEGY_ACCORD_
+    <set >
+      <if test="supervisorsNumber != null" >
+        SUPERVISORS_NUMBER_ = #{supervisorsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        DISTRICT_ = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME_ = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAbbreviation != null" >
+        CLIENT_ABBREVIATION_ = #{clientAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCoorperationTime != null" >
+        FIRST_COORPERATION_TIME_ = #{firstCoorperationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="validAccordStartTime != null" >
+        VALID_ACCORD_START_TIME_ = #{validAccordStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="validAccordEndTime != null" >
+        VALID_ACCORD_END_TIME_ = #{validAccordEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="coorperationRange != null" >
+        COORPERATION_RANGE_ = #{coorperationRange,jdbcType=VARCHAR},
+      </if>
+      <if test="coorperationPattern != null" >
+        COORPERATION_PATTERN_ = #{coorperationPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="qualifiedBrand != null" >
+        QUALIFIED_BRAND_ = #{qualifiedBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffOneNumber != null" >
+        INFORM_STUFF_ONE_NUMBER_ = #{informStuffOneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="informStatus != null" >
+        INFORM_STATUS_ = #{informStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="oaId != null" >
+        OA_ID_ = #{oaId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="rankings != null" >
+        RANKINGS = #{rankings,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuff != null" >
+        INFORM_STUFF_ = #{informStuff,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffTwoNumber != null" >
+        INFORM_STUFF_TWO_NUMBER_ = #{informStuffTwoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="informStuffTwoName != null" >
+        INFORM_STUFF_TWO_NAME_ = #{informStuffTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisorsName != null" >
+        SUPERVISORS_NAME_ = #{supervisorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="submiterName != null" >
+        SUBMITER_NAME_ = #{submiterName,jdbcType=VARCHAR},
+      </if>
+      <if test="submiterNumber != null" >
+        SUBMITER_NUMBER_ = #{submiterNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.StrategyAccord" >
+    update STRATEGY_ACCORD_
+    set SUPERVISORS_NUMBER_ = #{supervisorsNumber,jdbcType=VARCHAR},
+      DISTRICT_ = #{district,jdbcType=VARCHAR},
+      COMPANY_NAME_ = #{companyName,jdbcType=VARCHAR},
+      CLIENT_ABBREVIATION_ = #{clientAbbreviation,jdbcType=VARCHAR},
+      FIRST_COORPERATION_TIME_ = #{firstCoorperationTime,jdbcType=VARCHAR},
+      VALID_ACCORD_START_TIME_ = #{validAccordStartTime,jdbcType=VARCHAR},
+      VALID_ACCORD_END_TIME_ = #{validAccordEndTime,jdbcType=VARCHAR},
+      COORPERATION_RANGE_ = #{coorperationRange,jdbcType=VARCHAR},
+      COORPERATION_PATTERN_ = #{coorperationPattern,jdbcType=VARCHAR},
+      QUALIFIED_BRAND_ = #{qualifiedBrand,jdbcType=VARCHAR},
+      INFORM_STUFF_ONE_NUMBER_ = #{informStuffOneNumber,jdbcType=VARCHAR},
+      INFORM_STATUS_ = #{informStatus,jdbcType=DECIMAL},
+      OA_ID_ = #{oaId,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      RANKINGS = #{rankings,jdbcType=VARCHAR},
+      INFORM_STUFF_ = #{informStuff,jdbcType=VARCHAR},
+      INFORM_STUFF_TWO_NUMBER_ = #{informStuffTwoNumber,jdbcType=VARCHAR},
+      INFORM_STUFF_TWO_NAME_ = #{informStuffTwoName,jdbcType=VARCHAR},
+      SUPERVISORS_NAME_ = #{supervisorsName,jdbcType=VARCHAR},
+      SUBMITER_NAME_ = #{submiterName,jdbcType=VARCHAR},
+      SUBMITER_NUMBER_ = #{submiterNumber,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

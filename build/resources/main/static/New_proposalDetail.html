@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script type="text/javascript">
+
+        var loadProposalDetail = function (pProposalId) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/proposal/getWebDetail/" + pProposalId,
+                dataType: "json",
+                data: JSON.stringify({}),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        if (data.data.length > 0) {
+                            $("#empno").val(data.data[0]["owner"]);
+                            $("#proposalDetailTheme").val(replaceNIL(data.data[0]["theme"]));
+                            $("#proposalDetailOwnerName").val(replaceNIL(data.data[0]["ownerName"]) + "（" + replaceNIL(data.data[0]["owner"]) + "）");
+                            switch (data.data[0]["status"]) {
+                                case "0":
+                                    $("#proposalDetailStatus").val("班长驳回，专员审批");
+                                    break;
+                                case "1":
+                                    $("#proposalDetailStatus").val("OA审批");
+                                    break;
+                                case "2":
+                                    $("#proposalDetailStatus").val("待处理");
+                                    break;
+                                case "3":
+                                    $("#proposalDetailStatus").val("最终驳回");
+                                    break;
+                                case "4":
+                                    $("#proposalDetailStatus").val("驳回起草点");
+                                    break;
+                                case "5":
+                                    $("#proposalDetailStatus").val("最终通过");
+                                    break;
+
+                            }
+                            handStatusButtonDisplayOrNone(replaceNIL(data.data[0]["status"]));
+                            $("#proposalDetailSection").val(replaceNIL(data.data[0]["sectionName"]));
+                            $("#proposalDetailContent").val(replaceNIL(data.data[0]["content"]));
+                            $("#proposalDetailOpinion").val(replaceNIL(data.data[0]["examineOpinion"]));
+                            $("#proposalDetailCreateTime").val(replaceNIL(data.data[0]["createTime"]));
+                            $("#proposalPresentSituation").val(replaceNIL(data.data[0]["presentSituation"]));
+
+                            $("#benefit").val(replaceNIL(data.data[0]["benefit"]));
+                            $("#implementIntegral").val(replaceNIL(data.data[0]["implementIntegral"]));
+                            $("#implementEmpno").val(replaceNIL(data.data[0]["implementEmpno"]));
+                            $("#implementName").text(replaceNIL(data.data[0]["implementName"]));
+                            $("#integral").val(replaceNIL(data.data[0]["integral"]));
+                            // $("input[name='good']").get(data.data[0]["good"]).checked = true;
+                            var good = data.data[0]["good"]
+                            if (good == 0)
+                                $("input:radio[name=good][value='0']").attr("checked", true);
+                            else
+                                $("input:radio[name=good][value='1']").attr("checked", true);
+                            $("#proposalOaProposalId").val(replaceNIL(data.data[0]["oaProposalId"]));
+                            $("#proposalOaFlowStep").val(replaceNIL(data.data[2]));
+                            $("#type").val(replaceNIL(data.data[0]["type"]));
+                            $("#PROPOSAL_TYPE").val(replaceNIL(data.data[0]["proposalType"]));
+                            if (data.data[0]["oaProposalId"] != null && data.data[0]["oaProposalId"] != "NUL") {
+                                $("#proposalOaProposalIdHref").attr("onclick", "javascript:window.open('" + data.data[1] + "')");
+                                $("#proposalOaProposalIdHref").css("display", "block");
+                                $("#proposalOaProposalIdHref").css("padding-top", "12px");
+                                $("#proposalOaProposalIdHref").css("margin-left", "390px");
+                            }
+
+
+                            //班长姓名判断
+                            if (data.data[0]["capitalName"] !== "NUL") {
+                                $("#capitalNameDiv").show();
+                                $("#capitalName").val(data.data[0]["capitalName"]);
+                                $("#capitalConDiv").show();
+                                $("#proposalDetailContent").val(data.data[0]["content"]);
+                            }
+
+                            //初始展示 没有删除按钮
+                            if (data.data[0]["picture1"] !== 'NUL') {
+                                PrintImg[0] = ImgDEV + data.data[0]["picture1"];
+                                PrintImgTem[0] = ImgDEV + data.data[0]["picture1Tem"];
+                                dfPrint(PrintImgTem[0]);
+                            }
+                            if (data.data[0]["picture2"] !== 'NUL') {
+                                PrintImg[1] = ImgDEV + data.data[0]["picture2"];
+                                PrintImgTem[1] = ImgDEV + data.data[0]["picture2Tem"];
+                                dfPrint(PrintImgTem[1]);
+                            }
+
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        var handStatusButtonDisplayOrNone = function (pStatus) {
+
+            if ("0" == pStatus) {
+                $("#button2").show();
+                $("#button1").hide();
+                $("#oaPass").hide();
+            }
+            if ("1" == pStatus) {
+                $("#button1").show();
+                $("#oaPass").show();
+            }
+            if ("3" == pStatus || "4" == pStatus) {
+                $("#button1").hide();
+                $("#button2").hide();
+                $("#oaPass").hide();
+            }
+            if ("5" == pStatus) {
+                $("#oaPass").show();
+                $("#integral").attr("disabled", true)
+                $("#benefit").attr("disabled", true);
+                $("#implementEmpno").attr("disabled", true);
+                $("#implementIntegral").attr("disabled", true);
+                $("input[name=\"good\"]").attr("disabled", true);
+                $("#button2").hide();
+                $("#button1").hide();
+            }
+        };
+
+
+        var updateProposalStatus = function (pProposalId, pOAStatus) {
+
+            swal(
+                {
+                    title: "您确认修改状态吗",
+                    icon: "warning",
+                    buttons: {
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消"
+                    },
+                })
+                .then(function (isConfirm) {
+                    if (isConfirm === "confirmButtonText") {
+                        var data = {
+                            id: pProposalId,
+                            status: pOAStatus,
+                            owner: $("#empno").val(),
+                            theme: $("#proposalDetailTheme").val()
+                        }
+                        var flag = false;
+                        if (5 === pOAStatus) {
+                            if ($("#implementEmpno").val() === "" || $("#implementIntegral").val() === "" || $("#integral").val() === "" || $("#benefit").val() === "")
+                                swal({
+                                    title: "请填写必填项",
+                                    icon: "info"
+                                });
+                            else {
+
+                                data.implementEmpno = $("#implementEmpno").val();
+                                data.implementName = $("#implementName").text();
+                                data.implementIntegral = $("#implementIntegral").val();
+                                data.integral = $("#integral").val();
+                                data.benefit = $("#benefit").val();
+                                data.good = $("input[name='good']:checked").val();
+                                console.log(data);
+                                flag = true;
+                            }
+                        } else flag = true;
+
+                        if (flag === true)
+                            $.ajax({
+                                contentType: 'application/json;charset=UTF-8',
+                                type: "post",
+                                url: "/proposal/WebUpdate",
+                                dataType: "json",
+                                data: JSON.stringify(data),
+                                success:
+                                    function (data) {
+                                        if (!data.isSuccess) {
+                                            alert(data.msg);
+                                        } else {
+                                            swal({
+                                                title: "提交成功",
+                                                icon: "success"
+                                            })
+                                            handStatusButtonDisplayOrNone(pOAStatus);
+                                        }
+                                    }
+
+                                ,
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                                        top.location.href = "/loginPage";
+                                    }
+                                }
+                            });
+                    }
+                })
+
+
+        };
+
+
+        $(document).ready(function () {
+            var mProposalId = getQueryVariable("id");
+            if (null == mProposalId || "" == $.trim(mProposalId)) {
+                alert("Data Error");
+                window.history.go(-1);
+            }
+            $("#gUrlProposalId").val(mProposalId);
+            loadProposalDetail(mProposalId);
+
+            $("#implementEmpno").blur(function () {
+                $.ajax({
+                    contentType: 'application/json;charset=UTF-8',
+                    type: "get",
+                    url: "/proposal/getImplementName",
+                    dataType: "json",
+                    data: {empno: $("#implementEmpno").val()},
+                    success:
+                        function (data) {
+                            console.log(data);
+                            if (data.data[0] != null)
+                                $("#implementName").text(data.data[0]);
+                            else
+                                $("#implementName").text("");
+                                }
+                });
+
+
+            });
+
+
+        })
+
+
+    </script>
+    <script src="js/uploadImg.js"></script>
+</head>
+<body>
+<input type="hidden" id="gUrlProposalId" value=""/>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div class="panel-head" id="webSetNavigation"><strong><span class="icon-pencil-square-o"></span>提案详情</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>提案主题：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalDetailTheme" type="text" class="input w50" value="" name="title"
+                           style="width: 350px"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提案人：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalDetailOwnerName" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <input id="empno" type="text" hidden/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提案人部门：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalDetailSection" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group" id="capitalNameDiv" hidden>
+                <div class="label">
+                    <label>班长姓名：</label>
+                </div>
+                <div class="field">
+                    <input id="capitalName" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>状态：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalDetailStatus" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提案日期：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalDetailCreateTime" type="text" class="laydate-icon input w50" name="datetime"
+                           readonly="readonly"
+                           style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>类别：</label>
+                </div>
+                <div>
+                    <select disabled id="type">
+                        <option value="1">工装</option>
+                        <option value="2">设备</option>
+                        <option value="3">线体平衡</option>
+                        <option value="4">流程</option>
+                        <option value="5">标识</option>
+                        <option value="6">水、电、气资源节省</option>
+                        <option value="7">人流、物流优化</option>
+                        <option value="8">现成环境</option>
+                        <option value="9">操作方法优化</option>
+                        <option value="10">作业标准不合理</option>
+                        <option value="11">相似物料防呆</option>
+                        <option value="12">包装方式</option>
+                        <option value="13">材料变更</option>
+                        <option value="14">取消物料</option>
+                        <option value="15">BOM改善</option>
+                        <option value="16">福利改善</option>
+                        <option value="17">公司形象提升</option>
+                        <option value="18">安全作业</option>
+                        <option value="19">安全标识</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提案类型：</label>
+                </div>
+                <div>
+                    <select disabled id="PROPOSAL_TYPE">
+                        <option value=1>非体系流程类建议</option>
+                        <option value=2>知识产权类建议</option>
+                        <option value=3>体系流程类建议</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>现状描述：</label>
+                </div>
+                <div class="field">
+                    <textarea id="proposalPresentSituation" class="input" name="note" style=" height:90px;"
+                              readonly="readonly"></textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>建议对策：</label>
+                </div>
+                <div class="field">
+                    <textarea id="proposalDetailOpinion" name="content" class="input" readonly="readonly"
+                              style="height:90px; border:1px solid #ddd;"></textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group" id="capitalConDiv" hidden>
+                <div class="label">
+                    <label>班长建议：</label>
+                </div>
+                <div class="field">
+                    <textarea id="proposalDetailContent" class="input" name="note" style=" height:90px;"
+                              readonly="readonly"></textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>图片上传：</label>
+                </div>
+                <div id="upBox">
+                    <div id="imgBox">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>OA流程编号：</label>
+                </div>
+                <div class="field">
+                    <input id="proposalOaProposalId" type="text" class="input w50" value="" name="title"
+                           style="width: 350px"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                    <input id="proposalOaProposalIdHref" type="button" class="button bg-main icon-check-square-o"
+                           style="display: none;" value="去OA查看" onclick="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>OA审批节点：</label>
+                </div>
+                <div class="field">
+                    <textarea id="proposalOaFlowStep" type="text" class="input w50" value="" name="title"
+                              style="width:270px;height: 80px; "
+                              readonly="readonly"></textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <hr/>
+            <div id="oaPass" hidden>
+                <div class="form-group">
+                    <div class="label">
+                        <label>提案人积分：</label>
+                    </div>
+                    <input id="integral" type="text" class="laydate-icon input w50" name="datetime"
+                           style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;"/>
+                    <div class="label">
+                        <label>提案收益：</label>
+                    </div>
+                    <input id="benefit" type="text" class="laydate-icon input w50" name="datetime"
+                           style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;"/>
+
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>实施人工号：</label>
+                    </div>
+                    <input id="implementEmpno" type="text" class="laydate-icon input w50" name="datetime"
+                           style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;"/>
+                    <div class="label">
+                        <label>实施人积分：</label>
+                    </div>
+                    <input id="implementIntegral" type="text" class="laydate-icon input w50" name="datetime"
+                           style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;"/>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>实施人姓名：</label>
+                    </div>
+                    <div style="padding:10px!important; height:auto!important;">
+                        <span id="implementName"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label" style="margin-top: -10px">
+                        <label>是否优秀提案：</label>
+                    </div>
+                    <input type="radio" name="good" value="1">是
+                    <input type="radio" name="good" value="0" checked>否
+                </div>
+            </div>
+            <div id="proposalDetailHandleArea" class="form-group">
+                <div class="label">
+                    <label> </label>
+                </div>
+                <div class="field" id="button1" hidden>
+                    <input id="updateProposalStatusPass" type="button" class="button bg-main icon-check-square-o"
+                           onclick="updateProposalStatus($('#gUrlProposalId').val(),5);"
+                           value="最终通过"/>
+                    <input style="background-color: red" id="updateProposalStatusReject" type="button"
+                           class="button bg-main icon-check-square-o"
+                           onclick="updateProposalStatus($('#gUrlProposalId').val(),3);"
+                           value="最终驳回"/>
+                </div>
+                <div class="field" id="button2" hidden>
+                    <input style="background-color: darkorange" id="updateProposalStatusStart" type="button"
+                           class="button bg-main icon-check-square-o"
+                           onclick="updateProposalStatus($('#gUrlProposalId').val(),4);"
+                           value="驳回到起草"/>
+                    <input style="background-color: red" id="updateProposalStatusReject2" type="button"
+                           class="button bg-main icon-check-square-o"
+                           onclick="updateProposalStatus($('#gUrlProposalId').val(),3);"
+                           value="最终驳回"/>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+</div>
+</body>
+</html>

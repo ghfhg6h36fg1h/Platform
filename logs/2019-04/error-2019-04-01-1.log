@@ -1,0 +1,3 @@
+[13:14:10:124] [ERROR] - com.liangxin.platform.service.New_IntegralService.getWebIntegralList(New_IntegralService.java:153) - nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'state' in 'class com.liangxin.platform.common.entity.advise.inputParam.proposal.ListOAInput'
+[14:16:55:445] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebDetail(New_ProposalService.java:706) - null
+[18:59:33:184] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebDetail(New_ProposalService.java:706) - null

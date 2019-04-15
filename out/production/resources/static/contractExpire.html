@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="My97/WdatePicker.js"></script>
+    <script type="text/javascript">
+        var gPageCount = 0;
+        var gPageSize = 20;
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"10%\">工号</th>\n" +
+                "            <th width=\"10%\">姓名</th>\n" +
+                "            <th width=\"10%\">邮箱</th>\n" +
+                "            <th width=\"10%\">到期日期</th>\n" +
+                "            <th width=\"10%\">上级</th>\n" +
+                "            <th width=\"10%\">上上级</th>\n" +
+                "            <th width=\"10%\">第三级</th>\n" +
+                "            <th width=\"14%\">推送日期</th>\n" +
+                "            <th width=\"16%\">状态</th>\n" +
+                "        </tr>";
+            var mDataHtml = "";
+            var mParas = {
+                pageIndex: currentPageIndex,
+                pageSize: gPageSize
+            };
+            if ($("#searchContractExpireDate").val() == "") {
+                var mSearchContractExpireDate = new Date();
+                mParas.date = mSearchContractExpireDate.toLocaleDateString();
+            } else {
+                mParas.date = $("#searchContractExpireDate").val();
+            }
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/employee/contractExpire/getAll",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        $.each(data.data, function (i, item) {
+                            mDataHtml += "<tr><td>" + replaceNIL(item.userWorkId) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.userName) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.userEmail) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.date) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.upGradeUserName) + '，' + replaceNIL(item.upGradeUserWorkId) + '，' + replaceNIL(item.upGradeUserEmail) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.secondGradeUserName) + '，' + replaceNIL(item.secondGradeUserWorkId) + '，' + replaceNIL(item.secondGradeUserEmail) + "</td>\n" +
+                                "            <td>" + (item.org5 == '' ? "" : (replaceNIL(item.thirdGradeUserName) + '，' + replaceNIL(item.thirdGradeUserWorkId) + '，' + replaceNIL(item.thirdGradeUserEmail))) + "</td>\n" +
+                                "            <td>" + (item.postStatus == 1 ? replaceNIL(item.sendDate) : '') + "</td>\n" +
+                                "<td>\n" + (item.postStatus == 1 ? "成功" : (item.postStatus == 2 ? "忽略" : (item.postStatus == 3 ?
+                                    "                <div class=\"button-group\">\n" +
+                                    "                    <a class=\"button border-main\" href=\"javascript:void(0)\" " +
+                                    "onclick=\"return sendMainInsertOrUpdate('" + item.userId + "','" + item.userEmail + "','" + item.upGradeUserEmail + "','" + item.secondGradeUserEmail + "','" + item.thirdGradeUserEmail + "','" + item.org5 + "','" + item.userWorkId + "'" +
+                                    ",'" + item.upGradeUserWorkId + "','" + item.secondGradeUserWorkId + "','" + item.thirdGradeUserWorkId + "','" + item.userName + "','" + item.date + "','" + item.hrLevel + "',this)\"><span></span>发送</a>\n" +
+                                    "                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return insertContractExpire('" + item.userId + "','2','" + item.date + "',this)\"><span>" +
+                                    "                     </span>忽略</a>\n" +
+                                    "                </div>\n"
+                                    :
+                                    "                <div class=\"button-group\">\n" +
+                                    "                    <a class=\"button border-main\" href=\"javascript:void(0)\"" +
+                                    "onclick=\"return sendMainInsertOrUpdate('" + item.userId + "','" + item.userEmail + "','" + item.upGradeUserEmail + "','" + item.secondGradeUserEmail + "','" + item.thirdGradeUserEmail + "','" + item.org5 + "','" + item.userWorkId + "'" +
+                                    ",'" + item.upGradeUserWorkId + "','" + item.secondGradeUserWorkId + "','" + item.thirdGradeUserWorkId + "','" + item.userName + "','" + item.date + "','" + item.hrLevel + "',this)\"><span></span>重发</a>\n" +
+                                    "                    <a class=\"button border-red\" href=\"javascript:void(0)\" onclick=\"return updateContractExpire('" + item.userId + "','2',this)\"><span>" +
+                                    "                     </span>忽略</a>\n" +
+                                    "                </div>\n"))) + "</td></tr>";
+                        });
+                        $("#mainTable").html("");
+                        $("#mainTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        function sendMainInsertOrUpdate(id, email, upEmail, secondUpEmail, thirdUpEmail, org5, workId, upWorkId, secondUpWorkId, thirdUpWorkId, name, contractExpireDate, hrLevel, dom) {
+            if (confirm("您确定要发送吗?")) {
+                var mSendToAddressList = [];
+                if (null != email && "" != email && "null" != email) {
+                    mSendToAddressList.push(email);
+                }
+
+                var mCopyToAddressList = [];
+                if (null != upEmail && "" != upEmail && "null" != upEmail) {
+                    mCopyToAddressList.push(upEmail);
+                }
+                if (null != secondUpEmail && "" != secondUpEmail && "null" != secondUpEmail) {
+                    mCopyToAddressList.push(secondUpEmail);
+                }
+                if (null != org5 && "" != org5 && "null" != org5) {
+                    if (null != thirdUpEmail && "" != thirdUpEmail && "null" != thirdUpEmail) {
+                        mCopyToAddressList.push(thirdUpEmail);
+                    }
+                }
+
+                var mUpWorkIdList = [];
+                if (null != upWorkId && "" != upWorkId && "null" != upWorkId) {
+                    mUpWorkIdList.push(upWorkId);
+                }
+                if (null != secondUpWorkId && "" != secondUpWorkId && "null" != secondUpWorkId) {
+                    mUpWorkIdList.push(secondUpWorkId);
+                }
+                if (null != thirdUpWorkId && "" != thirdUpWorkId && "null" != thirdUpWorkId) {
+                    mUpWorkIdList.push(thirdUpWorkId);
+                }
+
+                var mParas = {
+                    reSendRecordId: id,
+                    sendTemple: 'contractExpire',
+                    sendToAddress: mSendToAddressList,
+                    copyToAddress: mCopyToAddressList,
+                    sendToUserWorkId: workId,
+                    upWorkIdList: mUpWorkIdList,
+                    sendToUserName: name,
+                    hrLevel: hrLevel,
+                    vocationalDate: contractExpireDate
+                };
+                $.ajax({
+                    contentType: 'application/json;charset=UTF-8',
+                    type: "post",
+                    url: "/outInterface/mail/sendBYTemple",
+                    dataType: "json",
+                    data: JSON.stringify(mParas),
+                    beforeSend: function () {
+                        document.getElementById("blockLoadingDiv").style.display = "block";
+                    },
+                    success: function (data) {
+                        document.getElementById("blockLoadingDiv").style.display = "none";
+                        if (!data.isSuccess) {
+                            alert(data.msg);
+                            updatePartTd(dom, "sendFail");
+                        } else {
+                            alert("success");
+                            updatePartTd(dom, "sendSuccess");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                            top.location.href = "/loginPage";
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateContractExpire(id, status, dom) {
+            if (confirm("您确定要忽略吗?")) {
+                var mParas = {
+                    id: id,
+                    postStatus: status
+                };
+                $.ajax({
+                    contentType: 'application/json;charset=UTF-8',
+                    type: "post",
+                    url: "/contractExpire/update",
+                    dataType: "json",
+                    data: JSON.stringify(mParas),
+                    beforeSend: function () {
+                        document.getElementById("blockLoadingDiv").style.display = "block";
+                    },
+                    success: function (data) {
+                        document.getElementById("blockLoadingDiv").style.display = "none";
+                        if (!data.isSuccess) {
+                            alert(data.msg);
+                        } else {
+                            alert("success");
+                            updatePartTd(dom, "update");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                            top.location.href = "/loginPage";
+                        }
+                    }
+                });
+            }
+        }
+
+        function insertContractExpire(id, status, date, dom) {
+            if (confirm("您确定要忽略吗?")) {
+                var mParas = {
+                    id: id,
+                    expireDate: date + ' 00:00:00',
+                    postStatus: status
+                };
+                $.ajax({
+                    contentType: 'application/json;charset=UTF-8',
+                    type: "post",
+                    url: "/contractExpire/insert",
+                    dataType: "json",
+                    data: JSON.stringify(mParas),
+                    beforeSend: function () {
+                        document.getElementById("blockLoadingDiv").style.display = "block";
+                    },
+                    success: function (data) {
+                        document.getElementById("blockLoadingDiv").style.display = "none";
+                        if (!data.isSuccess) {
+                            alert(data.msg);
+                        } else {
+                            alert("success");
+                            updatePartTd(dom, "insert");
+                            // loadPage(1);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                            top.location.href = "/loginPage";
+                        }
+                    }
+                });
+            }
+        }
+
+        function updatePartTd(dom, type) {
+            var mSearchContractExpireDate = new Date();
+            if ("insert" == type || "update" == type) {
+                $(dom).parent().parent().parent().find("td").eq(8).text('忽略');
+            }
+            if ("sendSuccess" == type) {
+                $(dom).parent().parent().parent().find("td").eq(7).text(mSearchContractExpireDate.toLocaleDateString());
+                $(dom).parent().parent().parent().find("td").eq(8).text('成功');
+            }
+            if ("sendFail" == type) {
+                if ("发送" == $(dom).text()) {
+                    $(dom).text("重发");
+                }
+            }
+        }
+
+        $(function () {
+            loadPage(1);
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        })
+        window.onload = function () {
+            document.getElementById('searchContractExpireDate').value = getNormalDate();
+        }
+    </script>
+</head>
+<body>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div id="webSetNavigation" class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li>
+                <input type="text" id="searchContractExpireDate" placeholder="时间默认当天" name="keywords" class="input"
+                       style="width:250px; line-height:17px;display:inline-block;cursor:hand" unselectable='on'
+                       onfocus="this.blur()"
+                       onClick="WdatePicker()"/>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="loadPage(1)"> 搜索</a>
+            </li>
+        </ul>
+    </div>
+    <div id="statisticProposalDiv" class="padding border-bottom">
+
+    </div>
+    <table ID="mainTable" class="table table-hover text-center">
+
+
+    </table>
+
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("您确定要删除吗?")) {
+
+        }
+    }
+</script>
+</body>
+</html>

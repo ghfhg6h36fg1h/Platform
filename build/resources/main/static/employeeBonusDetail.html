@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var loadDetail = function (pSId) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/EmployeeBonus/GetEmployeeBonusbysid/" + pSId,
+                dataType: "json",
+                data: JSON.stringify({}),
+                beforeSend: function () {
+                    document.getElementById("blockLoadingDiv").style.display = "block";
+                },
+                success: function (data) {
+                    document.getElementById("blockLoadingDiv").style.display = "none";
+                    if (data.data.length > 0) {
+                        $("#workShop").val(replaceNIL(data.data[0]["workShop"]));
+                        $("#employeeNo").val(replaceNIL(data.data[0]["employeeNo"]));
+                        $("#name").val(replaceNIL(data.data[0]["name"]));
+                        $("#lineName").val(replaceNIL(data.data[0]["lineName"]));
+                        $("#teamOverfulfillBonus").val(replaceNIL(data.data[0]["teamOverfulfillBonus"]));
+                        $("#wastage").val(replaceNIL(data.data[0]["wastage"]));
+                        $("#deductBonus").val(replaceNIL(data.data[0]["deductBonus"]));
+                        $("#teamPerformanceBonus").val(replaceNIL(data.data[0]["teamPerformanceBonus"]));
+                        $("#bonusFactor").val(replaceNIL(data.data[0]["bonusFactor"]));
+                        $("#perBonus").val(replaceNIL(data.data[0]["perBonus"]));
+                        $("#rank").val(replaceNIL(data.data[0]["rank"]));
+                        $("#prdDate").val(replaceNIL(data.data[0]["prdDate"]));
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+        $(document).ready(function () {
+            var mSId = getQueryVariable("sid");
+            if (null == mSId || "" == $.trim(mSId)) {
+                alert("Data Error");
+                window.history.go(-1);
+            }
+            $("#gUrlSId").val(mSId);
+            loadDetail(mSId);
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlSId" value=""/>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div class="panel-head" id="webSetNavigation"><strong><span class="icon-pencil-square-o"></span>员工个人奖金详情</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label >车间：</label>
+                </div>
+                <div >
+                    <input id="workShop" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>工号：</label>
+                </div>
+                <div >
+                    <input id="employeeNo" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div >
+                    <input id="name" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>线别：</label>
+                </div>
+                <div >
+                    <input id="lineName" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>班组超产奖金：</label>
+                </div>
+                <div >
+                    <input id="teamOverfulfillBonus" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>班组流失人数：</label>
+                </div>
+                <div >
+                    <input id="wastage" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>班组扣除奖金：</label>
+                </div>
+                <div >
+                    <input id="deductBonus" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>班组绩效奖金：</label>
+                </div>
+                <div >
+                    <input id="teamPerformanceBonus" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>奖金系数：</label>
+                </div>
+                <div >
+                    <input id="bonusFactor" type="text" class="input w50" value="" name="title"
+                              readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>个人奖金：</label>
+                </div>
+                <div >
+                    <input id="perBonus" type="text" class="input w50" value="" name="title"
+                           readonly="readonly"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>当月职级：</label>
+                </div>
+                <div >
+                    <input id="rank" type="text" class="input w50" value="" name="title"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>日期：</label>
+                </div>
+                <div >
+                    <input id="prdDate" type="text" class="laydate-icon input w50" name="datetime"
+                           readonly="readonly">
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

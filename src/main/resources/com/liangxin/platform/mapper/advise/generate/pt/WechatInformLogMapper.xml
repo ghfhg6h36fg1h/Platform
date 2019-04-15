@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.WechatInformLogMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.WechatInformLog" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="RELATIVE_ID_" property="relativeId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_" property="message" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, RELATIVE_ID_, MESSAGE_, CREATE_TIME_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WECHAT_INFORM_LOG_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WECHAT_INFORM_LOG_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.WechatInformLog" >
+    insert into WECHAT_INFORM_LOG_ (ID_, RELATIVE_ID_, MESSAGE_,
+      CREATE_TIME_)
+    values (#{id,jdbcType=VARCHAR}, #{relativeId,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.WechatInformLog" >
+    insert into WECHAT_INFORM_LOG_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="relativeId != null" >
+        RELATIVE_ID_,
+      </if>
+      <if test="message != null" >
+        MESSAGE_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="relativeId != null" >
+        #{relativeId,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.WechatInformLog" >
+    update WECHAT_INFORM_LOG_
+    <set >
+      <if test="relativeId != null" >
+        RELATIVE_ID_ = #{relativeId,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        MESSAGE_ = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.WechatInformLog" >
+    update WECHAT_INFORM_LOG_
+    set RELATIVE_ID_ = #{relativeId,jdbcType=VARCHAR},
+      MESSAGE_ = #{message,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

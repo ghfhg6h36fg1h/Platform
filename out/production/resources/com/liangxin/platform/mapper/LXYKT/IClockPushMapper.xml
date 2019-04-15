@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IClockPushMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.ClockPushInfo">
+        <result column="empno" property="empno" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getClockPushInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        select empno, [content]=stuff((select ' ' + kqdate + ',' + [kqtype] from   (SELECT Hrms_Emp.EmpNo,
+		CONVERT(varchar,Att_KqEmpResultTotal.Kqdate,23)Kqdate,
+		Att_KqEmpResultTotal.Kqtype
+		FROM Att_KqEmpResultTotal, Hrms_Emp
+		WHERE Hrms_Emp.EmpID = Att_KqEmpResultTotal.Empid
+		AND Att_KqEmpResultTotal.Kqtype LIKE
+		'%[缺勤|迟到|早退|单次打卡]%'
+		AND DateDiff(dd, Att_KqEmpResultTotal.Kqdate, getdate()) <= 1)   t  where t.empno=t1.empno for xml path('')), 1, 1, '')
+		from  (SELECT Hrms_Emp.EmpNo,
+		CONVERT(varchar,Att_KqEmpResultTotal.Kqdate,23)Kqdate,
+		Att_KqEmpResultTotal.Kqtype
+		FROM Att_KqEmpResultTotal, Hrms_Emp
+		WHERE Hrms_Emp.EmpID = Att_KqEmpResultTotal.Empid
+		AND Att_KqEmpResultTotal.Kqtype LIKE
+		'%[缺勤|迟到|早退|单次打卡]%'
+		AND DateDiff(dd, Att_KqEmpResultTotal.Kqdate, getdate()) <= 1)  t1
+		group by empno
+]]>
+    </select>
+</mapper>

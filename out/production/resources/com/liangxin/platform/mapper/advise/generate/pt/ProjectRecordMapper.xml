@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.ProjectRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.ProjectRecord" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="EVERYONE_" property="everyone" jdbcType="VARCHAR" />
+    <result column="BUILD_FACTORY_" property="buildFactory" jdbcType="VARCHAR" />
+    <result column="RECORD_MESSAGE_" property="recordMessage" jdbcType="VARCHAR" />
+    <result column="RECORDER_INFO_" property="recorderInfo" jdbcType="VARCHAR" />
+    <result column="RECORD_DATE_" property="recordDate" jdbcType="VARCHAR" />
+    <result column="INFORM_STATUS_" property="informStatus" jdbcType="DECIMAL" />
+    <result column="OA_NUMBER_" property="oaNumber" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, EVERYONE_, BUILD_FACTORY_, RECORD_MESSAGE_, RECORDER_INFO_, RECORD_DATE_, 
+    INFORM_STATUS_, OA_NUMBER_, CREATE_TIME_, UPDATE_TIME_, DELETE_FLAG_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROJECT_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PROJECT_RECORD_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ProjectRecord" >
+    insert into PROJECT_RECORD_ (ID_, NAME_, EVERYONE_,
+      BUILD_FACTORY_, RECORD_MESSAGE_, RECORDER_INFO_, 
+      RECORD_DATE_, INFORM_STATUS_, OA_NUMBER_, 
+      CREATE_TIME_, UPDATE_TIME_, DELETE_FLAG_
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{everyone,jdbcType=VARCHAR}, 
+      #{buildFactory,jdbcType=VARCHAR}, #{recordMessage,jdbcType=VARCHAR}, #{recorderInfo,jdbcType=VARCHAR}, 
+      #{recordDate,jdbcType=VARCHAR}, #{informStatus,jdbcType=DECIMAL}, #{oaNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ProjectRecord" >
+    insert into PROJECT_RECORD_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="everyone != null" >
+        EVERYONE_,
+      </if>
+      <if test="buildFactory != null" >
+        BUILD_FACTORY_,
+      </if>
+      <if test="recordMessage != null" >
+        RECORD_MESSAGE_,
+      </if>
+      <if test="recorderInfo != null" >
+        RECORDER_INFO_,
+      </if>
+      <if test="recordDate != null" >
+        RECORD_DATE_,
+      </if>
+      <if test="informStatus != null" >
+        INFORM_STATUS_,
+      </if>
+      <if test="oaNumber != null" >
+        OA_NUMBER_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="everyone != null" >
+        #{everyone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildFactory != null" >
+        #{buildFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="recordMessage != null" >
+        #{recordMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="recorderInfo != null" >
+        #{recorderInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="informStatus != null" >
+        #{informStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="oaNumber != null" >
+        #{oaNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ProjectRecord" >
+    update PROJECT_RECORD_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="everyone != null" >
+        EVERYONE_ = #{everyone,jdbcType=VARCHAR},
+      </if>
+      <if test="buildFactory != null" >
+        BUILD_FACTORY_ = #{buildFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="recordMessage != null" >
+        RECORD_MESSAGE_ = #{recordMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="recorderInfo != null" >
+        RECORDER_INFO_ = #{recorderInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null" >
+        RECORD_DATE_ = #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="informStatus != null" >
+        INFORM_STATUS_ = #{informStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="oaNumber != null" >
+        OA_NUMBER_ = #{oaNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.ProjectRecord" >
+    update PROJECT_RECORD_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      EVERYONE_ = #{everyone,jdbcType=VARCHAR},
+      BUILD_FACTORY_ = #{buildFactory,jdbcType=VARCHAR},
+      RECORD_MESSAGE_ = #{recordMessage,jdbcType=VARCHAR},
+      RECORDER_INFO_ = #{recorderInfo,jdbcType=VARCHAR},
+      RECORD_DATE_ = #{recordDate,jdbcType=VARCHAR},
+      INFORM_STATUS_ = #{informStatus,jdbcType=DECIMAL},
+      OA_NUMBER_ = #{oaNumber,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

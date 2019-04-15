@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.New_IntegralDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.New_IntegralDetail" >
+    <id column="ID_" property="id" jdbcType="INTEGER" />
+    <result column="status_" property="status" jdbcType="VARCHAR" />
+    <result column="Apply_Date_" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="Commission_Date_" property="commissionDate" jdbcType="TIMESTAMP" />
+    <result column="Wait_Date_" property="waitDate" jdbcType="TIMESTAMP" />
+    <result column="Get_Date_" property="getDate" jdbcType="TIMESTAMP" />
+    <result column="Empno_" property="empno" jdbcType="VARCHAR" />
+    <result column="Money_" property="money" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, status_, Apply_Date_, Commission_Date_, Wait_Date_, Get_Date_, Empno_, Money_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from New_IntegralDetail_
+    where ID_ = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from New_IntegralDetail_
+    where ID_ = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.New_IntegralDetail" >
+    insert into New_IntegralDetail_ (ID_, status_, Apply_Date_, 
+      Commission_Date_, Wait_Date_, Get_Date_, 
+      Empno_, Money_)
+    values (#{id,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{applyDate,jdbcType=TIMESTAMP}, 
+      #{commissionDate,jdbcType=TIMESTAMP}, #{waitDate,jdbcType=TIMESTAMP}, #{getDate,jdbcType=TIMESTAMP}, 
+      #{empno,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.New_IntegralDetail" >
+    insert into New_IntegralDetail_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="status != null" >
+        status_,
+      </if>
+      <if test="applyDate != null" >
+        Apply_Date_,
+      </if>
+      <if test="commissionDate != null" >
+        Commission_Date_,
+      </if>
+      <if test="waitDate != null" >
+        Wait_Date_,
+      </if>
+      <if test="getDate != null" >
+        Get_Date_,
+      </if>
+      <if test="empno != null" >
+        Empno_,
+      </if>
+      <if test="money != null" >
+        Money_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commissionDate != null" >
+        #{commissionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waitDate != null" >
+        #{waitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getDate != null" >
+        #{getDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="empno != null" >
+        #{empno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.New_IntegralDetail" >
+    update New_IntegralDetail_
+    <set >
+      <if test="status != null" >
+        status_ = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        Apply_Date_ = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commissionDate != null" >
+        Commission_Date_ = #{commissionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waitDate != null" >
+        Wait_Date_ = #{waitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getDate != null" >
+        Get_Date_ = #{getDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="empno != null" >
+        Empno_ = #{empno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        Money_ = #{money,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.New_IntegralDetail" >
+    update New_IntegralDetail_
+    set status_ = #{status,jdbcType=VARCHAR},
+      Apply_Date_ = #{applyDate,jdbcType=TIMESTAMP},
+      Commission_Date_ = #{commissionDate,jdbcType=TIMESTAMP},
+      Wait_Date_ = #{waitDate,jdbcType=TIMESTAMP},
+      Get_Date_ = #{getDate,jdbcType=TIMESTAMP},
+      Empno_ = #{empno,jdbcType=VARCHAR},
+      Money_ = #{money,jdbcType=INTEGER}
+    where ID_ = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IDayoffMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.DayoffInfo">
+        <result column="DayoffDate" property="dayoffDate" jdbcType="VARCHAR"/>
+        <result column="AmDayoffType" property="amDayoffType" jdbcType="VARCHAR"/>
+        <result column="AmDayoffStartTime" property="amDayoffStartTime" jdbcType="VARCHAR"/>
+        <result column="AmDayoffEndTime" property="amDayoffEndTime" jdbcType="VARCHAR"/>
+        <result column="AmDayoffMinutes" property="amDayoffMinutes" jdbcType="VARCHAR"/>
+        <result column="PmDayoffType" property="pmDayoffType" jdbcType="VARCHAR"/>
+        <result column="PmDayoffStartTime" property="pmDayoffStartTime" jdbcType="VARCHAR"/>
+        <result column="PmDayoffEndTime" property="pmDayoffEndTime" jdbcType="VARCHAR"/>
+        <result column="PmDayoffMinutes" property="pmDayoffMinutes" jdbcType="VARCHAR"/>
+        <result column="DayoffIsConfirmed" property="dayoffisConfirmed" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getDayoffInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_EmpDayoff.DayoffDate,(SELECT Att_DayoffType.DayoffTypeName
+		FROM Att_DayoffType WHERE Att_EmpDayoff.AmDayoffTypeID = Att_DayoffType.DayoffTypeID) as AmDayoffType,
+		Att_EmpDayoff.AmDayoffStartTime,Att_EmpDayoff.AmDayoffEndTime,Att_EmpDayoff.AmDayoffMinutes,
+		(SELECT Att_DayoffType.DayoffTypeName FROM Att_DayoffType
+		WHERE Att_EmpDayoff.PmDayoffTypeID = Att_DayoffType.DayoffTypeID) as PmDayoffType,
+		Att_EmpDayoff.PmDayoffStartTime,Att_EmpDayoff.PmDayoffEndTime,Att_EmpDayoff.PmDayoffMinutes,Att_EmpDayoff.DayoffIsConfirmed
+		FROM Att_EmpDayoff,Hrms_Emp
+		WHERE Att_EmpDayoff.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND DateDiff(dd,Att_EmpDayoff.DayoffDate,getdate())<=30
+		ORDER BY Att_EmpDayoff.DayoffDate DESC
+]]>
+    </select>
+    <select id="getDayoffInfo" resultMap="BaseResultMap">
+        <![CDATA[
+       SELECT Att_EmpDayoff.DayoffDate,(SELECT Att_DayoffType.DayoffTypeName
+	   FROM Att_DayoffType WHERE Att_EmpDayoff.AmDayoffTypeID = Att_DayoffType.DayoffTypeID) as AmDayoffType,
+	   Att_EmpDayoff.AmDayoffStartTime,Att_EmpDayoff.AmDayoffEndTime,Att_EmpDayoff.AmDayoffMinutes,
+	   (SELECT Att_DayoffType.DayoffTypeName FROM Att_DayoffType
+	   WHERE Att_EmpDayoff.PmDayoffTypeID = Att_DayoffType.DayoffTypeID) as PmDayoffType,
+	   Att_EmpDayoff.PmDayoffStartTime,Att_EmpDayoff.PmDayoffEndTime,Att_EmpDayoff.PmDayoffMinutes,Att_EmpDayoff.DayoffIsConfirmed
+	   FROM Att_EmpDayoff,Hrms_Emp
+	   WHERE Att_EmpDayoff.EmpID = Hrms_Emp.EmpID
+	   AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+	   AND CONVERT(VARCHAR(24),Att_EmpDayoff.DayoffDate,112) >= #{startdate,jdbcType=VARCHAR}
+	   AND CONVERT(VARCHAR(24),Att_EmpDayoff.DayoffDate,112) <= #{enddate,jdbcType=VARCHAR}
+	   ORDER BY Att_EmpDayoff.DayoffDate DESC
+]]>
+    </select>
+</mapper>

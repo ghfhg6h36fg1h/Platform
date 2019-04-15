@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IOverTimeMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.OvertimeInfo">
+        <result column="OtDate" property="otDate" jdbcType="VARCHAR"/>
+        <result column="Ot2StartTime" property="ot1StartTime" jdbcType="VARCHAR"/>
+        <result column="Ot2EndTime" property="ot1EndTime" jdbcType="VARCHAR"/>
+        <result column="OtTypeName1" property="otType1" jdbcType="VARCHAR"/>
+        <result column="ot2time" property="ot1Time" jdbcType="VARCHAR"/>
+        <result column="Ot1StartTime" property="ot2StartTime" jdbcType="VARCHAR"/>
+        <result column="Ot1EndTime" property="ot2EndTime" jdbcType="VARCHAR"/>
+        <result column="OtTypeName2" property="otType2" jdbcType="VARCHAR"/>
+        <result column="ot4time" property="ot2Time" jdbcType="VARCHAR"/>
+        <result column="OtIsConfirmed" property="otisConfirmed" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getOverTimeInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_EmpOtSure.OtDate,Att_EmpOtSure.Ot2StartTime,Att_EmpOtSure.Ot2EndTime,(SELECT Att_OtType.OtTypeName FROM Att_OtType WHERE Att_EmpOtSure.OtTypeID2 = Att_OtType.OtTypeID) as OtTypeName1,Att_EmpOtSure.ot2time,
+		Att_EmpOtSure.Ot1StartTime,Att_EmpOtSure.Ot1EndTime,(SELECT Att_OtType.OtTypeName FROM Att_OtType WHERE Att_EmpOtSure.OtTypeID4 = Att_OtType.OtTypeID) as OtTypeName2,Att_EmpOtSure.ot4time,Att_EmpOtSure.OtTypeID4,Att_EmpOtSure.OtIsConfirmed
+		FROM Att_EmpOtSure,Hrms_Emp
+		WHERE Att_EmpOtSure.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND DateDiff(dd,Att_EmpOtSure.OtDate,getdate())<=30
+	    ORDER BY Att_EmpOtSure.OtDate DESC
+]]>
+    </select>
+    <select id="getOverTimeInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Att_EmpOtSure.OtDate,Att_EmpOtSure.Ot2StartTime,Att_EmpOtSure.Ot2EndTime,(SELECT Att_OtType.OtTypeName FROM Att_OtType WHERE Att_EmpOtSure.OtTypeID2 = Att_OtType.OtTypeID) as OtTypeName1,Att_EmpOtSure.ot2time,
+		Att_EmpOtSure.Ot1StartTime,Att_EmpOtSure.Ot1EndTime,(SELECT Att_OtType.OtTypeName FROM Att_OtType WHERE Att_EmpOtSure.OtTypeID4 = Att_OtType.OtTypeID) as OtTypeName2,Att_EmpOtSure.ot4time,Att_EmpOtSure.OtTypeID4,Att_EmpOtSure.OtIsConfirmed
+		FROM Att_EmpOtSure,Hrms_Emp
+		WHERE Att_EmpOtSure.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Att_EmpOtSure.OtDate,112) >= #{startdate,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Att_EmpOtSure.OtDate,112) <= #{enddate,jdbcType=VARCHAR}
+		ORDER BY Att_EmpOtSure.OtDate DESC
+]]>
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+[19:25:43:710] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:977) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，状态变更为最终驳回,请查看，谢谢！
+&CreateTime=1554204343689,result:Parameter [UserId] error
+[19:27:02:497] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:977) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，状态变更为最终驳回,请查看，谢谢！
+&CreateTime=1554204422483,result:Parameter [UserId] error
+[20:00:25:881] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:977) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，状态变更为最终驳回,请查看，谢谢！
+&CreateTime=1554206425864,result:Parameter [UserId] error
+[20:09:09:715] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，状态变更为最终驳回,请查看，谢谢！
+&CreateTime=1554206949694,result:Parameter [UserId] error
+[20:12:03:481] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，状态变更为最终驳回,请查看，谢谢！
+&CreateTime=1554207123463,result:Parameter [UserId] error
+[20:13:51:691] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=1&MsgType=text&Type=num&Content=您好：
+您好，您参与实施的主题为null的提案，最终通过审批，恭喜获得1积分奖励,请注意查看！
+&CreateTime=1554207231668,result:不合法用户
+[20:13:51:742] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=1&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为null的提案，最终通过审批，恭喜获得12积分奖励,请注意查看！
+&CreateTime=1554207231718,result:不合法用户
+[20:17:38:030] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=3&MsgType=text&Type=num&Content=您好：
+您好，您参与实施的主题为4的提案，最终通过审批，恭喜获得0积分奖励,请注意查看！
+&CreateTime=1554207457999,result:不合法用户
+[20:17:38:066] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:980) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=3&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为4的提案，最终通过审批，恭喜获得0积分奖励,请注意查看！
+&CreateTime=1554207458048,result:不合法用户
+[20:27:17:417] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:981) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=zJRBDF8dU9as3asU&UserId=null&MsgType=text&Type=num&Content=您好：
+您好，您提交的主题为他88他的提案，状态变更为驳回至起草,请查看，谢谢！
+&CreateTime=1554208037399,result:Parameter [UserId] error
+[20:31:30:590] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[20:40:30:987] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:04:11:274] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:05:57:815] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:08:50:014] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:12:21:858] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:13:09:574] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1
+[21:14:49:187] [ERROR] - com.liangxin.platform.service.New_ProposalService.UpdateForm(New_ProposalService.java:400) - String index out of range: -1

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+
+    <script type="text/javascript">
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        $(document).ready(function () {
+            var mCapitalId = getQueryVariable("id");
+            if (mCapitalId != false) {
+                $("#gUrlCapitalId").val(mCapitalId);
+            }
+            alert($("#gUrlCapitalId").val());
+
+
+            //设置当前选中checkbox的状态
+            $(":checkbox").click(function () {
+                $(this).attr("checked", true);//设置当前选中checkbox的状态为checked
+                $(this).siblings().attr("checked", false); //设置当前选中的checkbox同级(兄弟级)其他checkbox状态为未选中
+            });
+
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlCapitalId" value=""/>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="capitalName" class="input w50" value="" name="title"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>车间线别：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="workshopLineInput" name="img" class="input tips" style="width:25%; float:left;" value=""/>
+                </div>
+            </div>
+
+            <if condition="$iscid eq 1">
+                <div class="form-group">
+                    <div class="label">
+                        <label>是否离职：</label>
+                    </div>
+                    <div id="checkboxListId" class="field" style="padding-top:8px;">
+                        在职 <input id="isLeaveFalse" type="checkbox"/>
+                        离职 <input id="isLeaveTrue" type="checkbox"/>
+                    </div>
+                </div>
+            </if>
+            <div class="clear"></div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input class="button bg-main icon-check-square-o" type="button" value="提交"/>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

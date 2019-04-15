@@ -1,0 +1,22 @@
+[14:42:07:954] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:986) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=xCzTTl0Gpc8BYJb5&UserId=null&MsgType=text&Type=num&Content=您好：
+您驳回的主题为“嗯呢3”的提案，已重新提交,请查看，谢谢！
+&CreateTime=1554273727927,result:Parameter [UserId] error
+[14:44:11:908] [ERROR] - com.liangxin.platform.service.New_ProposalService.postMessage(New_ProposalService.java:986) - url:https://portal.sh-liangxin.com/appsapi/message/send,para:app_access_token=xCzTTl0Gpc8BYJb5&UserId=null&MsgType=text&Type=num&Content=您好：
+您驳回的主题为“嗯呢3”的提案，已重新提交,请查看，谢谢！
+&CreateTime=1554273851884,result:Parameter [UserId] error
+[16:14:33:162] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebAll(New_ProposalService.java:257) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementEmpno_' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT TOP 20 id_, section_name_, owner_name_, owner_, theme_, create_time_, status_, proposal_type_, oa_proposal_id_, present_situation_, examine_opinion_, type_, integral_, implementEmpno_, implementIntegral_, good_, benefit_ FROM (SELECT ROW_NUMBER() OVER ( ORDER BY a.CREATE_TIME_ DESC ) PAGE_ROW_NUMBER, a.id_, section_name_, owner_name_, owner_, theme_, a.create_time_, b.name_ AS status_, a.proposal_type_, a.oa_proposal_id_, a.present_situation_, a.examine_opinion_, a.type_, a.integral_, a.implementEmpno_, a.implementIntegral_, a.good_, a.benefit_ FROM New_proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ WHERE a.delete_flag_ = 0) AS PAGE_TABLE_ALIAS WHERE PAGE_ROW_NUMBER > 0 ORDER BY PAGE_ROW_NUMBER
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementEmpno_' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementEmpno_' 无效。
+[16:15:51:722] [ERROR] - com.liangxin.platform.service.New_ProposalService.getWebAll(New_ProposalService.java:257) - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementIntegral_' 无效。
+### The error may exist in com/liangxin/platform/mapper/advise/INew_ProposalMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT TOP 20 id_, section_name_, owner_name_, owner_, theme_, create_time_, status_, proposal_type_, oa_proposal_id_, present_situation_, examine_opinion_, type_, integral_, Implement_empno_, implementIntegral_, good_, benefit_ FROM (SELECT ROW_NUMBER() OVER ( ORDER BY a.CREATE_TIME_ DESC ) PAGE_ROW_NUMBER, a.id_, section_name_, owner_name_, owner_, theme_, a.create_time_, b.name_ AS status_, a.proposal_type_, a.oa_proposal_id_, a.present_situation_, a.examine_opinion_, a.type_, a.integral_, a.Implement_empno_, a.implementIntegral_, a.good_, a.benefit_ FROM New_proposal_ a LEFT JOIN proposal_status_ b ON a.status_ = b.code_ WHERE a.delete_flag_ = 0) AS PAGE_TABLE_ALIAS WHERE PAGE_ROW_NUMBER > 0 ORDER BY PAGE_ROW_NUMBER
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementIntegral_' 无效。
+; bad SQL grammar []; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 列名 'implementIntegral_' 无效。

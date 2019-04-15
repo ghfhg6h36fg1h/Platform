@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var gMenuHtml = "";
+
+        function getMenuList(pRoleId) {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/menu/getAllConsistRole/"+pRoleId+"",
+                dataType: "json",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        $("#mainDiv").html("");
+                        getSubTree(data.data, 'NIL');
+
+                        if (gMenuHtml.endsWith("</strong></div>")) {
+                            gMenuHtml = gMenuHtml.substring(0, gMenuHtml.lastIndexOf("<div class=\"panel admin-panel margin-top\">"));
+                        } else {
+                            gMenuHtml += "<div style=\"clear: both\"></div>\n" +
+                                "    </div>";
+                        }
+
+                        $("#mainDiv").html(gMenuHtml);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        function getSubTree(data, id) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].parentId == id) {
+                    if (data[i].parentId == "NIL") {
+                        if (data[i].roleId == $.trim($("#gUrlRoleId").val())) {
+                        }
+                        if (gMenuHtml == "") {
+                            gMenuHtml += "<div name=\"" + data[i].id + "\" class=\"panel admin-panel margin-top\">\n" +
+                                "<div class=\"panel-head\"><strong class=\"icon-reorder\"> " + data[i].name + "</strong></div>";
+                        } else {
+                            gMenuHtml += "<div style=\"clear: both\"></div></div><div name=\"" + data[i].id + "\" class=\"panel admin-panel margin-top\">\n" +
+                                "<div class=\"panel-head\"><strong class=\"icon-reorder\"> " + data[i].name + "</strong></div>";
+                        }
+                    } else {
+                        if (data[i].roleId == $.trim($("#gUrlRoleId").val())) {
+                            gMenuHtml += "<div style=\"padding: 10px 15px; float: left\"><input type=\"checkbox\" checked=\"true\" value=\"" + data[i].id + "\"/>：" + data[i].name + "</div>";
+                        } else {
+                            gMenuHtml += "<div style=\"padding: 10px 15px; float: left\"><input type=\"checkbox\" value=\"" + data[i].id + "\"/>：" + data[i].name + "</div>";
+                        }
+                    }
+                    getSubTree(data, data[i].id);
+                }
+            }
+        }
+
+        function preAddMenuAction() {
+            if ($.trim($("#gUrlRoleId").val()) == "") {
+                alert("数据错误，请返回重新加载页面1");
+                window.history.go(-1);
+                return false;
+            }
+            var mListCheckbox = [];
+            var mListCheckboxInputDiv = $("#mainDiv").children();
+            for (var i = 0; i < mListCheckboxInputDiv.length; i++) {
+                var isExistsChecked = false;
+                var mListCheckboxInput = $(mListCheckboxInputDiv[i]).find("input");
+                for (var j = 0; j < mListCheckboxInput.length; j++) {
+                    if (mListCheckboxInput[j].checked == true) {
+                        mListCheckbox.push(mListCheckboxInput[j].value)
+                        isExistsChecked = true;
+                    }
+                }
+                if (isExistsChecked) {
+                    mListCheckbox.push($(mListCheckboxInputDiv[i]).attr("name"));
+                }
+
+            }
+            addMenuAction($.trim($("#gUrlRoleId").val()), mListCheckbox);
+        }
+
+
+        function addMenuAction(pRoleId, pRoleMenuIdList) {
+            var mParas = {
+                roleId: pRoleId,
+                menuIdList: pRoleMenuIdList
+            };
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/role/addMenuAction",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        alert("success!");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            var mRolelId = getQueryVariable("id");
+            if (mRolelId != "") {
+                $("#gUrlRoleId").val(mRolelId);
+            }
+            getMenuList(mRolelId);
+            window.parent.document.getElementById("a_leader_txt_next").innerText = $("#webSetNavigation strong").text();
+        })
+    </script>
+</head>
+<body>
+<input type="hidden" id="gUrlRoleId" value=""/>
+<div id="webSetNavigation" style="display: none;"><strong class="icon-reorder"> 角色与菜单对应</strong></div>
+<div id="mainDiv">
+
+</div>
+<div class="form-group">
+    <div class="label">
+        <label></label>
+    </div>
+    <div class="field" style="float: right">
+        <input type="button" class="button bg-main icon-check-square-o" onclick="preAddMenuAction();" value="提交"/>
+    </div>
+</div>
+</body>
+</html>

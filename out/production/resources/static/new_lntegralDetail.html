@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
+    <script src="js/common/StringUtility.js" type="text/javascript"></script>
+    <script src="js/Page.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="My97/WdatePicker.js"></script>
+    <script type="text/javascript">
+        var empno;
+        var gPageSize = 20;
+        var loadPage = function (currentPageIndex) {
+            var mHtmlHead = "<tr>\n" +
+                "            <th width=\"5%\">序号</th>\n" +
+                "            <th width=\"10%\">兑换金额</th>\n" +
+                "            <th width=\"16%\">申请日期</th>\n" +
+                "            <th width=\"16%\">汇总OA申请日期</th>\n" +
+                "            <th width=\"16%\">奖金发放待领取日期</th>\n" +
+                "            <th width=\"16%\">确认领取日期</th>\n" +
+                "            <th width=\"14%\">状态</th>\n" +
+                "        </tr>";
+            var mParas = {
+                currentPage: currentPageIndex,
+                pageSize: gPageSize,
+                keyword: empno
+            };
+
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "post",
+                url: "/proposal/getWebIntegralListByEmpno",
+                dataType: "json",
+                data: JSON.stringify(mParas),
+                success: function (data) {
+                    console.log(data)
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        gPageCount = data.totalCount % gPageSize == 0 ? data.totalCount / gPageSize : (data.totalCount / gPageSize) + 1;
+                        var rowNumber = pageStartIndex(currentPageIndex, gPageSize);
+                        var mDataHtml = "";
+                        $.each(data.data, function (i, item) {
+
+                            var s=item.state;
+                            switch (s) {
+                                case '0' : s="已申请";break;
+                                case '1': s="专员已汇总，申请中";break;
+                                case '2': s="奖金已发放，待领取";break;
+                                case '3': s="已领取";break;
+                            }
+                            mDataHtml += "<tr>" +
+                                "            <td>" + replaceNIL(i + 1) + "</td>\n" +
+                                "            <td>" + replaceNIL(item.money) + "</td>\n" +
+                                "            <td>" + replaceNIL(NormalTime(item.applyDate)) + "</td>\n" +
+                                "            <td>" + replaceNIL(NormalTime(item.commission_Date)) + "</td>\n" +
+                                "            <td>" + replaceNIL(NormalTime(item.wait_Date)) + "</td>\n" +
+                                "            <td>" + replaceNIL(NormalTime(item.get_Date)) + "</td>\n" +
+                                "            <td>" + replaceNIL(s) + "</td>\n" +
+                                "           </tr>"
+                        });
+                        $("#mainProposalTable").html("");
+                        $("#mainProposalTable").html(mHtmlHead + mDataHtml);
+                        SetPage(currentPageIndex, gPageCount, "pager", loadPage);
+
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        };
+
+
+        $(function () {
+            empno = getQueryVariable("empno");
+            loadPage(1);
+        })
+    </script>
+</head>
+<body>
+<div id="blockLoadingDiv" class="tlDiv">
+    <img src="images/timg.gif" style="position: absolute; top: 50%;"/>
+</div>
+<div class="panel admin-panel">
+    <div id="webSetNavigation" class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+
+    </div>
+
+    <table ID="mainProposalTable" class="table table-hover text-center">
+
+
+    </table>
+
+</div>
+<div class="panel admin-panel">
+    <div id="pager" style="width: 100%;text-align: center;margin-top: 10px;margin-bottom: 10px;font-size: larger">
+
+    </div>
+</div>
+
+</body>
+
+<script>
+
+
+</script>
+</html>

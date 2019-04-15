@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.KPI.ITeamOverfulfillBonusMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.KPI.TeamOverfulfillBonus">
+        <result column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="LINETYPE" property="lineType" jdbcType="NVARCHAR"/>
+        <result column="LINENAME" property="lineName" jdbcType="NVARCHAR"/>
+        <result column="TEAMLEADER" property="teamLeader" jdbcType="NVARCHAR"/>
+        <result column="PRDTYPE" property="prdType" jdbcType="NVARCHAR"/>
+        <result column="DAYPRODUCTIONNUMBER" property="dayProductionNumber" jdbcType="NVARCHAR"/>
+        <result column="TIMEOFDAY" property="timeOfDay" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOUR" property="capacityPerHour" jdbcType="NVARCHAR"/>
+        <result column="DAYOVERFULFILLBONUS" property="dayOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="MONTHLYCUMULATIVEOUTPUT" property="monthlyCumulativeOutput" jdbcType="NVARCHAR"/>
+        <result column="MONTHLYCUMULATIVETIME" property="monthlyCumulativeTime" jdbcType="NVARCHAR"/>
+        <result column="CUMHOURLYCAPACITY" property="cumHourlyCapacity" jdbcType="NVARCHAR"/>
+        <result column="CUMOVERFULFILLBONUS" property="cumOverfulfillBonus" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOURSTANDARD" property="capacityPerHourStandard" jdbcType="NVARCHAR"/>
+        <result column="CAPACITYPERHOURGOAL" property="capacityPerHourGoal" jdbcType="NVARCHAR"/>
+        <result column="CHALLENGEVALUE" property="challengeValue" jdbcType="NVARCHAR"/>
+        <result column="MONTHEFFICIENCY" property="monthEfficiency" jdbcType="NVARCHAR"/>
+        <result column="PRDDATE" property="prdDate" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="getTeamOverfulfillBonus" resultMap="BaseResultMap">
+        SELECT * FROM prdteamoverfulfillbonus where prddate in (select max(prddate) from prdteamoverfulfillbonus) order by sid
+    </select>
+    <select id="getTeamBonus" resultMap="BaseResultMap">
+        SELECT * FROM prdteamoverfulfillbonus where prddate in (select max(prddate) from prdteamoverfulfillbonus) order by sid
+    </select>
+</mapper>

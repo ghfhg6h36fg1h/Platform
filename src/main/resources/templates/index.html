@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title>后台管理中心</title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+        var gMenuHtml = "";
+
+        function logOot() {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/loginOut",
+                dataType: "json",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        top.location.href = "/loginPage";
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+        function getMenuList() {
+            $.ajax({
+                contentType: 'application/json;charset=UTF-8',
+                type: "get",
+                url: "/menu/getAllByUser",
+                dataType: "json",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    if (!data.isSuccess) {
+                        alert(data.msg);
+                    } else {
+                        $("#mainLeftMenuId").html("");
+                        gMenuHtml = "<div class=\"leftnav-title\"><strong><span class=\"icon-list\"></span>菜单列表</strong></div>";
+                        gMenuHtml += "<div style=\"width: 100%;height: 80%;overflow-y: scroll\">";
+                        getSubTree(data.data, 'NIL');
+                        if (gMenuHtml.endsWith("<ul style=\"display:block\">")) {
+                            gMenuHtml = gMenuHtml.substring(0, gMenuHtml.length - 26);
+                        } else {
+                            gMenuHtml += "</ul>";
+                        }
+                        gMenuHtml += "</div>";
+                        $("#mainLeftMenuId").html(gMenuHtml);
+                        cartoonMenu();
+                        filerNoElementLevelOneMenu();//去除无子节点的父节点
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (XMLHttpRequest.getResponseHeader("loginStatus") != null && XMLHttpRequest.getResponseHeader("loginStatus") == "unLogin") {
+                        top.location.href = "/loginPage";
+                    }
+                }
+            });
+        }
+
+
+        function getSubTree(data, id) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].parentId == id) {
+                    if (data[i].parentId == "NIL") {
+                        if (gMenuHtml == "") {
+                            gMenuHtml += "<h2 name=\"levelOneMenuH2\"><span class=\"icon-user\"></span>" + data[i].name + "</h2><ul style=\"display:block\">";
+                        } else {
+                            gMenuHtml += "</ul><h2 name=\"levelOneMenuH2\"><span class=\"icon-user\"></span>" + data[i].name + "</h2><ul style=\"display:block\">";
+                        }
+                    } else {
+                        gMenuHtml += "<li><a href=\"" + data[i].actionUrl + "\" target=\"right\"><span class=\"icon-caret-right\"></span>" + data[i].name + "</a></li>";
+                    }
+                    getSubTree(data, data[i].id);
+                }
+            }
+        }
+
+        function filerNoElementLevelOneMenu() {
+            var mLevelOneMenuH2List = $("h2[name='levelOneMenuH2']");
+            for (var i = 0; i < mLevelOneMenuH2List.length; i++) {
+                if ($(mLevelOneMenuH2List[i]).next().children().length == 0) {
+                    $(mLevelOneMenuH2List[i]).css("display", "none");
+                    $(mLevelOneMenuH2List[i]).next().css("display", "none");
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            getMenuList();
+        });
+
+    </script>
+</head>
+<body style="background-color:#f2f9fd;">
+<div class="header bg-main">
+    <div class="logo margin-big-left fadein-top">
+        <h1>后台管理中心</h1>
+    </div>
+    <div class="head-l"> &nbsp;&nbsp;<a class="button button-little bg-red" href="#" onclick="logOot();"><span
+            class="icon-power-off"></span> 退出登录</a></div>
+</div>
+<div id="mainLeftMenuId" class="leftnav">
+
+</div>
+<script type="text/javascript">
+    function cartoonMenu() {
+        $(".leftnav h2").click(function () {
+            $(this).next().slideToggle(200);
+            $(this).toggleClass("on");
+        })
+        $(".leftnav ul li a").click(function () {
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        })
+    }
+</script>
+<ul class="bread">
+    <li><a href="javascript:history.go(-1)" id="a_leader_txt">上一页面</a></li>
+    <li><a href="##" id="a_leader_txt_next"></a></li>
+</ul>
+<div class="admin">
+    <iframe id="adminIframe" scrolling="auto" rameborder="0" src="" name="right" width="100%"
+            height="100%"></iframe>
+</div>
+<div style="text-align:center;">
+    <p>来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+</div>
+</body>
+</html>

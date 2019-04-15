@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IAnnualLeaveMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.AnnualLeaveInfo">
+        <result column="gl" property="workAge" jdbcType="VARCHAR"/>
+        <result column="znxj" property="totalVocation" jdbcType="VARCHAR"/>
+        <result column="ysy" property="usedVocation" jdbcType="VARCHAR"/>
+        <result column="synnj" property="leftVocation" jdbcType="VARCHAR"/>
+        <result column="zynnj" property="freeVocation" jdbcType="VARCHAR"/>
+        <result column="kzssyni" property="convertLeftVocation" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAnnualLeaveInfo" resultMap="BaseResultMap">
+        exec  [Pro_CalXTResult]  #{empno,jdbcType=VARCHAR}
+    </select>
+    <select id="getWorkAgeInfo" resultType="java.lang.String">
+       SELECT dbo.fn_siling(WorkDay,GETDATE()) AS workAge
+       FROM Hrms_Emp
+       WHERE EmpNo= #{empno}
+    </select>
+    <select id="getDayInfo" resultType="java.lang.String">
+        SELECT Days
+        FROM Att_SetNXJ
+        WHERE NxjId = #{nxjid}
+    </select>
+    <select id="getFreeDayInfo" resultType="java.lang.String">
+        SELECT ZyDdays
+        FROM Att_SetNXJ
+        WHERE NxjId = #{nxjid}
+    </select>
+    <select id="getDayoffInfo" resultType="java.lang.String">
+     <![CDATA[
+       select cast(  dayofftime/480.00 as decimal(10,2) ) as 'dayoff' from  View_att_empdayoff a
+		where   a.dayoffname like '%年%'    and a.dayoffisconfirmed='Y' and  isnull(a.dayofftime,0)>0  and  a.dayoffbegintime is not null
+		AND empno = #{empno}
+		AND CONVERT(VARCHAR(24),dayoffdate,112) >= convert(varchar(4),GetDate(),112)+'0101'
+]]>
+    </select>
+</mapper>

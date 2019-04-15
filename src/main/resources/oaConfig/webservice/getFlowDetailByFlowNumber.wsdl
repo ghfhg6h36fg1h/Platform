@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out" targetNamespace="urn:nader:com/MOBILE"
+                  xmlns:p2="http://webservice.lx.kmss.landray.com/" xmlns:p1="urn:nader:com/MOBILE"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:documentation/>
+    <wsp:UsingPolicy wsdl:required="true"/>
+    <wsp:Policy wsu:Id="OP_SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out"/>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://webservice.lx.kmss.landray.com/"
+                    xmlns="http://webservice.lx.kmss.landray.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="findHlh" type="findHlh"/>
+            <xsd:element name="findHlhResponse" type="findHlhResponse"/>
+            <xsd:element name="Exception" type="Exception"/>
+            <xsd:complexType name="findHlhResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="findHlh">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Exception">
+                <xsd:sequence>
+                    <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="p2.findHlh">
+        <wsdl:documentation/>
+        <wsdl:part name="parameters" element="p2:findHlh"/>
+    </wsdl:message>
+    <wsdl:message name="p2.findHlhResponse">
+        <wsdl:documentation/>
+        <wsdl:part name="parameters" element="p2:findHlhResponse"/>
+    </wsdl:message>
+    <wsdl:message name="p2.Exception">
+        <wsdl:documentation/>
+        <wsdl:part name="Exception" element="p2:Exception"/>
+    </wsdl:message>
+    <wsdl:portType name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out">
+        <wsdl:documentation/>
+        <wsdl:operation name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out">
+            <wsdl:documentation/>
+            <wsp:Policy>
+                <wsp:PolicyReference URI="#OP_SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out"/>
+            </wsp:Policy>
+            <wsdl:input message="p1:p2.findHlh"/>
+            <wsdl:output message="p1:p2.findHlhResponse"/>
+            <wsdl:fault name="p2.Exception" message="p1:p2.Exception"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_OutBinding"
+                  type="p1:SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"
+                      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+        <wsdl:operation name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out">
+            <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+                            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            <wsdl:input>
+                <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            </wsdl:output>
+            <wsdl:fault name="p2.Exception">
+                <soap:fault use="literal" name="p2.Exception" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_OutService">
+        <wsdl:port name="HTTP_Port" binding="p1:SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_OutBinding">
+            <soap:address
+                    location="http://poprd.sh-liangxin.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BC_MOBILE_OA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out&amp;interfaceNamespace=urn%3Anader%3Acom%2FMOBILE"
+                    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+        </wsdl:port>
+        <wsdl:port name="HTTPS_Port" binding="p1:SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_OutBinding">
+            <soap:address
+                    location="https://poprd.sh-liangxin.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BC_MOBILE_OA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_OA_GET_PROCESSDETAIL_ACCORDINGTO_PROCESSNO_Out&amp;interfaceNamespace=urn%3Anader%3Acom%2FMOBILE"
+                    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

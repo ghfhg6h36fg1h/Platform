@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.care.IEmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.care.outputResult.Employee">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="c_name" property="name" jdbcType="VARCHAR"/>
+        <result column="empcode" property="workId" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        <result column="hirevalid" property="contractEndDate" jdbcType="TIMESTAMP"/>
+        <result column="hirevalid" property="hireValid" jdbcType="TIMESTAMP"/>
+        <result column="hrlevel" property="hrLevel" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ManualBaseResultMap" type="com.liangxin.platform.common.entity.care.outputResult.ExpireAndMember">
+        <result column="serialnumber" property="userId" jdbcType="VARCHAR"/>
+        <result column="c_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="email" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="empcode" property="userWorkId" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="TIMESTAMP"/>
+        <result column="orgcode5" property="org5" jdbcType="VARCHAR"/>
+        <result column="hrlevel" property="hrLevel" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getBirthdayAll" resultMap="BaseResultMap">
+        <![CDATA[
+
+        SELECT id,c_name,empcode,email,birthday,hirevalid,hirevalid,hrlevel
+        FROM
+        v_Employee
+        where  convert(char(5),birthday,101)=#{pDate} and email <> '' and email <> '-'
+
+        ]]>
+    </select>
+    <select id="getAnniversaryAll" resultMap="BaseResultMap">
+        <![CDATA[
+
+
+        SELECT id,c_name,empcode,email,birthday,hirevalid,hirevalid,hrlevel
+        FROM
+        v_Employee
+        where  convert(char(5),hirevalid,101)=#{pDate} and email <> '' and email <> '-'
+        and DATENAME(YYYY,hirevalid) <> DATENAME(YYYY,getdate())
+
+
+        ]]>
+    </select>
+    <select id="getReadyToMemberList" resultMap="ManualBaseResultMap"
+            parameterType="com.liangxin.platform.common.entity.care.inputParas.ExpireAndMemberInput">
+        <![CDATA[
+        select serialnumber,c_name,email,empcode,probationenddate as date ,orgcode5,hrlevel
+        from v_Employee
+        where email <> '' and inprobation = 1  and orgcode4 <> '' and email <> '-'
+        ]]>
+        <choose>
+            <when test="pExpireAndMemberInput.date != null">
+                and probationenddate between CONVERT(DATETIME, #{pExpireAndMemberInput.date}, 120) and
+                DATEADD(mm,1,CONVERT(DATETIME, #{pExpireAndMemberInput.date}, 120))
+            </when>
+            <otherwise>
+                and DATEADD(mm, 1, probationenddate) > getdate()
+            </otherwise>
+        </choose>
+        order by probationenddate asc
+    </select>
+    <select id="getContractExpireList" resultMap="ManualBaseResultMap"
+            parameterType="com.liangxin.platform.common.entity.care.inputParas.ExpireAndMemberInput">
+        <![CDATA[
+        select serialnumber,c_name,email,empcode,contract_enddate as date,orgcode5,hrlevel
+        from v_Employee
+        where email <> '' and inprobation = 0  and orgcode4 <> '' and email <> '-'
+        ]]>
+        <choose>
+            <when test="pExpireAndMemberInput.date != null">
+                and contract_enddate between CONVERT(DATETIME, #{pExpireAndMemberInput.date}, 120) and
+                DATEADD(mm,1,CONVERT(DATETIME, #{pExpireAndMemberInput.date}, 120))
+            </when>
+            <otherwise>
+                and DATEADD(mm, 1, contract_enddate) > getdate()
+            </otherwise>
+        </choose>
+        order by contract_enddate asc
+    </select>
+    <select id="getUpGradeNameAndUserId" resultType="java.util.HashMap">
+       select pos_empcode,pos_serialnumber,pos_c_name,pos_email from v_empploy_pso where serialnumber=#{pUserId}
+    </select>
+</mapper>

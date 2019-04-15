@@ -1,0 +1,19 @@
+spring:
+    profiles:
+        active: dev #默认profile
+    aop:
+        proxy-target-class: true #启用CGLIB动态代理
+    http:
+        encoding:
+            force: true #强制编码，防止中文乱码
+    jackson:
+        date-format: 'yyyy-MM-dd hh:mm:ss'
+#thymeleaf config
+    thymeleaf:
+        prefix: classpath:templates/
+        suffix: .html
+        mode: LEGACYHTML5
+        encoding: UTF-8
+        content-type: text/html
+        cache: false
+

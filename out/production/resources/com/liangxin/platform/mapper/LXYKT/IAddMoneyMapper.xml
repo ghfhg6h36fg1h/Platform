@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.LXYKT.IAddMoneyMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.LXYKT.AddMoneyInfo">
+        <result column="AddMoney" property="addMoney" jdbcType="VARCHAR"/>
+        <result column="GetTime" property="getTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAddMoneyInitalInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Pos_GZAddMoney.AddMoney,Pos_GZAddMoney.GetTime
+		FROM Pos_GZAddMoney,Com_EmpCard,Hrms_Emp
+		WHERE Pos_GZAddMoney.CardId = Com_EmpCard.CardID
+		AND Com_EmpCard.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND DateDiff(dd,Pos_GZAddMoney.GetTime,getdate())<=30
+		ORDER BY Pos_GZAddMoney.GetTime DESC
+]]>
+    </select>
+    <select id="getAddMoneyInfo" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT Pos_GZAddMoney.AddMoney,Pos_GZAddMoney.GetTime
+		FROM Pos_GZAddMoney,Com_EmpCard,Hrms_Emp
+		WHERE Pos_GZAddMoney.CardId = Com_EmpCard.CardID
+		AND Com_EmpCard.EmpID = Hrms_Emp.EmpID
+		AND Hrms_Emp.EmpNo = #{empno,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_GZAddMoney.GetTime,112) >= #{startdate,jdbcType=VARCHAR}
+		AND CONVERT(VARCHAR(24),Pos_GZAddMoney.GetTime,112) <= #{enddate,jdbcType=VARCHAR}
+]]>
+    </select>
+</mapper>

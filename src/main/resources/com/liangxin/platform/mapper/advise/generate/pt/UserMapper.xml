@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangxin.platform.mapper.advise.generate.pt.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.generate.pt.User" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="PHONE_" property="phone" jdbcType="VARCHAR" />
+    <result column="MAIL_" property="mail" jdbcType="VARCHAR" />
+    <result column="CONFIRMATION_" property="confirmation" jdbcType="VARCHAR" />
+    <result column="ID_CARD_" property="idCard" jdbcType="VARCHAR" />
+    <result column="WORK_ID_" property="workId" jdbcType="VARCHAR" />
+    <result column="WORK_DATE_" property="workDate" jdbcType="TIMESTAMP" />
+    <result column="ENTRY_DATE_" property="entryDate" jdbcType="TIMESTAMP" />
+    <result column="GENDER_" property="gender" jdbcType="DECIMAL" />
+    <result column="IS_VALID_" property="isValid" jdbcType="DECIMAL" />
+    <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ADDRESS_" property="address" jdbcType="VARCHAR" />
+    <result column="USER_NAME_" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_, NAME_, PHONE_, MAIL_, CONFIRMATION_, ID_CARD_, WORK_ID_, WORK_DATE_, ENTRY_DATE_, 
+    GENDER_, IS_VALID_, DELETE_FLAG_, CREATE_TIME_, UPDATE_TIME_, ADDRESS_, USER_NAME_
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from USER_
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.User" >
+    insert into USER_ (ID_, NAME_, PHONE_,
+      MAIL_, CONFIRMATION_, ID_CARD_, 
+      WORK_ID_, WORK_DATE_, ENTRY_DATE_, 
+      GENDER_, IS_VALID_, DELETE_FLAG_, 
+      CREATE_TIME_, UPDATE_TIME_, ADDRESS_, 
+      USER_NAME_)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mail,jdbcType=VARCHAR}, #{confirmation,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{workId,jdbcType=VARCHAR}, #{workDate,jdbcType=TIMESTAMP}, #{entryDate,jdbcType=TIMESTAMP}, 
+      #{gender,jdbcType=DECIMAL}, #{isValid,jdbcType=DECIMAL}, #{deleteFlag,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.User" >
+    insert into USER_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="phone != null" >
+        PHONE_,
+      </if>
+      <if test="mail != null" >
+        MAIL_,
+      </if>
+      <if test="confirmation != null" >
+        CONFIRMATION_,
+      </if>
+      <if test="idCard != null" >
+        ID_CARD_,
+      </if>
+      <if test="workId != null" >
+        WORK_ID_,
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE_,
+      </if>
+      <if test="entryDate != null" >
+        ENTRY_DATE_,
+      </if>
+      <if test="gender != null" >
+        GENDER_,
+      </if>
+      <if test="isValid != null" >
+        IS_VALID_,
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_,
+      </if>
+      <if test="address != null" >
+        ADDRESS_,
+      </if>
+      <if test="userName != null" >
+        USER_NAME_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmation != null" >
+        #{confirmation,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryDate != null" >
+        #{entryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=DECIMAL},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.User" >
+    update USER_
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE_ = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        MAIL_ = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmation != null" >
+        CONFIRMATION_ = #{confirmation,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        ID_CARD_ = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="workId != null" >
+        WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE_ = #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryDate != null" >
+        ENTRY_DATE_ = #{entryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        GENDER_ = #{gender,jdbcType=DECIMAL},
+      </if>
+      <if test="isValid != null" >
+        IS_VALID_ = #{isValid,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS_ = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME_ = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangxin.platform.common.entity.advise.generate.pt.User" >
+    update USER_
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      PHONE_ = #{phone,jdbcType=VARCHAR},
+      MAIL_ = #{mail,jdbcType=VARCHAR},
+      CONFIRMATION_ = #{confirmation,jdbcType=VARCHAR},
+      ID_CARD_ = #{idCard,jdbcType=VARCHAR},
+      WORK_ID_ = #{workId,jdbcType=VARCHAR},
+      WORK_DATE_ = #{workDate,jdbcType=TIMESTAMP},
+      ENTRY_DATE_ = #{entryDate,jdbcType=TIMESTAMP},
+      GENDER_ = #{gender,jdbcType=DECIMAL},
+      IS_VALID_ = #{isValid,jdbcType=DECIMAL},
+      DELETE_FLAG_ = #{deleteFlag,jdbcType=DECIMAL},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      ADDRESS_ = #{address,jdbcType=VARCHAR},
+      USER_NAME_ = #{userName,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

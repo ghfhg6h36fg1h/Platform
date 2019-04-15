@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxin.platform.mapper.advise.IRoleMapper">
+    <resultMap id="BaseResultMap" type="com.liangxin.platform.common.entity.advise.outputResult.role.RoleOutList">
+        <id column="ID_" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME_" property="name" jdbcType="VARCHAR"/>
+        <result column="DESC_" property="desc" jdbcType="VARCHAR"/>
+        <result column="DISABLE_" property="disable" jdbcType="DECIMAL"/>
+        <result column="DELETE_FLAG_" property="deleteFlag" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="USER_ID_" property="userId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT a.*,b.user_id_
+        FROM
+        role_ a left join
+        (select * from user_role_ where user_id_=#{pListInput.userId,jdbcType=NVARCHAR}) b
+        on a.id_=b.role_id_
+        where a.delete_flag_=0
+        <if test="pListInput.id != null">
+            and a.ID_ = #{pListInput.id,jdbcType=NVARCHAR}
+        </if>
+        <if test="pListInput.name != null">
+            and ( a.NAME_ LIKE concat('%',#{pListInput.name,jdbcType=NVARCHAR},'%'))
+        </if>
+        <if test="pListInput.disable != null">
+            and a.DISABLE_ = #{pListInput.disable,jdbcType=INTEGER}
+        </if>
+        order by a.CREATE_TIME_ desc
+    </select>
+    <select id="isExistsByName" resultType="java.lang.Integer">
+        SELECT count(0) from  role_ where delete_flag_=0 and (NAME_ = #{pName,jdbcType=NVARCHAR})
+    </select>
+    <delete id="delMenuRelationToRole">
+        delete from ROLE_MENU_  where ROLE_ID_=#{pRoleId}
+    </delete>
+    <delete id="delUserRelationToRole">
+        delete from USER_ROLE_  where ROLE_ID_=#{pRoleId}
+    </delete>
+    <insert id="addMenuAction" useGeneratedKeys="false">
+        insert into ROLE_MENU_(ROLE_ID_,MENU_ID_)
+        VALUES
+        <foreach collection ="pListMenuIds" item="menuId" separator =",">
+            (
+            #{pRoleId} ,
+            #{menuId}
+            )
+        </foreach >
+    </insert>
+</mapper>
